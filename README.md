@@ -5,7 +5,7 @@
 ### Members:
 <ul>
 <li>Kaan Aktürk</li>
-<li>Beyza Bilgiç Tuğce</li>
+<li>Beyza Tuğce Bilgiç</li>
 <li>Hareem Larik</li>
 <li>Emine Ayşe Sunar</li>
 </ul>
