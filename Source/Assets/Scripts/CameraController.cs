@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ThirdPersonCamera : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
 
     public bool lockCursor;

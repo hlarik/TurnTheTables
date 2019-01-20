@@ -15,13 +15,12 @@ public class PlayerController : MonoBehaviour
     float currentSpeed;
 
     Animator animator;
-    public Camera mainCamera;
     Transform cameraT;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        cameraT = mainCamera.transform;
+        cameraT = Camera.main.transform;
     }
 
     void Update()
