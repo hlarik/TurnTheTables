@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// With the help of this gthub repo https://github.com/SebLague/Blender-to-Unity-Character-Creation/blob/master/Unity%20Projects/E08%20Character%20Controller/Assets/Scripts/ThirdPersonCamera.cs
 public class PlayerController : MonoBehaviour
 {
 
     public float walkSpeed = 2;
     public float runSpeed = 6;
-    public float gravity = -12;
 
     public float turnSmoothTime = 0.2f;
     float turnSmoothVelocity;
@@ -15,18 +13,14 @@ public class PlayerController : MonoBehaviour
     public float speedSmoothTime = 0.1f;
     float speedSmoothVelocity;
     float currentSpeed;
-    float velocityY;
 
     Animator animator;
-    CharacterController controller;
-    public Camera mainCamera;
     Transform cameraT;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        cameraT = mainCamera.transform;
-        controller = GetComponent<CharacterController>();
+        cameraT = Camera.main.transform;
     }
 
     void Update()
@@ -42,19 +36,10 @@ public class PlayerController : MonoBehaviour
         }
 
         bool running = Input.GetKey(KeyCode.LeftShift);
-        bool jmuping = Input.GetKey(KeyCode.Space);
         float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
-        velocityY += Time.deltaTime * gravity;
-
-        Vector3 velocity = transform.forward * currentSpeed + Vector3.up * velocityY;
-        controller.Move(velocity * Time.deltaTime);
-
-        if (controller.isGrounded)
-        {
-            velocityY = 0;
-        }
+        transform.Translate(transform.forward * currentSpeed * Time.deltaTime, Space.World);
 
         float animationSpeedPercent = ((running) ? 1 : .5f) * inputDir.magnitude;
         animator.SetFloat("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
