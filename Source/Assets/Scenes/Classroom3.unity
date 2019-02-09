@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1334,14 +1334,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1378482759476406, guid: 6ca106bbec33f2b479348fb48ad0ea77, type: 3}
-      propertyPath: m_Name
-      value: aj_prefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378482759476406, guid: 6ca106bbec33f2b479348fb48ad0ea77, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 4830012110798590, guid: 6ca106bbec33f2b479348fb48ad0ea77, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.52
@@ -1385,6 +1377,14 @@ PrefabInstance:
     - target: {fileID: 4830012110798590, guid: 6ca106bbec33f2b479348fb48ad0ea77, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1378482759476406, guid: 6ca106bbec33f2b479348fb48ad0ea77, type: 3}
+      propertyPath: m_Name
+      value: aj_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1378482759476406, guid: 6ca106bbec33f2b479348fb48ad0ea77, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ca106bbec33f2b479348fb48ad0ea77, type: 3}
@@ -3004,10 +3004,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1251476007390858, guid: 94064f1990650c94ba9a4b7287a2d9c5, type: 3}
-      propertyPath: m_Name
-      value: Main Camera_prefab
-      objectReference: {fileID: 0}
     - target: {fileID: 4491328662301088, guid: 94064f1990650c94ba9a4b7287a2d9c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.28
@@ -3057,6 +3053,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 2091596605}
+    - target: {fileID: 1251476007390858, guid: 94064f1990650c94ba9a4b7287a2d9c5, type: 3}
+      propertyPath: m_Name
+      value: Main Camera_prefab
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94064f1990650c94ba9a4b7287a2d9c5, type: 3}
 --- !u!1001 &720277437
@@ -7394,8 +7394,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.08164501, y: 0.5345191, z: 0.4890163}
+  m_Center: {x: -1.3572698, y: 0.5097334, z: 0.13704717}
 --- !u!1001 &1799072391
 PrefabInstance:
   m_ObjectHideFlags: 0
