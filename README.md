@@ -40,4 +40,5 @@ The aim of these scenarios is to educate the child to various ways of standing a
 <ol>
 <li> <a href="https://github.com/hlarik/TurnTheTables/blob/master/Reports/Project%20Specifications%20Report.pdf"> Project Specifications Report </a> </li>
 <li> <a href="https://github.com/hlarik/TurnTheTables/blob/master/Reports/Analysis%20Report.pdf"> Project Analysis Report </a> </li>
+<li> <a href="https://github.com/hlarik/TurnTheTables/blob/master/Reports/Project%20Specifications%20Report.pdf"> High Level Design Report </a> </li>
 </ol>
