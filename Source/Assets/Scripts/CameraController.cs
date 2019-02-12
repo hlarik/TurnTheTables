@@ -24,6 +24,7 @@ public class CameraController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+        Camera.main.nearClipPlane = 0.01f;
     }
 
     void LateUpdate()
