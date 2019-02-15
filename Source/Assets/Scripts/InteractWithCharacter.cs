@@ -1,9 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VIDE_Data;
 
 public class InteractWithCharacter : MonoBehaviour
 {
+    /// dialogue system
+    public delegate void NPCEvent(VIDE_Assign dialogue);
+    public static NPCEvent NPCDialogue;
+    /// 
+
     public GameObject uiObject;
     bool collision;
     public GameObject mainPlayer;
@@ -28,34 +34,36 @@ public class InteractWithCharacter : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.E) && collision)
         {
+            //E is pressed so we could close the ui now
+            uiObject.SetActive(false);
+
             //Start dialogue with that character
+            Interact();
 
-            //This immideiately changes rotation, not smooth
-            /*Vector3 delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
-             * 
-            
-            this.transform.rotation = Quaternion.LookRotation(delta);*/
-
-            //transform.LookAt(mainPlayer.transform);
-
-            /*Vector3 lTargetDir = mainPlayer.transform.position - this.transform.position;
-            lTargetDir.y = 0.0f;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * m_Speed);*/
             turningTowardsMainPlayer = true;
             delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
             transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
-        }
+
+        } 
 
         //Don't stop turning until chaarcter is totally faced
         if (turningTowardsMainPlayer)
         {
             transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+            if (transform.rotation.eulerAngles == Quaternion.LookRotation(delta).eulerAngles)
+            {
+                turningTowardsMainPlayer = false;
+            }
         }
 
-        if(transform.rotation.eulerAngles == Quaternion.LookRotation(delta).eulerAngles)
-        {
-            turningTowardsMainPlayer = false;
-        }
+        
+    }
+
+    public void Interact()
+    {
+        //Check if we vd is already assigned, burda bir sorun vaaaaar!!!! cunku zaten dialog varken tekrar cagiriyor
+        if(!VD.isActive)
+            NPCDialogue(GetComponent<VIDE_Assign>());
     }
 
     void OnTriggerEnter(Collider other)

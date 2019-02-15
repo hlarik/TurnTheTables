@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 inputDir = input.normalized;
 
@@ -43,7 +42,5 @@ public class PlayerController : MonoBehaviour
 
         float animationSpeedPercent = ((running) ? 1 : .5f) * inputDir.magnitude;
         animator.SetFloat("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
-
-
     }
 }

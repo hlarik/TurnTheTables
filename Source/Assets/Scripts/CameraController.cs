@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour
     }
 
     //To disable camera Turn in cutscenes and dialogues
-    public void diableCameraMouse()
+    public void disableCameraMouse()
     {
         cameraTurn = false;
     }
