@@ -19,6 +19,9 @@ public class CutSceneManager : MonoBehaviour
     Vector3 turnSmoothVelocity;
     float turnSmoothTime = 0.2f;
 
+    public float rotSpeed = 0.2f;
+    public float speed = 1.5f;
+
     //UI eleements
     public GameObject DecisionsCanvas;
 
@@ -60,8 +63,19 @@ public class CutSceneManager : MonoBehaviour
             maincharacter.transform.position = Vector3.MoveTowards(maincharacter.transform.position, bullied.transform.position, step);
 
             //rotation
-            Vector3 delta = new Vector3(bullied.transform.position.x - maincharacter.transform.position.x, 0.0f, bullied.transform.position.z - maincharacter.transform.position.z);
-            maincharacter.transform.eulerAngles = Vector3.SmoothDamp(maincharacter.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+             Vector3 delta = new Vector3(bullied.transform.position.x - maincharacter.transform.position.x, 0.0f, bullied.transform.position.z - maincharacter.transform.position.z);
+            //maincharacter.transform.eulerAngles = Vector3.SmoothDamp(maincharacter.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+           //  maincharacter.transform.eulerAngles = Vector3.SmoothDamp(maincharacter.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, 2.0f);
+
+
+
+            //Vector3 direction = maincharacter.transform.position - this.transform.position;
+
+
+              Vector3 direction = bullied.transform.position;
+              direction.y = 0;
+              maincharacter.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(delta), turnSmoothTime);
+              //maincharacter.transform.Translate(0, 0, Time.deltaTime * speed);
 
             //if enters trigger of target
             if (bullied.gameObject.GetComponent<InteractWithCharacter>().collision)
