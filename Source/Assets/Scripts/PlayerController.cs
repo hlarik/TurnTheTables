@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Transform cameraT;
 
+    public string name;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -43,4 +45,6 @@ public class PlayerController : MonoBehaviour
         float animationSpeedPercent = ((running) ? 1 : .5f) * inputDir.magnitude;
         animator.SetFloat("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
     }
+
+
 }
