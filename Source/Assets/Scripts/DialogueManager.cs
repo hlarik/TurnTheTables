@@ -36,6 +36,7 @@ public class DialogueManager : MonoBehaviour
         InteractWithCharacter.NPCDialogue += StartDialogue;
     }
 
+
     private void OnDisable()
     {
         //DialogueUI.SetActive(true);
