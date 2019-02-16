@@ -21,6 +21,9 @@ public class DialogueManager : MonoBehaviour
     public GameObject NPCTextField;
     public GameObject PlayerOption;
 
+    Camera rawImageCamera;
+    Texture renderToTextureImage;
+
     private void Start()
     {
         cameraScript = Camera.main.gameObject;
@@ -49,11 +52,12 @@ public class DialogueManager : MonoBehaviour
         VD.EndDialogue();*/
     }
 
-    void Update()
+    private void Update()
     {
         if (VD.isActive)
         {
-            if(Input.anyKeyDown && !VD.nodeData.isPlayer)
+            //aklimiza gelirse duzletelim
+            if(Input.GetKeyDown(KeyCode.Space) && !VD.nodeData.isPlayer)
             {
                 VD.Next();
             }
@@ -75,12 +79,25 @@ public class DialogueManager : MonoBehaviour
 
         //Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAspeaking" + npcDialogue.tag);
 
-        NPCname.text = npcDialogue.alias;
+        //NPCname.text = npcDialogue.alias;
     }
 
     // Update is called once per frame
     void UpdateUI(VD.NodeData data)
     {
+        NPCname.text = data.tag;
+
+        if (data.tag == "Violet")
+        {
+            rawImageCamera = (Camera) GameObject.FindGameObjectWithTag("Player").transform.Find("frontcamera").gameObject.GetComponent<Camera>();
+        }
+        else
+        {
+            rawImageCamera = GameObject.FindGameObjectWithTag(VD.nodeData.tag).transform.Find("frontcamera").gameObject.GetComponent<Camera>();
+        }
+        renderToTextureImage = rawImageCamera.targetTexture;
+        DialogueUI.transform.Find("RawImage").GetComponent<RawImage>().texture = renderToTextureImage;
+
         if (data.isPlayer)
         {
             //If the player is talking, set the choices enabled and disable the npc talk text
@@ -106,7 +123,10 @@ public class DialogueManager : MonoBehaviour
             NPCTextField.SetActive(true);
             PlayerOption.SetActive(false);
 
-            NPCmessage.text = data.comments[data.commentIndex];
+            StopAllCoroutines();
+            StartCoroutine(TypeSentence(data.comments[data.commentIndex]));
+
+            //NPCmessage.text = data.comments[data.commentIndex];
 
         }
     }
@@ -129,6 +149,16 @@ public class DialogueManager : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             VD.Next();
+        }
+    }
+
+    IEnumerator TypeSentence(string sentence)
+    {
+        NPCmessage.text = "";
+        foreach (char letter in sentence.ToCharArray())
+        {
+            NPCmessage.text += letter;
+            yield return null;
         }
     }
 }

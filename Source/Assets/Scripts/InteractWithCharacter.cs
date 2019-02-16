@@ -11,7 +11,7 @@ public class InteractWithCharacter : MonoBehaviour
     /// 
 
     public GameObject uiObject;
-    bool collision;
+    public bool collision;
     public GameObject mainPlayer;
 
     Vector3 turnSmoothVelocity;
@@ -34,16 +34,7 @@ public class InteractWithCharacter : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.E) && collision)
         {
-            //E is pressed so we could close the ui now
-            uiObject.SetActive(false);
-
-            //Start dialogue with that character
-            Interact();
-
-            turningTowardsMainPlayer = true;
-            delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
-            transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
-
+            EPressed();
         } 
 
         //Don't stop turning until chaarcter is totally faced
@@ -57,6 +48,20 @@ public class InteractWithCharacter : MonoBehaviour
         }
 
         
+    }
+
+    public void EPressed()
+    {
+        //E is pressed so we could close the ui now
+        uiObject.SetActive(false);
+
+        //Start dialogue with that character
+        Interact();
+
+        turningTowardsMainPlayer = true;
+        delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
+        transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+
     }
 
     public void Interact()
@@ -74,6 +79,15 @@ public class InteractWithCharacter : MonoBehaviour
             uiObject.SetActive(true);
         }
     }
+
+    //????????????
+    /*public void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            collision = true;
+        }
+    }*/
 
     void OnTriggerExit(Collider other)
     {

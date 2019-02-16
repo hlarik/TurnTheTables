@@ -19,6 +19,7 @@ public class LevelControl : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.E) && collision )
         {
+            //DontDestroyOnLoad(GameObject.Find("MainCharacter")); ----> Bunu sonradan yapariz!!!
             SceneManager.LoadScene(sceneName);
         }
     }
