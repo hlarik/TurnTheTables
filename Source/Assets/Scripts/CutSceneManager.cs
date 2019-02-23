@@ -28,7 +28,8 @@ public class CutSceneManager : MonoBehaviour
         cameraScript = Camera.main.gameObject;
         DecisionsCanvas.SetActive(false);
         UIanimator = DecisionsCanvas.transform.GetChild(0).gameObject.GetComponent<Animator>();
-        
+        bullied.gameObject.GetComponent<InteractWithCharacter>().EPressed();
+
     }
 
     // Update is called once per frame
@@ -100,24 +101,34 @@ public class CutSceneManager : MonoBehaviour
     {
         //Close canvas
         UIanimator.SetBool("isOpen", false);
-
-        Destroy(this);
+        pd = null;
+        pd = timeline.GetComponent<PlayableDirector>();
+        if (pd != null)
+        {
+            GameObject.Find("MainCharacter").GetComponent<PlayerController>().enabled = false;
+            cameraScript.GetComponent<CameraController>().disableCameraMouse();
+            pd.Play();
+            GameObject.Find("SwitchCamera").GetComponent<SwitchCamera>().ChangeToEmpathy();
+        }
+        //Destroy(this);
     }
 
-    public void Ignoe()
+    public void Ignore()
     {
         //Close canvas
         UIanimator.SetBool("isOpen", false);
+        pd = null;
 
-        Destroy(this);
+        //Destroy(this);
     }
 
     public void ReportToAnAdult()
     {
         //Close canvas
         UIanimator.SetBool("isOpen", false);
+        pd = null;
 
-        Destroy(this);
+        //Destroy(this);
     }
 
 
