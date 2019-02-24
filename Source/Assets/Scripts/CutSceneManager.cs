@@ -16,11 +16,16 @@ public class CutSceneManager : MonoBehaviour
     private GameObject cameraScript;
 
     bool playerMoveTowardTarget = false;
+    bool empathize = false;
     Vector3 turnSmoothVelocity;
     float turnSmoothTime = 0.2f;
 
     //UI eleements
     public GameObject DecisionsCanvas;
+
+    //Empathy Camera
+    public Camera empathyCamera;
+    public Camera mainCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +34,7 @@ public class CutSceneManager : MonoBehaviour
         DecisionsCanvas.SetActive(false);
         UIanimator = DecisionsCanvas.transform.GetChild(0).gameObject.GetComponent<Animator>();
         bullied.gameObject.GetComponent<InteractWithCharacter>().EPressed();
-
+        //empathyCamera = bullied.transform.Find("EmpathyCamera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -46,6 +51,12 @@ public class CutSceneManager : MonoBehaviour
                 GameObject.Find("MainCharacter").GetComponent<PlayerController>().enabled = false;
 
                 //Daha sonra yukarda disable ettiklerini acmayi unutma
+
+                if (empathize)
+                {
+                    ChangeToMainCamera();
+                    empathize = false;
+                }
 
                 DecisionsCanvas.SetActive(true);
                 UIanimator.SetBool("isOpen", true);
@@ -107,9 +118,12 @@ public class CutSceneManager : MonoBehaviour
         {
             GameObject.Find("MainCharacter").GetComponent<PlayerController>().enabled = false;
             cameraScript.GetComponent<CameraController>().disableCameraMouse();
+            ChangeToEmpathyCamera();
             pd.Play();
-            GameObject.Find("SwitchCamera").GetComponent<SwitchCamera>().ChangeToEmpathy();
+            //GameObject.Find("SwitchCamera").GetComponent<SwitchCamera>().ChangeToEmpathy();
         }
+        empathize = true;
+        
         //Destroy(this);
     }
 
@@ -129,6 +143,18 @@ public class CutSceneManager : MonoBehaviour
         pd = null;
 
         //Destroy(this);
+    }
+
+    private void ChangeToEmpathyCamera()
+    {
+        empathyCamera.enabled = true;
+        mainCamera.enabled = false;
+    }
+
+    private void ChangeToMainCamera()
+    {
+        mainCamera.enabled = true;
+        empathyCamera.enabled = false;
     }
 
 
