@@ -9,6 +9,7 @@ public class CutSceneManager : MonoBehaviour
     //[SerializeField]
     public GameObject timeline;
     PlayableDirector pd;
+    PlayableDirector pdEmpathy;
     Animator UIanimator;
     public GameObject bullied;
     public GameObject maincharacter;
@@ -26,6 +27,9 @@ public class CutSceneManager : MonoBehaviour
     //Empathy Camera
     public Camera empathyCamera;
     public Camera mainCamera;
+
+    //To turn character towards the npc she wants to talk to 
+    Vector3 delta;
 
     // Start is called before the first frame update
     void Start()
@@ -52,28 +56,41 @@ public class CutSceneManager : MonoBehaviour
 
                 //Daha sonra yukarda disable ettiklerini acmayi unutma
 
-                if (empathize)
-                {
-                    ChangeToMainCamera();
-                    empathize = false;
-                }
+                DecisionsCanvas.SetActive(true);
+                UIanimator.SetBool("isOpen", true);
+            }
+        }
+
+        if (pdEmpathy != null)
+        {
+            //When cutscene is finished, pop up the decisions panel
+            if (pdEmpathy.state != PlayState.Playing)
+            {
+                //Destroy(this);
+                //When dialogue starts diable camera movement and character movement
+                cameraScript.GetComponent<CameraController>().disableCameraMouse();
+                GameObject.Find("MainCharacter").GetComponent<PlayerController>().enabled = false;
+
+                //Daha sonra yukarda disable ettiklerini acmayi unutma
+                ChangeToMainCamera();
+                empathize = false;
 
                 DecisionsCanvas.SetActive(true);
                 UIanimator.SetBool("isOpen", true);
             }
         }
 
+
         if (playerMoveTowardTarget)
         {
             maincharacter.gameObject.GetComponent<Animator>().SetFloat("speedPercent", 0.5f);
 
+            //rotation
+           // maincharacter.transform.eulerAngles = Vector3.SmoothDamp(maincharacter.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+
             // Move our position a step closer to the target.
             float step = maincharacter.gameObject.GetComponent<PlayerController>().walkSpeed * Time.deltaTime; // calculate distance to move
             maincharacter.transform.position = Vector3.MoveTowards(maincharacter.transform.position, bullied.transform.position, step);
-
-            //rotation
-            Vector3 delta = new Vector3(bullied.transform.position.x - maincharacter.transform.position.x, 0.0f, bullied.transform.position.z - maincharacter.transform.position.z);
-            maincharacter.transform.eulerAngles = Vector3.SmoothDamp(maincharacter.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
 
             //if enters trigger of target
             if (bullied.gameObject.GetComponent<InteractWithCharacter>().collision)
@@ -104,7 +121,13 @@ public class CutSceneManager : MonoBehaviour
         //Close canvas
         UIanimator.SetBool("isOpen", false);
         pd = null;
+        pdEmpathy = null;
         //float step = maincharacter.gameObject.GetComponent<PlayerController>().walkSpeed * Time.deltaTime;
+        delta = new Vector3(bullied.transform.position.x - maincharacter.transform.position.x, 0.0f, bullied.transform.position.z - maincharacter.transform.position.z);
+        /*if(bullied.transform.position.x - maincharacter.transform.position.x < maincharacter.transform.position.x - bullied.transform.position.x)
+            delta = new Vector3(maincharacter.transform.position.x - bullied.transform.position.x, 0.0f, bullied.transform.position.z - maincharacter.transform.position.z);
+        else
+            delta = new Vector3(bullied.transform.position.x - maincharacter.transform.position.x, 0.0f, maincharacter.transform.position.z - bullied.transform.position.z);*/
         playerMoveTowardTarget = true;
     }
 
@@ -113,13 +136,13 @@ public class CutSceneManager : MonoBehaviour
         //Close canvas
         UIanimator.SetBool("isOpen", false);
         pd = null;
-        pd = timeline.GetComponent<PlayableDirector>();
-        if (pd != null)
+        pdEmpathy = timeline.GetComponent<PlayableDirector>();
+        if (pdEmpathy != null)
         {
             GameObject.Find("MainCharacter").GetComponent<PlayerController>().enabled = false;
             cameraScript.GetComponent<CameraController>().disableCameraMouse();
             ChangeToEmpathyCamera();
-            pd.Play();
+            pdEmpathy.Play();
             //GameObject.Find("SwitchCamera").GetComponent<SwitchCamera>().ChangeToEmpathy();
         }
         empathize = true;
