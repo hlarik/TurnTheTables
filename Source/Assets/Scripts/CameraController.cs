@@ -30,6 +30,7 @@ public class CameraController : MonoBehaviour
             Cursor.visible = false;
         }
         Camera.main.nearClipPlane = 0.01f;
+        Camera.main.enabled = true;
     }
 
     void LateUpdate()
