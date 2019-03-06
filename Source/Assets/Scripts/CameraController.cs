@@ -31,10 +31,12 @@ public class CameraController : MonoBehaviour
         }
         Camera.main.nearClipPlane = 0.01f;
         Camera.main.enabled = true;
+        enableCameraMouse();
     }
 
     void LateUpdate()
     {
+        cameraTurn = true;
         if (cameraTurn) {
             yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
             pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity;
