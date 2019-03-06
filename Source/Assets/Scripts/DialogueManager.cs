@@ -24,6 +24,8 @@ public class DialogueManager : MonoBehaviour
     Camera rawImageCamera;
     Texture renderToTextureImage;
 
+    public AudioSource audioSource;
+
     private void Start()
     {
         cameraScript = Camera.main.gameObject;
@@ -68,7 +70,7 @@ public class DialogueManager : MonoBehaviour
     {
         //When dialogue starts diable camera movement and character movement
         cameraScript.GetComponent<CameraController>().disableCameraMouse();
-        GameObject.Find("MainCharacter").GetComponent<PlayerController>().enabled = false;
+        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
 
         VD.OnNodeChange += UpdateUI;
         VD.BeginDialogue(npcDialogue);
@@ -96,6 +98,15 @@ public class DialogueManager : MonoBehaviour
         }
         renderToTextureImage = rawImageCamera.targetTexture;
         DialogueUI.transform.Find("RawImage").GetComponent<RawImage>().texture = renderToTextureImage;
+
+        if (data.audios[data.commentIndex] != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = data.audios[data.commentIndex];
+            audioSource.Play();
+        }
+        else
+            audioSource.Stop();
 
         if (data.isPlayer)
         {
