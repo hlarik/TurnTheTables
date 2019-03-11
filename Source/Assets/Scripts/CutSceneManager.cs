@@ -53,7 +53,7 @@ public class CutSceneManager : MonoBehaviour
                 //Destroy(this);
                 //When dialogue starts diable camera movement and character movement
                 cameraScript.GetComponent<CameraController>().disableCameraMouse();
-                GameObject.Find("MainCharacter").GetComponent<PlayerController>().enabled = false;
+                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
 
                 //Daha sonra yukarda disable ettiklerini acmayi unutma
 
@@ -70,7 +70,7 @@ public class CutSceneManager : MonoBehaviour
                 //Destroy(this);
                 //When dialogue starts diable camera movement and character movement
                 cameraScript.GetComponent<CameraController>().disableCameraMouse();
-                GameObject.Find("MainCharacter").GetComponent<PlayerController>().enabled = false;
+                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
 
                 //Daha sonra yukarda disable ettiklerini acmayi unutma
                 ChangeToMainCamera();
@@ -111,7 +111,7 @@ public class CutSceneManager : MonoBehaviour
         pd = timeline.GetComponent<PlayableDirector>();
         if (pd != null)
         {
-            GameObject.Find("MainCharacter").GetComponent<PlayerController>().enabled = false;
+            GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
             cameraScript.GetComponent<CameraController>().disableCameraMouse();
             pd.Play();
         }
@@ -140,7 +140,7 @@ public class CutSceneManager : MonoBehaviour
         pdEmpathy = timeline.GetComponent<PlayableDirector>();
         if (pdEmpathy != null)
         {
-            GameObject.Find("MainCharacter").GetComponent<PlayerController>().enabled = false;
+            GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
             cameraScript.GetComponent<CameraController>().disableCameraMouse();
             ChangeToEmpathyCamera();
             pdEmpathy.Play();
