@@ -31,6 +31,7 @@ public class CameraController : MonoBehaviour
         }
         Camera.main.nearClipPlane = 0.01f;
         Camera.main.enabled = true;
+        //Camera.main.GetComponent<CinemachineBrain>().enabled = false;
         enableCameraMouse();
     }
 
@@ -61,6 +62,11 @@ public class CameraController : MonoBehaviour
         }
 
         transform.position = wantedCameraPosition;
+
+    }
+
+    public void EnableCinemachine()
+    {
 
     }
 

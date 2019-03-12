@@ -37,7 +37,7 @@ public class CutSceneManager : MonoBehaviour
         cameraScript = Camera.main.gameObject;
         DecisionsCanvas.SetActive(false);
         UIanimator = DecisionsCanvas.transform.GetChild(0).gameObject.GetComponent<Animator>();
-        bullied.gameObject.GetComponent<InteractWithCharacter>().EPressed();
+        //bullied.gameObject.GetComponent<InteractWithCharacter>().EPressed();
         ChangeToMainCamera();
         //empathyCamera = bullied.transform.Find("EmpathyCamera").GetComponent<Camera>();
     }
