@@ -55,6 +55,7 @@ public class CutSceneManager : MonoBehaviour
                 cameraScript.GetComponent<CameraController>().disableCameraMouse();
                 GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
 
+                pd = null;
                 //Daha sonra yukarda disable ettiklerini acmayi unutma
 
                 DecisionsCanvas.SetActive(true);

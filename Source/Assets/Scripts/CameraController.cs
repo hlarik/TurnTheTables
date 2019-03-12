@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        cameraTurn = true;
+        //cameraTurn = true;
         if (cameraTurn) {
             yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
             pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity;
