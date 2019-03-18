@@ -21,8 +21,24 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        //Load data from Global control object TODO
+        /*
+         * 
+         * */
         animator = GetComponent<Animator>();
         cameraT = Camera.main.transform;
+
+        //Set cameras accordingly
+        if (GameObject.Find("CinemachineVirtualCameras") != null)
+            GameObject.Find("CinemachineVirtualCameras").active = false;
+    }
+
+    /*
+     * TODO : Save the data to the global object
+     * */
+    void SaveData()
+    {
+
     }
 
     void Update()

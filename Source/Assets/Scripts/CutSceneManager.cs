@@ -31,7 +31,10 @@ public class CutSceneManager : MonoBehaviour
     //To turn character towards the npc she wants to talk to 
     Vector3 delta;
 
-    // Start is called before the first frame update
+    //Virtual Cameras
+    public GameObject virtualCam; 
+
+
     void Start()
     {
         cameraScript = Camera.main.gameObject;
@@ -40,6 +43,8 @@ public class CutSceneManager : MonoBehaviour
         //bullied.gameObject.GetComponent<InteractWithCharacter>().EPressed();
         ChangeToMainCamera();
         //empathyCamera = bullied.transform.Find("EmpathyCamera").GetComponent<Camera>();
+
+        //virtualCam = GameObject.Find("CinemachineVirtualCameras");
     }
 
     // Update is called once per frame
@@ -93,11 +98,11 @@ public class CutSceneManager : MonoBehaviour
             // Move our position a step closer to the target.
             float step = maincharacter.gameObject.GetComponent<PlayerController>().walkSpeed * Time.deltaTime; // calculate distance to move
             maincharacter.transform.position = Vector3.MoveTowards(maincharacter.transform.position, bullied.transform.position, step);
-
+            //print("also here?");
             //if enters trigger of target
             if (bullied.gameObject.GetComponent<InteractWithCharacter>().collision)
             {
-                //Debug.Log("ashdksahd");
+                Debug.Log("ashdksahd");
                 bullied.gameObject.GetComponent<InteractWithCharacter>().EPressed();
                 playerMoveTowardTarget = false;
                 maincharacter.gameObject.GetComponent<Animator>().SetFloat("speedPercent", 0.0f);
@@ -110,6 +115,7 @@ public class CutSceneManager : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         pd = timeline.GetComponent<PlayableDirector>();
+        virtualCam.SetActive(true);
         if (pd != null)
         {
             GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
@@ -145,7 +151,7 @@ public class CutSceneManager : MonoBehaviour
             cameraScript.GetComponent<CameraController>().disableCameraMouse();
             ChangeToEmpathyCamera();
             pdEmpathy.Play();
-            //GameObject.Find("SwitchCamera").GetComponent<SwitchCamera>().ChangeToEmpathy();
+
         }
         empathize = true;
         

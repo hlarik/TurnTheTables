@@ -9,6 +9,8 @@ public class LevelControl : MonoBehaviour
     public GameObject uiObject;
     bool collision;
 
+    public Animator anim;
+
     void Start()
     {
         collision = false;
@@ -20,6 +22,8 @@ public class LevelControl : MonoBehaviour
         if (Input.GetKey(KeyCode.E) && collision )
         {
             //DontDestroyOnLoad(GameObject.Find("MainCharacter")); ----> Bunu sonradan yapariz!!!
+            
+            anim.SetTrigger("FadeOut");
             SceneManager.LoadScene(sceneName);
         }
     }
