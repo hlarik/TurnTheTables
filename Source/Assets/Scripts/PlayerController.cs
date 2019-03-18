@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+
+        DontDestroyOnLoad(this);
+        transform.SetParent(this.transform, true);
         //Load data from Global control object TODO
         /*
          * 
