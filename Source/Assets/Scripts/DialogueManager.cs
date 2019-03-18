@@ -26,10 +26,16 @@ public class DialogueManager : MonoBehaviour
 
     public AudioSource audioSource;
 
+    GameObject DialogueIDManager;
+
+    string currentDialogueName;
+
     private void Start()
     {
+        DialogueIDManager = GameObject.Find("DialogueIDManager");
         cameraScript = Camera.main.gameObject;
         DialogueUI.SetActive(false);
+        currentDialogueName = "";
     }
 
     private void OnEnable()
@@ -72,11 +78,16 @@ public class DialogueManager : MonoBehaviour
         cameraScript.GetComponent<CameraController>().disableCameraMouse();
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
 
+        currentDialogueName = npcDialogue.assignedDialogue;
+        DialogueIDManager.GetComponent<DialogueIDs>().AddDialogue(currentDialogueName);
+
         VD.OnNodeChange += UpdateUI;
         VD.BeginDialogue(npcDialogue);
         VD.OnEnd += EndDialogue;
         DialogueUI.SetActive(true);
         animator.SetBool("isOpen", true);
+
+        
 
         //Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAspeaking" + npcDialogue.tag);
 
@@ -87,6 +98,7 @@ public class DialogueManager : MonoBehaviour
     void UpdateUI(VD.NodeData data)
     {
         NPCname.text = data.tag;
+        DialogueIDManager.GetComponent<DialogueIDs>().AddDialogueID(currentDialogueName, data.nodeID);
 
         if (data.tag == "Violet")
         {
@@ -151,6 +163,8 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("isOpen", false);
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
         DialogueUI.SetActive(false);
+
+        currentDialogueName = "";
     }
 
     public void PlayerOnChose(int option)

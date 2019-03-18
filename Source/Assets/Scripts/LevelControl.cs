@@ -9,7 +9,6 @@ public class LevelControl : MonoBehaviour
     public GameObject uiObject;
     bool collision;
 
-    public Animator anim;
     GameObject SceneChangerScript;
 
     void Start()
@@ -23,8 +22,16 @@ public class LevelControl : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.E) && collision )
         {
-            //DontDestroyOnLoad(GameObject.Find("MainCharacter")); ----> Bunu sonradan yapariz!!!
-            SceneChangerScript.GetComponent<LevelChangerWithFade>().ChangeLevelWithFade(sceneName);
+            //Eger scenede yoksa onlem olarak koyuyorum 
+            if (SceneChangerScript != null)
+            {
+                //DontDestroyOnLoad(GameObject.Find("MainCharacter")); ----> Bunu sonradan yapariz!!!
+                SceneChangerScript.GetComponent<LevelChangerWithFade>().ChangeLevelWithFade(sceneName);
+            }
+            else
+            {
+                SceneManager.LoadScene(sceneName);
+            }
             /*anim.SetTrigger("FadeOut");
             SceneManager.LoadScene(sceneName);*/ //--> this part of the code is trasnsfered to SceneChanger with Fade script in Canvases --> FadeCanvas --> BlackFade
         }

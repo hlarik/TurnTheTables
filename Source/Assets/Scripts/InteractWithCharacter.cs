@@ -67,8 +67,13 @@ public class InteractWithCharacter : MonoBehaviour
     public void Interact()
     {
         //Check if we vd is already assigned, burda bir sorun vaaaaar!!!! cunku zaten dialog varken tekrar cagiriyor
-        if(!VD.isActive)
-            NPCDialogue(GetComponent<VIDE_Assign>());
+        if (!VD.isActive)
+        {
+            if (this.GetComponent<VIDE_Assign>() == null)
+                Debug.Log("No dialogue assigned");
+            else
+                NPCDialogue(GetComponent<VIDE_Assign>());
+        }
     }
 
     void OnTriggerEnter(Collider other)
