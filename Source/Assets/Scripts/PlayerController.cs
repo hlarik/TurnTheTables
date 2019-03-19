@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
         //Set cameras accordingly
         if (GameObject.Find("CinemachineVirtualCameras") != null)
-            GameObject.Find("CinemachineVirtualCameras").active = false;
+            GameObject.Find("CinemachineVirtualCameras").SetActive(false);
     }
 
     /*

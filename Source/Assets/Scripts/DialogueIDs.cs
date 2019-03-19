@@ -1,9 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System;
 
 public class DialogueIDs : MonoBehaviour
 {
+    //////////////////////////////////////////////////////////////////////////////
+    string path = "Assets/Resources/DialogueIDs/dialogueids.txt";
+    /*public TextAsset TextFile;
+    string[] linesInFile;*/
+    //////////////////////////////////////////////////////////////////////////////
+
     // Thsi will be used when the user selects options from dialogues
     public struct SelectedDialogueID
     {
@@ -12,17 +20,19 @@ public class DialogueIDs : MonoBehaviour
     }
 
     // This will state whether the selection of the user is good or bad
-    public struct DialogueStatus
+    /*public struct DialogueStatus
     {
         public int id;
-        public int status;       // 0 --> nice || 1 --> okay || 2 --> neutral || 3 --> not so good || 4 --> bad
-    }
+        public int status;       // 0 --> bad || 1 --> neutral || 2 --> good
+    }*/
 
     //This will be used to hold all doalgue
     public struct AllDialogues
     {
         public string dialogueName;
-        public List<DialogueStatus> dialogueIdWithStatus;
+        public List<int> badDialogues;
+        public List<int> goodDialogues;
+        public List<int> ignoredDialogues;
     }
 
     public List<SelectedDialogueID> dialogues;
@@ -33,6 +43,8 @@ public class DialogueIDs : MonoBehaviour
 
     void Start()
     {
+        /*linesInFile = TextFile.text.Split('\n');
+        Debug.Log(TextFile.text);*/
         if (Instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -45,13 +57,85 @@ public class DialogueIDs : MonoBehaviour
 
         dialogues = new List<SelectedDialogueID>();
         allDialogues = new List<AllDialogues>();
-        AddAllDialogues();
+        ReadFileIntoArray();
     }
 
-    public void AddAllDialogues()
+    void ReadFileIntoArray()
     {
-        //Add first cutscene dialogue
-        
+        StreamReader inp_stm = new StreamReader(path);
+        bool name = true;
+        bool badId = false;
+        bool neutralId = false;
+        bool goodId = false;
+        List<int> tempInt = new List<int>();
+        AllDialogues temp = new AllDialogues();
+
+        while (!inp_stm.EndOfStream)
+        {
+            string inp_ln = inp_stm.ReadLine();
+
+            if (inp_ln.Equals(";;"))
+            {
+                temp.goodDialogues = tempInt;
+                allDialogues.Add(temp);
+                tempInt = new List<int>();
+                name = true;
+                badId = false;
+                neutralId = false;
+                goodId = false;
+            }
+            else if (inp_ln.Equals(";") && badId == true && neutralId == false && goodId == false)
+            {
+                temp.badDialogues = tempInt;
+                tempInt = new List<int>();
+                name = false;
+                badId = false;
+                neutralId = true;
+                goodId = false;
+            }
+            else if (inp_ln.Equals(";") && badId == false && neutralId == true && goodId == false)
+            {
+                temp.ignoredDialogues = tempInt;
+                tempInt = new List<int>();
+                name = false;
+                badId = false;
+                neutralId = false;
+                goodId = true;
+            }
+            else if (name)
+            {
+                temp.dialogueName = inp_ln;
+                name = false;
+                badId = true;
+                neutralId = false;
+                goodId = false;
+            }
+            else if (badId)
+            {
+                tempInt.Add(Int32.Parse(inp_ln));
+            }
+            else if (neutralId)
+            {
+                tempInt.Add(Int32.Parse(inp_ln));
+            }
+            else if (goodId)
+            {
+                tempInt.Add(Int32.Parse(inp_ln));
+            }
+        }
+
+        foreach(AllDialogues i in allDialogues)
+        {
+            Debug.Log("scenario name " + i.dialogueName);
+            foreach (int a in i.badDialogues)
+                Debug.Log("Bad dialogues = " + a);
+            foreach (int a in i.ignoredDialogues)
+                Debug.Log("Ignore dialogues = " + a);
+            foreach (int a in i.goodDialogues)
+                Debug.Log("Good dialogues = " + a);
+        }
+
+        inp_stm.Close();
     }
 
     public void AddDialogue(string name)
@@ -69,7 +153,7 @@ public class DialogueIDs : MonoBehaviour
         temp.dialogueName = name;
         temp.ids = new List<int>();
         dialogues.Add(temp);
-        Debug.Log(name + " added");
+        //Debug.Log(name + " added");
     }
 
     public void AddDialogueID(string name, int ID)
@@ -85,13 +169,11 @@ public class DialogueIDs : MonoBehaviour
                 else
                 {
                     dialogue.ids.Add(ID);
-                    Debug.Log("id " + ID + " added to " + name);
+                    //Debug.Log("id " + ID + " added to " + name);
                     break;
                 }
             }
         }
-
-        
     }
 
     public List<int> GetDialogueIDs(string dialogueName)
