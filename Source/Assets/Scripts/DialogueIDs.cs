@@ -124,7 +124,7 @@ public class DialogueIDs : MonoBehaviour
             }
         }
 
-        foreach(AllDialogues i in allDialogues)
+        /*foreach(AllDialogues i in allDialogues)
         {
             Debug.Log("scenario name " + i.dialogueName);
             foreach (int a in i.badDialogues)
@@ -133,7 +133,7 @@ public class DialogueIDs : MonoBehaviour
                 Debug.Log("Ignore dialogues = " + a);
             foreach (int a in i.goodDialogues)
                 Debug.Log("Good dialogues = " + a);
-        }
+        }*/
 
         inp_stm.Close();
     }
