@@ -159,7 +159,9 @@ public class DialogueManager : MonoBehaviour
         VD.OnEnd -= EndDialogue;
         VD.EndDialogue();
 
-        cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        if(cameraScript != null)
+            cameraScript.GetComponent<CameraController>().enableCameraMouse();
+
         animator.SetBool("isOpen", false);
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
         DialogueUI.SetActive(false);

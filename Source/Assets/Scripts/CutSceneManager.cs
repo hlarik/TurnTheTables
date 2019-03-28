@@ -13,13 +13,9 @@ public class CutSceneManager : MonoBehaviour
     Animator UIanimator;
     public GameObject bullied;
     public GameObject maincharacter;
-
     private GameObject cameraScript;
-
     bool playerMoveTowardTarget = false;
     bool empathize = false;
-    Vector3 turnSmoothVelocity;
-    float turnSmoothTime = 0.2f;
 
     //UI eleements
     public GameObject DecisionsCanvas;
@@ -30,20 +26,30 @@ public class CutSceneManager : MonoBehaviour
 
     //To turn character towards the npc she wants to talk to 
     Vector3 delta;
+    Vector3 turnSmoothVelocity;
+    float turnSmoothTime = 0.2f;
 
     //Virtual Cameras
-    public GameObject virtualCam; 
+    public GameObject virtualCam;
 
+    //Inner voice Chaarcter animator
+    public GameObject innerVoicePanel;
+    Animator innerVoiceAnimator;
+    Text innverVoiceFeedback;
 
     void Start()
     {
         cameraScript = Camera.main.gameObject;
         DecisionsCanvas.SetActive(false);
         UIanimator = DecisionsCanvas.transform.GetChild(0).gameObject.GetComponent<Animator>();
+        innerVoiceAnimator = innerVoicePanel.gameObject.GetComponent<Animator>();
+        innverVoiceFeedback = innerVoicePanel.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
+        if (!innverVoiceFeedback)
+            Debug.Log("ERRORORORROR");
         //bullied.gameObject.GetComponent<InteractWithCharacter>().EPressed();
         ChangeToMainCamera();
         //empathyCamera = bullied.transform.Find("EmpathyCamera").GetComponent<Camera>();
-
+        //Debug.Log("aklsdj  ===   " + maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(15));
         //virtualCam = GameObject.Find("CinemachineVirtualCameras");
     }
 
@@ -163,7 +169,11 @@ public class CutSceneManager : MonoBehaviour
         //Close canvas
         UIanimator.SetBool("isOpen", false);
         pd = null;
-
+        innerVoiceAnimator.SetBool("isOpen", true);
+        StopAllCoroutines();
+        //StartCoroutine(Frown());
+        StartCoroutine(TypeSentence("nooo dont ignore :("));
+        setCharacterPlayable();
         //Destroy(this);
     }
 
@@ -186,6 +196,41 @@ public class CutSceneManager : MonoBehaviour
     {
         mainCamera.enabled = true;
         empathyCamera.enabled = false;
+    }
+
+    void setCharacterPlayable()
+    {
+        cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+    }
+
+    IEnumerator TypeSentence(string sentence)
+    {
+        innverVoiceFeedback.text = "";
+        //maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(15, 100f);
+        maincharacter.gameObject.GetComponent<Animator>().SetBool("isSad", true);
+        maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(1, 100f);
+        foreach (char letter in sentence.ToCharArray())
+        {
+            innverVoiceFeedback.text += letter;
+            yield return null;
+            yield return null;
+            yield return null;
+        }
+        Invoke("CloseInnerVoice", 3);
+    }
+
+    /*IEnumerator Frown()
+    {
+        maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(15, 100f);
+        yield return null;
+    }*/
+
+    void CloseInnerVoice()
+    {
+        maincharacter.gameObject.GetComponent<Animator>().SetBool("isSad", false);
+        maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(15, 0f);
+        innerVoiceAnimator.SetBool("isOpen", false);
     }
 
 
