@@ -19,12 +19,14 @@ public class InteractWithCharacter : MonoBehaviour
 
     private float m_Speed = 0.4f;
     bool turningTowardsMainPlayer = false;
+    bool mainPlayerTurningTowardsNPC = false;
 
     /// <summary>
-    Vector3 delta;
+    Vector3 delta; //For NPC
+    Vector3 delta_mainCharacter; //For maincharacter
     /// </summary>
     /// 
-    
+
 
 
 
@@ -52,6 +54,7 @@ public class InteractWithCharacter : MonoBehaviour
                     turningTowardsMainPlayer = false;
                 }
             }
+
         }
 
         
@@ -70,6 +73,7 @@ public class InteractWithCharacter : MonoBehaviour
             turningTowardsMainPlayer = true;
             delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
             transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+
         }
     }
 
@@ -118,7 +122,8 @@ public class InteractWithCharacter : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///These will be specific for the user/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public void Post_Cutscene_Ignore_Dialogue()
+
+    public void InnerVoiceDialogue(int status)
     {
         if (this.tag == "Player")
         {
@@ -128,11 +133,15 @@ public class InteractWithCharacter : MonoBehaviour
                 if (this.GetComponent<VIDE_Assign>() == null)
                     Debug.Log("No dialogue assigned");
                 else
+                {
                     NPCDialogue(GetComponent<VIDE_Assign>());
-                
+                    VD.SetNode(status);
+                }
+
             }
         }
     }
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///These will be specific for the user/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

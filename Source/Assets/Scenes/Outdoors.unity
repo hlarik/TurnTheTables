@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23797,61 +23797,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManagerClasses
       objectReference: {fileID: 0}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: dialogueOptions.Array.data[0]
-      value: 
-      objectReference: {fileID: 1388355425}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: dialogueOptions.Array.data[1]
-      value: 
-      objectReference: {fileID: 1388355424}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: dialogueOptions.Array.data[2]
-      value: 
-      objectReference: {fileID: 1388355423}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: dialogueOptions.Array.data[3]
-      value: 
-      objectReference: {fileID: 1388355422}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: dialogueOptions.Array.data[4]
-      value: 
-      objectReference: {fileID: 1388355421}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: DialogueUI
-      value: 
-      objectReference: {fileID: 1388355428}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: NPCmessage
-      value: 
-      objectReference: {fileID: 1388355427}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: NPCname
-      value: 
-      objectReference: {fileID: 1388355426}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 1388355420}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: NPCTextField
-      value: 
-      objectReference: {fileID: 1388355419}
-    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
-        type: 3}
-      propertyPath: PlayerOption
-      value: 
-      objectReference: {fileID: 1388355417}
     - target: {fileID: 6024156200893152276, guid: 2d0c4ea0731490446bcebebe0f4aa977,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23907,6 +23852,61 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: dialogueOptions.Array.data[0]
+      value: 
+      objectReference: {fileID: 1388355425}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: dialogueOptions.Array.data[1]
+      value: 
+      objectReference: {fileID: 1388355424}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: dialogueOptions.Array.data[2]
+      value: 
+      objectReference: {fileID: 1388355423}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: dialogueOptions.Array.data[3]
+      value: 
+      objectReference: {fileID: 1388355422}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: dialogueOptions.Array.data[4]
+      value: 
+      objectReference: {fileID: 1388355421}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: DialogueUI
+      value: 
+      objectReference: {fileID: 1388355428}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: NPCmessage
+      value: 
+      objectReference: {fileID: 1388355427}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: NPCname
+      value: 
+      objectReference: {fileID: 1388355426}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1388355420}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: NPCTextField
+      value: 
+      objectReference: {fileID: 1388355419}
+    - target: {fileID: 6024156200152850060, guid: 2d0c4ea0731490446bcebebe0f4aa977,
+        type: 3}
+      propertyPath: PlayerOption
+      value: 
+      objectReference: {fileID: 1388355417}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d0c4ea0731490446bcebebe0f4aa977, type: 3}
 --- !u!114 &875854845 stripped
@@ -52772,6 +52772,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Violet_With_Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
+        type: 3}
+      propertyPath: far clip plane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
+        type: 3}
+      propertyPath: field of view
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
+        type: 3}
+      propertyPath: orthographic size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2228071201233637815, guid: 3f02af34cd94eff4f893dd725cfd10b8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -52866,26 +52886,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 270
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
-        type: 3}
-      propertyPath: far clip plane
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
-        type: 3}
-      propertyPath: field of view
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
-        type: 3}
-      propertyPath: orthographic size
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1531006158954594204, guid: 3f02af34cd94eff4f893dd725cfd10b8,
         type: 3}
@@ -74445,17 +74445,17 @@ PrefabInstance:
     - target: {fileID: 7708384638664662868, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000007184037
+      value: 0.00004493878
       objectReference: {fileID: 0}
     - target: {fileID: 4972026698445320620, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 59.733887
+      value: 58.14502
       objectReference: {fileID: 0}
     - target: {fileID: 4972026698445320620, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 119.46777
+      value: 116.29004
       objectReference: {fileID: 0}
     - target: {fileID: 4972026698445320620, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
@@ -74510,12 +74510,12 @@ PrefabInstance:
     - target: {fileID: 3356963452873643663, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 59.733887
+      value: 58.14502
       objectReference: {fileID: 0}
     - target: {fileID: 3356963452873643663, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 119.46777
+      value: 116.29004
       objectReference: {fileID: 0}
     - target: {fileID: 3356963452873643663, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
@@ -74575,12 +74575,12 @@ PrefabInstance:
     - target: {fileID: 3176997875073420033, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 59.733887
+      value: 58.14502
       objectReference: {fileID: 0}
     - target: {fileID: 3176997875073420033, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 119.46777
+      value: 116.29004
       objectReference: {fileID: 0}
     - target: {fileID: 3176997875073420033, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
@@ -74640,12 +74640,12 @@ PrefabInstance:
     - target: {fileID: 7095112228831789669, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 59.733887
+      value: 58.14502
       objectReference: {fileID: 0}
     - target: {fileID: 7095112228831789669, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 119.46777
+      value: 116.29004
       objectReference: {fileID: 0}
     - target: {fileID: 7095112228831789669, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
@@ -74705,12 +74705,12 @@ PrefabInstance:
     - target: {fileID: 6353060325011187362, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 59.733887
+      value: 58.14502
       objectReference: {fileID: 0}
     - target: {fileID: 6353060325011187362, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 119.46777
+      value: 116.29004
       objectReference: {fileID: 0}
     - target: {fileID: 6353060325011187362, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}

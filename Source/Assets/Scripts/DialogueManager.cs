@@ -198,10 +198,16 @@ public class DialogueManager : MonoBehaviour
     {
         if(dialogueName == "InnerVoiceFeedback")
         {
-            if(openAgaian)
-                GameObject.Find("CutSceneTrigger_1").GetComponent<CutSceneManager>().OpenDecisionCanvas();
+            if (VD.isActive) //??
+            {
+                if (openAgaian && VD.nodeData.nodeID == 0) //If it is the ignore case
+                    GameObject.Find("CutSceneTrigger_1").GetComponent<CutSceneManager>().OpenDecisionCanvas();
 
-            openAgaian = !openAgaian;
+                if (VD.nodeData.nodeID == 0)
+                {
+                    openAgaian = !openAgaian;
+                }
+            }
         }
     }
 }
