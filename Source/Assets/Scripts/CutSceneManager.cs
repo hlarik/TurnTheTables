@@ -37,6 +37,9 @@ public class CutSceneManager : MonoBehaviour
     Animator innerVoiceAnimator;
     Text innverVoiceFeedback;
 
+    //Call ignore again
+    bool againIgnore;
+
     void Start()
     {
         cameraScript = Camera.main.gameObject;
@@ -48,6 +51,7 @@ public class CutSceneManager : MonoBehaviour
             Debug.Log("ERRORORORROR");
         //bullied.gameObject.GetComponent<InteractWithCharacter>().EPressed();
         ChangeToMainCamera();
+        againIgnore = true;
         //empathyCamera = bullied.transform.Find("EmpathyCamera").GetComponent<Camera>();
         //Debug.Log("aklsdj  ===   " + maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(15));
         //virtualCam = GameObject.Find("CinemachineVirtualCameras");
@@ -169,11 +173,16 @@ public class CutSceneManager : MonoBehaviour
         //Close canvas
         UIanimator.SetBool("isOpen", false);
         pd = null;
-        innerVoiceAnimator.SetBool("isOpen", true);
+        if (againIgnore)
+        {
+            maincharacter.GetComponent<InteractWithCharacter>().Post_Cutscene_Ignore_Dialogue();
+            againIgnore = !againIgnore;
+        }
+        /*innerVoiceAnimator.SetBool("isOpen", true);
         StopAllCoroutines();
         //StartCoroutine(Frown());
         StartCoroutine(TypeSentence("nooo dont ignore :("));
-        setCharacterPlayable();
+        setCharacterPlayable();*/
         //Destroy(this);
     }
 
@@ -204,7 +213,7 @@ public class CutSceneManager : MonoBehaviour
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
     }
 
-    IEnumerator TypeSentence(string sentence)
+    /*IEnumerator TypeSentence(string sentence)
     {
         innverVoiceFeedback.text = "";
         //maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(15, 100f);
@@ -218,12 +227,6 @@ public class CutSceneManager : MonoBehaviour
             yield return null;
         }
         Invoke("CloseInnerVoice", 3);
-    }
-
-    /*IEnumerator Frown()
-    {
-        maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(15, 100f);
-        yield return null;
     }*/
 
     void CloseInnerVoice()
@@ -232,6 +235,13 @@ public class CutSceneManager : MonoBehaviour
         maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(15, 0f);
         innerVoiceAnimator.SetBool("isOpen", false);
     }
+
+    public void OpenDecisionCanvas()
+    {
+        DecisionsCanvas.SetActive(true);
+        UIanimator.SetBool("isOpen", true);
+    }
+
 
 
 }

@@ -667,8 +667,8 @@ GameObject:
   - component: {fileID: 6806669918460449887}
   - component: {fileID: 1531006158954594206}
   - component: {fileID: 6066016312543638415}
-  - component: {fileID: 5108645882736747442}
-  - component: {fileID: 4499894671109989129}
+  - component: {fileID: 7393962570085675243}
+  - component: {fileID: 5864257525183080887}
   m_Layer: 0
   m_Name: Violet
   m_TagString: Player
@@ -901,7 +901,7 @@ MonoBehaviour:
   provider: 1
   enableAcceleration: 1
   currentSequence: {fileID: 11400000, guid: 1ccea2acd443f4ad4bb9a9f33fc960c0, type: 2}
---- !u!114 &5108645882736747442
+--- !u!114 &7393962570085675243
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -910,107 +910,58 @@ MonoBehaviour:
   m_GameObject: {fileID: 1531006158954594193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dbefcf1166a54a78938cd5bd8ae5dc0, type: 3}
+  m_Script: {fileID: 11500000, guid: 602f487c7c16dcb47a1f06f44fc88bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Track1: {fileID: 4499894671109989129}
-  pressedOne: 0
---- !u!82 &4499894671109989129
-AudioSource:
+  uiObject: {fileID: 0}
+  collision: 0
+  mainPlayer: {fileID: 0}
+--- !u!114 &5864257525183080887
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1531006158954594193}
   m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4fb2b0aa76a514eec94fbfb216d2abf6, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8b99d8a12e39e4b94d2d7162c7c978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diags:
+  - Charlie
+  - CommentModifier
+  - CrazyCap
+  - DEMO_Condition
+  - Example3Dialogue
+  - Example4_dialogue
+  - Gariban
+  - InnerVoiceFeedback
+  - Item_LookUp
+  - Laura
+  - Matt
+  - Mother
+  - MrCube
+  - NPCOnly
+  - QuestChartDemo
+  - TriggeredDude
+  - Witch
+  assignedIndex: 7
+  assignedID: 81063
+  assignedDialogue: InnerVoiceFeedback
+  interactionCount: 0
+  alias: 
+  overrideStartNode: -1
+  defaultNPCSprite: {fileID: 0}
+  defaultPlayerSprite: {fileID: 0}
+  targetManager: {fileID: 0}
+  preload: 0
+  notuptodate: 0
+  startp: 0
+  loadtag: 
+  langs: []
+  S_playerDiags: []
+  S_actionNodes: []
 --- !u!1 &1549858330538037498
 GameObject:
   m_ObjectHideFlags: 0

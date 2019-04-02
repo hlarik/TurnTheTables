@@ -1297,8 +1297,10 @@ MonoBehaviour:
   - Example3Dialogue
   - Example4_dialogue
   - Gariban
+  - InnerVoiceFeedback
   - Item_LookUp
   - Laura
+  - Matt
   - Mother
   - MrCube
   - NPCOnly
@@ -4017,7 +4019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &447638146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13480,9 +13482,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.16241604
       objectReference: {fileID: 0}
+    - target: {fileID: 7393962570085675243, guid: 3f02af34cd94eff4f893dd725cfd10b8,
+        type: 3}
+      propertyPath: mainPlayer
+      value: 
+      objectReference: {fileID: 1660179944739693239}
+    - target: {fileID: 7393962570085675243, guid: 3f02af34cd94eff4f893dd725cfd10b8,
+        type: 3}
+      propertyPath: uiObject
+      value: 
+      objectReference: {fileID: 1954184535}
     m_RemovedComponents:
     - {fileID: 6066016312543638415, guid: 3f02af34cd94eff4f893dd725cfd10b8, type: 3}
     - {fileID: 1531006158954594207, guid: 3f02af34cd94eff4f893dd725cfd10b8, type: 3}
+    - {fileID: 5864257525183080887, guid: 3f02af34cd94eff4f893dd725cfd10b8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3f02af34cd94eff4f893dd725cfd10b8, type: 3}
 --- !u!1 &159065386996964647 stripped
 GameObject:
@@ -13549,6 +13562,52 @@ MonoBehaviour:
   provider: 1
   enableAcceleration: 1
   currentSequence: {fileID: 11400000, guid: 1ccea2acd443f4ad4bb9a9f33fc960c0, type: 2}
+--- !u!114 &1660179944739693247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660179944739693239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8b99d8a12e39e4b94d2d7162c7c978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diags:
+  - Charlie
+  - CommentModifier
+  - CrazyCap
+  - DEMO_Condition
+  - Example3Dialogue
+  - Example4_dialogue
+  - Gariban
+  - InnerVoiceFeedback
+  - Item_LookUp
+  - Laura
+  - Matt
+  - Mother
+  - MrCube
+  - NPCOnly
+  - QuestChartDemo
+  - TriggeredDude
+  - Witch
+  assignedIndex: 7
+  assignedID: 81063
+  assignedDialogue: InnerVoiceFeedback
+  interactionCount: 0
+  alias: 
+  overrideStartNode: -1
+  defaultNPCSprite: {fileID: 0}
+  defaultPlayerSprite: {fileID: 0}
+  targetManager: {fileID: 0}
+  preload: 0
+  notuptodate: 0
+  startp: 0
+  loadtag: 
+  langs: []
+  S_playerDiags: []
+  S_actionNodes: []
 --- !u!4 &2080293401144364177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2228071201233637815, guid: 3f02af34cd94eff4f893dd725cfd10b8,
@@ -13711,6 +13770,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030641872995799484, guid: d62067fe599fbf34bb8b534845709c45,
+        type: 3}
+      propertyPath: m_Name
+      value: Feedback
       objectReference: {fileID: 0}
     - target: {fileID: 4256863819345566635, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
@@ -14005,7 +14069,7 @@ PrefabInstance:
     - target: {fileID: 7708384638664662868, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 124.98007
+      value: 0.00006744793
       objectReference: {fileID: 0}
     - target: {fileID: 7708384638664662868, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
@@ -14015,7 +14079,7 @@ PrefabInstance:
     - target: {fileID: 7708384638664662868, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -47.931366
+      value: -47.931393
       objectReference: {fileID: 0}
     - target: {fileID: 7708384638664662868, guid: d62067fe599fbf34bb8b534845709c45,
         type: 3}
@@ -15596,11 +15660,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -36
-      objectReference: {fileID: 0}
-    - target: {fileID: 4030641872995799484, guid: d62067fe599fbf34bb8b534845709c45,
-        type: 3}
-      propertyPath: m_Name
-      value: Feedback
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2275308842001733424, guid: d62067fe599fbf34bb8b534845709c45, type: 3}
