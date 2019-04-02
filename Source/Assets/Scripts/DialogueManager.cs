@@ -30,12 +30,15 @@ public class DialogueManager : MonoBehaviour
 
     string currentDialogueName;
 
+    bool openAgaian;
+
     private void Start()
     {
         DialogueIDManager = GameObject.Find("DialogueIDManager");
         cameraScript = Camera.main.gameObject;
         DialogueUI.SetActive(false);
         currentDialogueName = "";
+        openAgaian = true;
     }
 
     private void OnEnable()
@@ -67,6 +70,7 @@ public class DialogueManager : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Space) && !VD.nodeData.isPlayer)
             {
                 VD.Next();
+                //VD.SetNode(0); //directly pass to node bilmem kac
             }
         }
     }
@@ -166,7 +170,8 @@ public class DialogueManager : MonoBehaviour
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
         DialogueUI.SetActive(false);
 
-        currentDialogueName = "";
+        CheckDialogueEndStatus(currentDialogueName);
+        currentDialogueName = ""; 
     }
 
     public void PlayerOnChose(int option)
@@ -185,6 +190,18 @@ public class DialogueManager : MonoBehaviour
         {
             NPCmessage.text += letter;
             yield return null;
+        }
+    }
+
+    //Check what to do after dialogue
+    public void CheckDialogueEndStatus(string dialogueName)
+    {
+        if(dialogueName == "InnerVoiceFeedback")
+        {
+            if(openAgaian)
+                GameObject.Find("CutSceneTrigger_1").GetComponent<CutSceneManager>().OpenDecisionCanvas();
+
+            openAgaian = !openAgaian;
         }
     }
 }

@@ -23,6 +23,10 @@ public class InteractWithCharacter : MonoBehaviour
     /// <summary>
     Vector3 delta;
     /// </summary>
+    /// 
+    
+
+
 
     void Start()
     {
@@ -32,18 +36,21 @@ public class InteractWithCharacter : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.E) && collision)
+        if (this.tag != "Player")
         {
-            EPressed();
-        } 
-
-        //Don't stop turning until chaarcter is totally faced
-        if (turningTowardsMainPlayer)
-        {
-            transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
-            if (transform.rotation.eulerAngles == Quaternion.LookRotation(delta).eulerAngles)
+            if (Input.GetKey(KeyCode.E) && collision)
             {
-                turningTowardsMainPlayer = false;
+                EPressed();
+            }
+
+            //Don't stop turning until chaarcter is totally faced
+            if (turningTowardsMainPlayer)
+            {
+                transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+                if (transform.rotation.eulerAngles == Quaternion.LookRotation(delta).eulerAngles)
+                {
+                    turningTowardsMainPlayer = false;
+                }
             }
         }
 
@@ -53,15 +60,17 @@ public class InteractWithCharacter : MonoBehaviour
     public void EPressed()
     {
         //E is pressed so we could close the ui now
-        uiObject.SetActive(false);
+        if (this.tag != "Player")
+        {
+            uiObject.SetActive(false);
 
-        //Start dialogue with that character
-        Interact();
+            //Start dialogue with that character
+            Interact();
 
-        turningTowardsMainPlayer = true;
-        delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
-        transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
-
+            turningTowardsMainPlayer = true;
+            delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
+            transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+        }
     }
 
     public void Interact()
@@ -78,10 +87,13 @@ public class InteractWithCharacter : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (this.tag != "Player")
         {
-            collision = true;
-            uiObject.SetActive(true);
+            if (other.CompareTag("Player"))
+            {
+                collision = true;
+                uiObject.SetActive(true);
+            }
         }
     }
 
@@ -96,7 +108,33 @@ public class InteractWithCharacter : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        collision = false;
-        uiObject.SetActive(false);
+        if (this.tag != "Player")
+        {
+            collision = false;
+            uiObject.SetActive(false);
+        }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///These will be specific for the user/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void Post_Cutscene_Ignore_Dialogue()
+    {
+        if (this.tag == "Player")
+        {
+            //Check if we vd is already assigned, burda bir sorun vaaaaar!!!! cunku zaten dialog varken tekrar cagiriyor
+            if (!VD.isActive)
+            {
+                if (this.GetComponent<VIDE_Assign>() == null)
+                    Debug.Log("No dialogue assigned");
+                else
+                    NPCDialogue(GetComponent<VIDE_Assign>());
+                
+            }
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///These will be specific for the user/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
