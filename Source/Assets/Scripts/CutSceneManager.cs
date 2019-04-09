@@ -25,6 +25,7 @@ public class CutSceneManager : MonoBehaviour
     int[] talkDialogues = {1, 10};
     int[] reportDialogues = { 3, 11, 12, 13};
     System.Random rnd;
+    
 
     //UI eleements
     public GameObject DecisionsCanvas;
@@ -62,6 +63,7 @@ public class CutSceneManager : MonoBehaviour
         ChangeToMainCamera();
         againIgnore = true;
         rnd = new System.Random();
+        
         //empathyCamera = bullied.transform.Find("EmpathyCamera").GetComponent<Camera>();
         //Debug.Log("aklsdj  ===   " + maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(15));
         //virtualCam = GameObject.Find("CinemachineVirtualCameras");
@@ -129,6 +131,7 @@ public class CutSceneManager : MonoBehaviour
                 VD.SetNode(0);
                 playerMoveTowardTarget = false;
                 maincharacter.gameObject.GetComponent<Animator>().SetFloat("speedPercent", 0.0f);
+                Destroy(this);
             }
         }
 
@@ -148,6 +151,7 @@ public class CutSceneManager : MonoBehaviour
         {
             OpenDecisionCanvas();
             ignoreButtonClicked = false;
+
         }
 
         if (talkButtonClicked && !VD.isActive)
@@ -207,15 +211,19 @@ public class CutSceneManager : MonoBehaviour
         if (againIgnore)
         {
             maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(ignoreDialogues[rnd.Next(0, ignoreDialogues.Length)]);
+            ignoreButtonClicked = true;
             againIgnore = !againIgnore;
         }
-        ignoreButtonClicked = true;
-        /*innerVoiceAnimator.SetBool("isOpen", true);
-        StopAllCoroutines();
-        //StartCoroutine(Frown());
-        StartCoroutine(TypeSentence("nooo dont ignore :("));
-        setCharacterPlayable();*/
-        //Destroy(this);
+        else
+        {
+            EndScenario();
+            /*innerVoiceAnimator.SetBool("isOpen", true);
+            StopAllCoroutines();
+            //StartCoroutine(Frown());
+            StartCoroutine(TypeSentence("nooo dont ignore :("));
+            setCharacterPlayable();*/
+            //Destroy(this);
+        }
     }
 
     public void ReportToAnAdult()
@@ -224,6 +232,7 @@ public class CutSceneManager : MonoBehaviour
         UIanimator.SetBool("isOpen", false);
         pd = null;
         maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(reportDialogues[rnd.Next(0, reportDialogues.Length)]);
+        Destroy(this);
         //Destroy(this);
     }
 
@@ -275,6 +284,13 @@ public class CutSceneManager : MonoBehaviour
         cameraScript.GetComponent<CameraController>().disableCameraMouse();
         DecisionsCanvas.SetActive(true);
         UIanimator.SetBool("isOpen", true);
+    }
+
+    public void EndScenario()
+    {
+        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+        cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        Destroy(this);
     }
 
 

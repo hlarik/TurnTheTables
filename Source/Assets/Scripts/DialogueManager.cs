@@ -31,6 +31,7 @@ public class DialogueManager : MonoBehaviour
     string currentDialogueName;
 
     bool openAgaian;
+    DialogueDecisionMaker dialogueEventHandler;
 
     private void Start()
     {
@@ -39,6 +40,7 @@ public class DialogueManager : MonoBehaviour
         DialogueUI.SetActive(false);
         currentDialogueName = "";
         openAgaian = true;
+        dialogueEventHandler = GameObject.Find("PostDialogueEventHandler").GetComponent<DialogueDecisionMaker>();
     }
 
     private void OnEnable()
@@ -171,7 +173,7 @@ public class DialogueManager : MonoBehaviour
         DialogueUI.SetActive(false);
 
         CheckDialogueEndStatus(currentDialogueName);
-        currentDialogueName = ""; 
+        currentDialogueName = "";
     }
 
     public void PlayerOnChose(int option)

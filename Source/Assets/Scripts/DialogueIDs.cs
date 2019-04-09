@@ -126,6 +126,58 @@ public class DialogueIDs : MonoBehaviour
         inp_stm.Close();
     }
 
+    public List<int> GetBadDialogues(string dialogueName)
+    {
+        foreach (AllDialogues dialogue in allDialogues)
+        {
+            if (dialogue.dialogueName == dialogueName)
+            {
+                return dialogue.badDialogues;
+            }
+        }
+
+        return null;
+    }
+
+    public List<int> GetIgnoredDialogues(string dialogueName)
+    {
+        foreach (AllDialogues dialogue in allDialogues)
+        {
+            if (dialogue.dialogueName == dialogueName)
+            {
+                return dialogue.ignoredDialogues;
+            }
+        }
+
+        return null;
+    }
+
+    public List<int> GetGoodDialogues(string dialogueName)
+    {
+        foreach (AllDialogues dialogue in allDialogues)
+        {
+            if (dialogue.dialogueName == dialogueName)
+            {
+                return dialogue.goodDialogues;
+            }
+        }
+
+        return null;
+    }
+
+    public bool DialogueExists(string dialogueName)
+    {
+        foreach (SelectedDialogueID dialogue in dialogues)
+        {
+            if (dialogue.dialogueName == dialogueName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void AddDialogue(string name)
     {
         //check whether a dialogue already exists with the same name
@@ -141,7 +193,7 @@ public class DialogueIDs : MonoBehaviour
         temp.dialogueName = name;
         temp.ids = new List<int>();
         dialogues.Add(temp);
-        //Debug.Log(name + " added");
+        Debug.Log(name + " added");
     }
 
     public void AddDialogueID(string name, int ID)
@@ -168,12 +220,22 @@ public class DialogueIDs : MonoBehaviour
     {
         foreach (SelectedDialogueID dialogue in dialogues)
         {
-            if (dialogue.dialogueName == name)
+            if (dialogue.dialogueName == dialogueName)
             {
                 return dialogue.ids;
             }
         }
-        
         return null;
     } 
+
+    public void DeleteDialogue(string dialogueName)
+    {
+        foreach (SelectedDialogueID dialogue in dialogues)
+        {
+            if (dialogue.dialogueName == dialogueName)
+            {
+                dialogues.Remove(dialogue);
+            }
+        }
+    }
 }
