@@ -667,8 +667,6 @@ GameObject:
   - component: {fileID: 6806669918460449887}
   - component: {fileID: 1531006158954594206}
   - component: {fileID: 6066016312543638415}
-  - component: {fileID: 7393962570085675243}
-  - component: {fileID: 5864257525183080887}
   m_Layer: 0
   m_Name: Violet
   m_TagString: Player
@@ -901,67 +899,6 @@ MonoBehaviour:
   provider: 1
   enableAcceleration: 1
   currentSequence: {fileID: 11400000, guid: 1ccea2acd443f4ad4bb9a9f33fc960c0, type: 2}
---- !u!114 &7393962570085675243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1531006158954594193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 602f487c7c16dcb47a1f06f44fc88bfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiObject: {fileID: 0}
-  collision: 0
-  mainPlayer: {fileID: 0}
---- !u!114 &5864257525183080887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1531006158954594193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b8b99d8a12e39e4b94d2d7162c7c978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  diags:
-  - Charlie
-  - CommentModifier
-  - CrazyCap
-  - DEMO_Condition
-  - Example3Dialogue
-  - Example4_dialogue
-  - Gariban
-  - InnerVoiceFeedback
-  - Item_LookUp
-  - Laura
-  - Matt
-  - Mother
-  - MrCube
-  - NPCOnly
-  - QuestChartDemo
-  - TriggeredDude
-  - Witch
-  assignedIndex: 7
-  assignedID: 81063
-  assignedDialogue: InnerVoiceFeedback
-  interactionCount: 0
-  alias: 
-  overrideStartNode: -1
-  defaultNPCSprite: {fileID: 0}
-  defaultPlayerSprite: {fileID: 0}
-  targetManager: {fileID: 0}
-  preload: 0
-  notuptodate: 0
-  startp: 0
-  loadtag: 
-  langs: []
-  S_playerDiags: []
-  S_actionNodes: []
 --- !u!1 &1549858330538037498
 GameObject:
   m_ObjectHideFlags: 0

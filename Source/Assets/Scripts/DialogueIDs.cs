@@ -123,6 +123,18 @@ public class DialogueIDs : MonoBehaviour
                 tempInt.Add(Int32.Parse(inp_ln));
             }
         }
+
+        foreach(AllDialogues i in allDialogues)
+        {
+            Debug.Log("scenario name " + i.dialogueName);
+            foreach (int a in i.badDialogues)
+                Debug.Log("Bad dialogues = " + a);
+            foreach (int a in i.ignoredDialogues)
+                Debug.Log("Ignore dialogues = " + a);
+            foreach (int a in i.goodDialogues)
+                Debug.Log("Good dialogues = " + a);
+        }
+
         inp_stm.Close();
     }
 
@@ -173,7 +185,7 @@ public class DialogueIDs : MonoBehaviour
                 return dialogue.ids;
             }
         }
-        
+        //Debug.Log("dialogue with name " + dialogueName + " doesn't exist");
         return null;
     } 
 }
