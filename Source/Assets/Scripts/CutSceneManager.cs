@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
+using VIDE_Data;
 
 public class CutSceneManager : MonoBehaviour
 {
@@ -13,13 +14,18 @@ public class CutSceneManager : MonoBehaviour
     Animator UIanimator;
     public GameObject bullied;
     public GameObject maincharacter;
-
     private GameObject cameraScript;
-
     bool playerMoveTowardTarget = false;
     bool empathize = false;
-    Vector3 turnSmoothVelocity;
-    float turnSmoothTime = 0.2f;
+    bool empathyButtonClicked = false;
+    bool ignoreButtonClicked = false;
+    bool talkButtonClicked = false;
+    int[] ignoreDialogues = {0, 4, 5, 6};
+    int[] empathyDialogues = { 2, 7, 8, 9 };
+    int[] talkDialogues = {1, 10};
+    int[] reportDialogues = { 3, 11, 12, 13};
+    System.Random rnd;
+    
 
     //UI eleements
     public GameObject DecisionsCanvas;
@@ -30,20 +36,36 @@ public class CutSceneManager : MonoBehaviour
 
     //To turn character towards the npc she wants to talk to 
     Vector3 delta;
+    Vector3 turnSmoothVelocity;
+    float turnSmoothTime = 0.2f;
 
     //Virtual Cameras
-    public GameObject virtualCam; 
+    public GameObject virtualCam;
 
+    //Inner voice Chaarcter animator
+    public GameObject innerVoicePanel;
+    Animator innerVoiceAnimator;
+    Text innverVoiceFeedback;
+
+    //Call ignore again
+    bool againIgnore;
 
     void Start()
     {
         cameraScript = Camera.main.gameObject;
         DecisionsCanvas.SetActive(false);
         UIanimator = DecisionsCanvas.transform.GetChild(0).gameObject.GetComponent<Animator>();
+        innerVoiceAnimator = innerVoicePanel.gameObject.GetComponent<Animator>();
+        innverVoiceFeedback = innerVoicePanel.gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
+        if (!innverVoiceFeedback)
+            Debug.Log("ERRORORORROR");
         //bullied.gameObject.GetComponent<InteractWithCharacter>().EPressed();
         ChangeToMainCamera();
+        againIgnore = true;
+        rnd = new System.Random();
+        
         //empathyCamera = bullied.transform.Find("EmpathyCamera").GetComponent<Camera>();
-
+        //Debug.Log("aklsdj  ===   " + maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(15));
         //virtualCam = GameObject.Find("CinemachineVirtualCameras");
     }
 
@@ -84,6 +106,9 @@ public class CutSceneManager : MonoBehaviour
 
                 DecisionsCanvas.SetActive(true);
                 UIanimator.SetBool("isOpen", true);
+
+                pdEmpathy = null;
+
             }
         }
 
@@ -102,14 +127,38 @@ public class CutSceneManager : MonoBehaviour
             //if enters trigger of target
             if (bullied.gameObject.GetComponent<InteractWithCharacter>().collision)
             {
-                Debug.Log("ashdksahd");
                 bullied.gameObject.GetComponent<InteractWithCharacter>().EPressed();
+                VD.SetNode(0);
                 playerMoveTowardTarget = false;
                 maincharacter.gameObject.GetComponent<Animator>().SetFloat("speedPercent", 0.0f);
+                Destroy(this);
             }
         }
 
+        if(empathyButtonClicked && !VD.isActive){
+            pdEmpathy = timeline.GetComponent<PlayableDirector>();
+            if (pdEmpathy != null)
+            {
+                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
+                cameraScript.GetComponent<CameraController>().disableCameraMouse();
+                ChangeToEmpathyCamera();
+                pdEmpathy.Play();
+            }
+            empathyButtonClicked = false;
+        }
 
+        if(ignoreButtonClicked && !VD.isActive)
+        {
+            OpenDecisionCanvas();
+            ignoreButtonClicked = false;
+
+        }
+
+        if (talkButtonClicked && !VD.isActive)
+        {
+            talkButtonClicked = false;
+            playerMoveTowardTarget = true;
+        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -136,25 +185,21 @@ public class CutSceneManager : MonoBehaviour
             delta = new Vector3(maincharacter.transform.position.x - bullied.transform.position.x, 0.0f, bullied.transform.position.z - maincharacter.transform.position.z);
         else
             delta = new Vector3(bullied.transform.position.x - maincharacter.transform.position.x, 0.0f, maincharacter.transform.position.z - bullied.transform.position.z);*/
-        playerMoveTowardTarget = true;
+        maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(talkDialogues[rnd.Next(0, talkDialogues.Length)]);
+        talkButtonClicked = true;
+        
     }
 
     public void Empathsize()
     {
         //Close canvas
         UIanimator.SetBool("isOpen", false);
+        empathyButtonClicked = true;
         pd = null;
-        pdEmpathy = timeline.GetComponent<PlayableDirector>();
-        if (pdEmpathy != null)
-        {
-            GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
-            cameraScript.GetComponent<CameraController>().disableCameraMouse();
-            ChangeToEmpathyCamera();
-            pdEmpathy.Play();
-
-        }
+        maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(empathyDialogues[rnd.Next(0, empathyDialogues.Length)]);
         empathize = true;
         
+
         //Destroy(this);
     }
 
@@ -163,8 +208,22 @@ public class CutSceneManager : MonoBehaviour
         //Close canvas
         UIanimator.SetBool("isOpen", false);
         pd = null;
-
-        //Destroy(this);
+        if (againIgnore)
+        {
+            maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(ignoreDialogues[rnd.Next(0, ignoreDialogues.Length)]);
+            ignoreButtonClicked = true;
+            againIgnore = !againIgnore;
+        }
+        else
+        {
+            EndScenario();
+            /*innerVoiceAnimator.SetBool("isOpen", true);
+            StopAllCoroutines();
+            //StartCoroutine(Frown());
+            StartCoroutine(TypeSentence("nooo dont ignore :("));
+            setCharacterPlayable();*/
+            //Destroy(this);
+        }
     }
 
     public void ReportToAnAdult()
@@ -172,7 +231,8 @@ public class CutSceneManager : MonoBehaviour
         //Close canvas
         UIanimator.SetBool("isOpen", false);
         pd = null;
-
+        maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(reportDialogues[rnd.Next(0, reportDialogues.Length)]);
+        Destroy(this);
         //Destroy(this);
     }
 
@@ -187,6 +247,52 @@ public class CutSceneManager : MonoBehaviour
         mainCamera.enabled = true;
         empathyCamera.enabled = false;
     }
+
+    void setCharacterPlayable()
+    {
+        cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+    }
+
+    /*IEnumerator TypeSentence(string sentence)
+    {
+        innverVoiceFeedback.text = "";
+        //maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(15, 100f);
+        maincharacter.gameObject.GetComponent<Animator>().SetBool("isSad", true);
+        maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(1, 100f);
+        foreach (char letter in sentence.ToCharArray())
+        {
+            innverVoiceFeedback.text += letter;
+            yield return null;
+            yield return null;
+            yield return null;
+        }
+        Invoke("CloseInnerVoice", 3);
+    }*/
+
+
+    void CloseInnerVoice()
+    {
+        maincharacter.gameObject.GetComponent<Animator>().SetBool("isSad", false);
+        maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(15, 0f);
+        innerVoiceAnimator.SetBool("isOpen", false);
+    }
+
+    public void OpenDecisionCanvas()
+    {
+        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
+        cameraScript.GetComponent<CameraController>().disableCameraMouse();
+        DecisionsCanvas.SetActive(true);
+        UIanimator.SetBool("isOpen", true);
+    }
+
+    public void EndScenario()
+    {
+        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+        cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        Destroy(this);
+    }
+
 
 
 }
