@@ -32,6 +32,11 @@ public class DialogueManager : MonoBehaviour
 
     bool openAgaian;
     DialogueDecisionMaker dialogueEventHandler;
+    PlayerController PlayerControllerScript;
+    DialogueDecisionMaker postCutSceneDecisionMakerScript;
+    FaceAnimationController faceControllerScript;
+    RainController rainScript;
+    int prevID;     //This is for when increasing strength and friendliness, so it doesnt count the same id twice
 
     private void Start()
     {
@@ -41,6 +46,10 @@ public class DialogueManager : MonoBehaviour
         currentDialogueName = "";
         openAgaian = true;
         dialogueEventHandler = GameObject.Find("PostDialogueEventHandler").GetComponent<DialogueDecisionMaker>();
+        PlayerControllerScript = GameObject.Find("Violet").GetComponent<PlayerController>();
+        postCutSceneDecisionMakerScript = GameObject.Find("PostDialogueEventHandler").GetComponent<DialogueDecisionMaker>();
+        faceControllerScript = new FaceAnimationController();
+        rainScript = GameObject.Find("RainParent").GetComponent<RainController>();
     }
 
     private void OnEnable()
@@ -82,10 +91,13 @@ public class DialogueManager : MonoBehaviour
     {
         //When dialogue starts diable camera movement and character movement
         cameraScript.GetComponent<CameraController>().disableCameraMouse();
-        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
+        PlayerControllerScript.enabled = false;
 
         currentDialogueName = npcDialogue.assignedDialogue;
-        DialogueIDManager.GetComponent<DialogueIDs>().AddDialogue(currentDialogueName);
+
+        //If dialogue already exists
+        if (!DialogueIDManager.GetComponent<DialogueIDs>().DialogueExists(currentDialogueName))
+            DialogueIDManager.GetComponent<DialogueIDs>().AddDialogue(currentDialogueName);
 
         VD.OnNodeChange += UpdateUI;
         VD.BeginDialogue(npcDialogue);
@@ -104,6 +116,40 @@ public class DialogueManager : MonoBehaviour
     void UpdateUI(VD.NodeData data)
     {
         NPCname.text = data.tag;
+        
+
+        //Make deciisons according to the player's actions
+        if (data != null &&
+            DialogueIDManager.GetComponent<DialogueIDs>().GetBadDialogues(currentDialogueName) != null &&
+            DialogueIDManager.GetComponent<DialogueIDs>().GetIgnoredDialogues(currentDialogueName) != null &&
+            DialogueIDManager.GetComponent<DialogueIDs>().GetGoodDialogues(currentDialogueName) != null &&
+            prevID != data.nodeID)
+            //!DialogueIDManager.GetComponent<DialogueIDs>().GetDialogueIDs(currentDialogueName).Contains(data.nodeID))
+        {
+            prevID = data.nodeID;
+            if (DialogueIDManager.GetComponent<DialogueIDs>().GetBadDialogues(currentDialogueName).Contains(data.nodeID))
+            {
+                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() - 1);
+                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetFriendliness(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness() - 1);
+                Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
+                Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
+            }
+            if (DialogueIDManager.GetComponent<DialogueIDs>().GetIgnoredDialogues(currentDialogueName).Contains(data.nodeID))
+            {
+                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() - 1);
+                Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
+                Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
+            }
+            if (DialogueIDManager.GetComponent<DialogueIDs>().GetGoodDialogues(currentDialogueName).Contains(data.nodeID))
+            {
+                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() + 1);
+                Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
+                Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
+                rainScript.MakeItStop();
+                faceControllerScript.MakeAllCharactersHappy();
+            }
+        }
+
         DialogueIDManager.GetComponent<DialogueIDs>().AddDialogueID(currentDialogueName, data.nodeID);
 
         if (data.tag == "Violet")
@@ -169,10 +215,19 @@ public class DialogueManager : MonoBehaviour
             cameraScript.GetComponent<CameraController>().enableCameraMouse();
 
         animator.SetBool("isOpen", false);
-        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+        if(PlayerControllerScript != null)
+            PlayerControllerScript.enabled = true;
         DialogueUI.SetActive(false);
 
         CheckDialogueEndStatus(currentDialogueName);
+
+        //If bad deciisons were made during the dialogue
+        if(postCutSceneDecisionMakerScript.NumOfBadIds(currentDialogueName) > 0)
+        {
+            faceControllerScript.MakeAllCharactersSad();
+            rainScript.MakeItRain();
+            DialogueIDManager.GetComponent<DialogueIDs>().DeleteDialogue(currentDialogueName);
+        }
         currentDialogueName = "";
     }
 

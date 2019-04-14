@@ -25,6 +25,9 @@ public class CutSceneManager : MonoBehaviour
     int[] talkDialogues = {1, 10};
     int[] reportDialogues = { 3, 11, 12, 13};
     System.Random rnd;
+    PlayerController playerControllerScript;
+    RainController rainController;
+    FaceAnimationController faceController;
     
 
     //UI eleements
@@ -49,9 +52,13 @@ public class CutSceneManager : MonoBehaviour
 
     //Call ignore again
     bool againIgnore;
+    int empathizeOnFirstCall = 0;
 
     void Start()
     {
+        faceController = new FaceAnimationController();
+        rainController = GameObject.Find("RainParent").GetComponent<RainController>();
+        playerControllerScript = GameObject.Find("Violet").GetComponent<PlayerController>();
         cameraScript = Camera.main.gameObject;
         DecisionsCanvas.SetActive(false);
         UIanimator = DecisionsCanvas.transform.GetChild(0).gameObject.GetComponent<Animator>();
@@ -80,7 +87,7 @@ public class CutSceneManager : MonoBehaviour
                 //Destroy(this);
                 //When dialogue starts diable camera movement and character movement
                 cameraScript.GetComponent<CameraController>().disableCameraMouse();
-                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
+                playerControllerScript.enabled = false;
 
                 pd = null;
                 //Daha sonra yukarda disable ettiklerini acmayi unutma
@@ -98,7 +105,7 @@ public class CutSceneManager : MonoBehaviour
                 //Destroy(this);
                 //When dialogue starts diable camera movement and character movement
                 cameraScript.GetComponent<CameraController>().disableCameraMouse();
-                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
+                playerControllerScript.enabled = false;
 
                 //Daha sonra yukarda disable ettiklerini acmayi unutma
                 ChangeToMainCamera();
@@ -121,7 +128,7 @@ public class CutSceneManager : MonoBehaviour
            // maincharacter.transform.eulerAngles = Vector3.SmoothDamp(maincharacter.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
 
             // Move our position a step closer to the target.
-            float step = maincharacter.gameObject.GetComponent<PlayerController>().walkSpeed * Time.deltaTime; // calculate distance to move
+            float step = playerControllerScript.walkSpeed * Time.deltaTime; // calculate distance to move
             maincharacter.transform.position = Vector3.MoveTowards(maincharacter.transform.position, bullied.transform.position, step);
             //print("also here?");
             //if enters trigger of target
@@ -139,7 +146,7 @@ public class CutSceneManager : MonoBehaviour
             pdEmpathy = timeline.GetComponent<PlayableDirector>();
             if (pdEmpathy != null)
             {
-                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
+                playerControllerScript.enabled = false;
                 cameraScript.GetComponent<CameraController>().disableCameraMouse();
                 ChangeToEmpathyCamera();
                 pdEmpathy.Play();
@@ -167,7 +174,7 @@ public class CutSceneManager : MonoBehaviour
         virtualCam.SetActive(true);
         if (pd != null)
         {
-            GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
+            playerControllerScript.enabled = false;
             cameraScript.GetComponent<CameraController>().disableCameraMouse();
             pd.Play();
         }
@@ -187,7 +194,8 @@ public class CutSceneManager : MonoBehaviour
             delta = new Vector3(bullied.transform.position.x - maincharacter.transform.position.x, 0.0f, maincharacter.transform.position.z - bullied.transform.position.z);*/
         maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(talkDialogues[rnd.Next(0, talkDialogues.Length)]);
         talkButtonClicked = true;
-        
+        maincharacter.GetComponent<MainPlayerStats>().SetFriendliness(maincharacter.GetComponent<MainPlayerStats>().GetFriendliness() + 1);
+
     }
 
     public void Empathsize()
@@ -198,7 +206,14 @@ public class CutSceneManager : MonoBehaviour
         pd = null;
         maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(empathyDialogues[rnd.Next(0, empathyDialogues.Length)]);
         empathize = true;
-        
+        if (empathizeOnFirstCall == 0)
+        {
+            rainController.MakeItStop();
+            faceController.MakeAllCharactersHappy();
+            maincharacter.GetComponent<MainPlayerStats>().SetFriendliness(maincharacter.GetComponent<MainPlayerStats>().GetFriendliness() + 1);
+        }
+        empathizeOnFirstCall = 1;
+
 
         //Destroy(this);
     }
@@ -216,6 +231,8 @@ public class CutSceneManager : MonoBehaviour
         }
         else
         {
+            maincharacter.GetComponent<MainPlayerStats>().SetFriendliness(maincharacter.GetComponent<MainPlayerStats>().GetFriendliness() - 1);
+            faceController.MakeAllCharactersHappy();
             EndScenario();
             /*innerVoiceAnimator.SetBool("isOpen", true);
             StopAllCoroutines();
@@ -232,6 +249,9 @@ public class CutSceneManager : MonoBehaviour
         UIanimator.SetBool("isOpen", false);
         pd = null;
         maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(reportDialogues[rnd.Next(0, reportDialogues.Length)]);
+        maincharacter.GetComponent<MainPlayerStats>().SetStrength(maincharacter.GetComponent<MainPlayerStats>().GetStrength() + 1);
+        rainController.MakeItStop();
+        faceController.MakeAllCharactersHappy();
         Destroy(this);
         //Destroy(this);
     }
@@ -251,7 +271,7 @@ public class CutSceneManager : MonoBehaviour
     void setCharacterPlayable()
     {
         cameraScript.GetComponent<CameraController>().enableCameraMouse();
-        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+        playerControllerScript.enabled = true;
     }
 
     /*IEnumerator TypeSentence(string sentence)
@@ -280,7 +300,7 @@ public class CutSceneManager : MonoBehaviour
 
     public void OpenDecisionCanvas()
     {
-        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
+        playerControllerScript.enabled = false;
         cameraScript.GetComponent<CameraController>().disableCameraMouse();
         DecisionsCanvas.SetActive(true);
         UIanimator.SetBool("isOpen", true);
@@ -288,7 +308,7 @@ public class CutSceneManager : MonoBehaviour
 
     public void EndScenario()
     {
-        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+        playerControllerScript.enabled = true;
         cameraScript.GetComponent<CameraController>().enableCameraMouse();
         Destroy(this);
     }

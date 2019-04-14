@@ -43,14 +43,14 @@ public class RainController : MonoBehaviour
 
     }
 
-    void MakeItRain()
+    public void MakeItRain()
     {
         rainObject.SetActive(true);
         lightning.SetActive(false);
         backgroundMusic.SetActive(false);
     }
 
-    void MakeItStop()
+    public void MakeItStop()
     {
         rainObject.SetActive(false);
         lightning.SetActive(true);
