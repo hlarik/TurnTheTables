@@ -10,8 +10,8 @@ public class MainPlayerStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        friendliness = 5;   //In a scale of 10
-        strength = 5;       //In a scale of 10
+        friendliness = 50;   //In a scale of 100
+        strength = 50;       //In a scale of 100
     }
 
     public void SetFriendliness(int friendliness)
