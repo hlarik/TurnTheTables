@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7120032284970921349}
   - component: {fileID: 7120032284970921338}
   - component: {fileID: 7120032284970921339}
-  - component: {fileID: 6588881391650562220}
+  - component: {fileID: 6345501385857807728}
   m_Layer: 0
   m_Name: FloatingText
   m_TagString: Untagged
@@ -51,7 +51,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8f2e72a6a53904dac8dd5000be29a2f1, type: 3}
+  - {fileID: 2100000, guid: 46bc8dfa094c3414cbf1b9a13766d37a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -87,9 +87,9 @@ TextMesh:
   m_Alignment: 0
   m_TabSize: 4
   m_FontSize: 140
-  m_FontStyle: 3
+  m_FontStyle: 1
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: 8f2e72a6a53904dac8dd5000be29a2f1, type: 3}
+  m_Font: {fileID: 12800000, guid: 46bc8dfa094c3414cbf1b9a13766d37a, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4280612088
@@ -102,11 +102,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7120032284970921337}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eda21fc2e3794a7290d29765c4f402c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f0dc7ecabaa84e9b8a8ef72f193075d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DestroyTime: 3
---- !u!95 &6588881391650562220
+--- !u!95 &6345501385857807728
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ Animator:
   m_GameObject: {fileID: 7120032284970921337}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d7b3453cad3ff4028868c3b86e585a06, type: 2}
+  m_Controller: {fileID: 9100000, guid: c4d902d48f63d4597bb2502cb780bad8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

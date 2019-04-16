@@ -18,7 +18,6 @@ public class BarManager : MonoBehaviour
 
     public GameObject FloatingTextObject;
 
-   
 
     // Start is called before the first frame update
     private void Start()
