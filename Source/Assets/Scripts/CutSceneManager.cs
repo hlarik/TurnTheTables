@@ -98,7 +98,7 @@ public class CutSceneManager : MonoBehaviour
             // Move our position a step closer to the target.
             float step = maincharacter.gameObject.GetComponent<PlayerController>().walkSpeed * Time.deltaTime; // calculate distance to move
             maincharacter.transform.position = Vector3.MoveTowards(maincharacter.transform.position, bullied.transform.position, step);
-            //print("also here?");tr
+            //print("also here?");
             //if enters trigger of target
             if (bullied.gameObject.GetComponent<InteractWithCharacter>().collision)
             {
