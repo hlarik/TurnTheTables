@@ -14,9 +14,8 @@ public class TaskManager : MonoBehaviour
     CanvasGroup cg;
     GameObject FadeManager;
 
-    List<String> texts;
+    string[] texts = new string[20];
     public static int newTask = 0;
-    public static int current_index = 0;
     string path = "Assets/Resources/Tasks/tasks.txt";
 
     // Start is called before the first frame update
@@ -25,7 +24,13 @@ public class TaskManager : MonoBehaviour
         FadeManager = GameObject.Find("FadeManager");
         TaskUI.SetActive(false);
         ReadFileIntoTaskArray();
-        UpdateCompleteness();
+        //AddFirstTasks();
+        //AddNewTask(newTask);
+        //AddNewTask(newTask);
+        //AddNewTask(newTask);
+        //RemoveTask(1);
+        //UpdateTask(0);
+        //UpdateCompleteness();
     }
 
     // Update is called once per frame
@@ -46,16 +51,15 @@ public class TaskManager : MonoBehaviour
 
     }
 
-    //Read all tasks from file and write into the list
     void ReadFileIntoTaskArray()
     {
         StreamReader input_stream = new StreamReader(path);
-        texts = new List<String>();
-  
+        int i = 0;
         while (!input_stream.EndOfStream)
         {
             string line = input_stream.ReadLine();
-            texts.Add(line);
+            texts[i] = line;
+            i++;
         }
 
     }
@@ -68,25 +72,19 @@ public class TaskManager : MonoBehaviour
             tasks[i].text = texts[newTask];
             GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(false);
             newTask++;
-            current_index++;
         }
         GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(7).transform.GetChild(1).gameObject.SetActive(true);
     }
       
     //Add a new task 
-    public void AddNewTask()
+    public void AddNewTask(int index)
     {
-        if(current_index < 10)
-        {
-            tasks[current_index].text = texts[newTask];
-            GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(current_index).transform.GetChild(1).gameObject.SetActive(false);
-            //cg = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetComponent<CanvasGroup>();
-            //FadeManager.GetComponent<FadeManager>().FadeIn(cg);
-            newTask++;
-            current_index++;
-            anim1.SetBool("fadeIn", false);
-        }
-
+        tasks[index].text = texts[newTask];
+        GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetChild(1).gameObject.SetActive(false);
+        //cg = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetComponent<CanvasGroup>();
+        //FadeManager.GetComponent<FadeManager>().FadeIn(cg);
+        newTask++;
+        anim1.SetBool("fadeIn", false);
     }
 
     //Remove a selected task
@@ -96,22 +94,8 @@ public class TaskManager : MonoBehaviour
         {
             tasks[index].text = null;
             GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetChild(1).gameObject.SetActive(false);
-            //AddNewTask();
-
-            for (int i = index; i < current_index; i++)
-            {
-                tasks[i].text = tasks[i + 1].text;
-                bool first = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.GetChild(1).gameObject.activeSelf;
-                bool second = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(i + 1).transform.GetChild(1).gameObject.activeSelf;
-
-                if (first != second)
-                {
-                    GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetChild(1).gameObject.SetActive(second);
-                }
-            }
-            current_index--;
+            AddNewTask(index);
         }
-
     }
 
     //Remove completed tasks
@@ -127,8 +111,7 @@ public class TaskManager : MonoBehaviour
                 //FadeManager.GetComponent<FadeManager>().FadeOut(cg);
                 GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(false);
                 anim1.SetBool("fadeOut", true);
-                current_index--;
-                AddNewTask();
+                AddNewTask(i);
             }
         }
     }
@@ -136,10 +119,7 @@ public class TaskManager : MonoBehaviour
     //Cross check for the completed task
     public void UpdateTask(int index)
     {
-        if(index < current_index)
-        {
-            GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetChild(1).gameObject.SetActive(true);
-        }
+        GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetChild(1).gameObject.SetActive(true);
     }
 
     //Check whether the selected task is completed
