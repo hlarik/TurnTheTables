@@ -19,16 +19,10 @@ public class InteractWithCharacter : MonoBehaviour
 
     private float m_Speed = 0.4f;
     bool turningTowardsMainPlayer = false;
-    bool mainPlayerTurningTowardsNPC = false;
 
     /// <summary>
-    Vector3 delta; //For NPC
-    Vector3 delta_mainCharacter; //For maincharacter
+    Vector3 delta;
     /// </summary>
-    /// 
-
-
-
 
     void Start()
     {
@@ -38,23 +32,19 @@ public class InteractWithCharacter : MonoBehaviour
 
     void Update()
     {
-        if (this.tag != "Player")
+        if (Input.GetKey(KeyCode.E) && collision)
         {
-            if (Input.GetKey(KeyCode.E) && collision)
-            {
-                EPressed();
-            }
+            EPressed();
+        } 
 
-            //Don't stop turning until chaarcter is totally faced
-            if (turningTowardsMainPlayer)
+        //Don't stop turning until chaarcter is totally faced
+        if (turningTowardsMainPlayer)
+        {
+            transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+            if (transform.rotation.eulerAngles == Quaternion.LookRotation(delta).eulerAngles)
             {
-                transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
-                if (transform.rotation.eulerAngles == Quaternion.LookRotation(delta).eulerAngles)
-                {
-                    turningTowardsMainPlayer = false;
-                }
+                turningTowardsMainPlayer = false;
             }
-
         }
 
         
@@ -63,18 +53,15 @@ public class InteractWithCharacter : MonoBehaviour
     public void EPressed()
     {
         //E is pressed so we could close the ui now
-        if (this.tag != "Player")
-        {
-            uiObject.SetActive(false);
+        uiObject.SetActive(false);
 
-            //Start dialogue with that character
-            Interact();
+        //Start dialogue with that character
+        Interact();
 
-            turningTowardsMainPlayer = true;
-            delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
-            transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+        turningTowardsMainPlayer = true;
+        delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
+        transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
 
-        }
     }
 
     public void Interact()
@@ -91,13 +78,10 @@ public class InteractWithCharacter : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (this.tag != "Player")
+        if (other.CompareTag("Player"))
         {
-            if (other.CompareTag("Player"))
-            {
-                collision = true;
-                uiObject.SetActive(true);
-            }
+            collision = true;
+            uiObject.SetActive(true);
         }
     }
 
@@ -112,38 +96,7 @@ public class InteractWithCharacter : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (this.tag != "Player")
-        {
-            collision = false;
-            uiObject.SetActive(false);
-        }
+        collision = false;
+        uiObject.SetActive(false);
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///These will be specific for the user/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public void InnerVoiceDialogue(int status)
-    {
-        if (this.tag == "Player")
-        {
-            //Check if we vd is already assigned, burda bir sorun vaaaaar!!!! cunku zaten dialog varken tekrar cagiriyor
-            if (!VD.isActive)
-            {
-                if (this.GetComponent<VIDE_Assign>() == null)
-                    Debug.Log("No dialogue assigned");
-                else
-                {
-                    NPCDialogue(GetComponent<VIDE_Assign>());
-                    VD.SetNode(status);
-                }
-
-            }
-        }
-    }
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///These will be specific for the user/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
