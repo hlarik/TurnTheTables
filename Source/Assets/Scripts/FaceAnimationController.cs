@@ -48,7 +48,12 @@ public class FaceAnimationController : MonoBehaviour
         for (int characterNum = 0; characterNum < 12; ++characterNum) {
             characterName = characters[characterNum];
             if (GameObject.Find(characterName) != null)
+            {
+                GameObject.Find(characterName).GetComponent<Animator>().SetBool("isSad", false);
+                GameObject.Find(characterName).GetComponent<Animator>().SetBool("isHappy", false);
+                GameObject.Find(characterName).GetComponent<Animator>().SetBool("isShocked", false);
                 GameObject.Find(characterName).GetComponent<Animator>().SetBool("isHappy", true);
+            }
             else
                 Debug.Log("In MakeCharacterHappy - Character with name " + characterName + " doesn't exist in scene");
         }
@@ -61,7 +66,12 @@ public class FaceAnimationController : MonoBehaviour
         {
             characterName = characters[characterNum];
             if (GameObject.Find(characterName) != null)
+            {
+                GameObject.Find(characterName).GetComponent<Animator>().SetBool("isSad", false);
+                GameObject.Find(characterName).GetComponent<Animator>().SetBool("isHappy", false);
+                GameObject.Find(characterName).GetComponent<Animator>().SetBool("isShocked", false);
                 GameObject.Find(characterName).GetComponent<Animator>().SetBool("isSad", true);
+            }
             else
                 Debug.Log("In MakeCharacterHappy - Character with name " + characterName + " doesn't exist in scene");
         }
@@ -74,7 +84,12 @@ public class FaceAnimationController : MonoBehaviour
         {
             characterName = characters[characterNum];
             if (GameObject.Find(characterName) != null)
+            {
+                GameObject.Find(characterName).GetComponent<Animator>().SetBool("isSad", false);
+                GameObject.Find(characterName).GetComponent<Animator>().SetBool("isHappy", false);
+                GameObject.Find(characterName).GetComponent<Animator>().SetBool("isShocked", false);
                 GameObject.Find(characterName).GetComponent<Animator>().SetBool("isShocked", true);
+            }
             else
                 Debug.Log("In MakeCharacterHappy - Character with name " + characterName + " doesn't exist in scene");
         }

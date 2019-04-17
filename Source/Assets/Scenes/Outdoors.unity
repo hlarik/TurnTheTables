@@ -38289,26 +38289,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Violet_With_Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
-        type: 3}
-      propertyPath: far clip plane
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
-        type: 3}
-      propertyPath: field of view
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
-        type: 3}
-      propertyPath: orthographic size
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 2228071201233637815, guid: 3f02af34cd94eff4f893dd725cfd10b8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38403,6 +38383,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
+        type: 3}
+      propertyPath: far clip plane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
+        type: 3}
+      propertyPath: field of view
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3596339419820185450, guid: 3f02af34cd94eff4f893dd725cfd10b8,
+        type: 3}
+      propertyPath: orthographic size
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1531006158954594204, guid: 3f02af34cd94eff4f893dd725cfd10b8,
         type: 3}
@@ -48487,6 +48487,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9167178093576210085, guid: 97c6e2e5587c3124ea480d9ee2ddcc4b,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 9167178095434494583, guid: 97c6e2e5587c3124ea480d9ee2ddcc4b,
         type: 3}
       propertyPath: m_IsActive
@@ -49651,11 +49656,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9167178093576210085, guid: 97c6e2e5587c3124ea480d9ee2ddcc4b,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97c6e2e5587c3124ea480d9ee2ddcc4b, type: 3}
