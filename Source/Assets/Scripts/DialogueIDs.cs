@@ -129,19 +129,59 @@ public class DialogueIDs : MonoBehaviour
                 tempInt.Add(Int32.Parse(inp_ln));
             }
         }
+        inp_stm.Close();
+    }
 
-        foreach(AllDialogues i in allDialogues)
+    public List<int> GetBadDialogues(string dialogueName)
+    {
+        foreach (AllDialogues dialogue in allDialogues)
         {
-            Debug.Log("scenario name " + i.dialogueName);
-            foreach (int a in i.badDialogues)
-                Debug.Log("Bad dialogues = " + a);
-            foreach (int a in i.ignoredDialogues)
-                Debug.Log("Ignore dialogues = " + a);
-            foreach (int a in i.goodDialogues)
-                Debug.Log("Good dialogues = " + a);
+            if (dialogue.dialogueName == dialogueName)
+            {
+                return dialogue.badDialogues;
+            }
         }
 
-        inp_stm.Close();
+        return null;
+    }
+
+    public List<int> GetIgnoredDialogues(string dialogueName)
+    {
+        foreach (AllDialogues dialogue in allDialogues)
+        {
+            if (dialogue.dialogueName == dialogueName)
+            {
+                return dialogue.ignoredDialogues;
+            }
+        }
+
+        return null;
+    }
+
+    public List<int> GetGoodDialogues(string dialogueName)
+    {
+        foreach (AllDialogues dialogue in allDialogues)
+        {
+            if (dialogue.dialogueName == dialogueName)
+            {
+                return dialogue.goodDialogues;
+            }
+        }
+
+        return null;
+    }
+
+    public bool DialogueExists(string dialogueName)
+    {
+        foreach (SelectedDialogueID dialogue in dialogues)
+        {
+            if (dialogue.dialogueName == dialogueName)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void AddDialogue(string name)
@@ -159,7 +199,7 @@ public class DialogueIDs : MonoBehaviour
         temp.dialogueName = name;
         temp.ids = new List<int>();
         dialogues.Add(temp);
-        //Debug.Log(name + " added");
+        Debug.Log(name + " added");
     }
 
     public void AddDialogueID(string name, int ID)
@@ -186,12 +226,22 @@ public class DialogueIDs : MonoBehaviour
     {
         foreach (SelectedDialogueID dialogue in dialogues)
         {
-            if (dialogue.dialogueName == name)
+            if (dialogue.dialogueName == dialogueName)
             {
                 return dialogue.ids;
             }
         }
-        //Debug.Log("dialogue with name " + dialogueName + " doesn't exist");
         return null;
     } 
+
+    public void DeleteDialogue(string dialogueName)
+    {
+        foreach (SelectedDialogueID dialogue in dialogues)
+        {
+            if (dialogue.dialogueName == dialogueName)
+            {
+                dialogues.Remove(dialogue);
+            }
+        }
+    }
 }

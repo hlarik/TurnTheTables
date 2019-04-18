@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
         //DontDestroyOnLoad(this);
         transform.SetParent(this.transform, true);
         //Load data from Global control object TODO
@@ -30,6 +29,7 @@ public class PlayerController : MonoBehaviour
          * */
         animator = GetComponent<Animator>();
         cameraT = Camera.main.transform;
+        //animator.SetBool("isSad", true);
 
         //Set cameras accordingly
         if (GameObject.Find("CinemachineVirtualCameras") != null)
