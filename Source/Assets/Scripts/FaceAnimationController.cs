@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FaceAnimationController : MonoBehaviour
 {
-    string[] characters = {"Violet", "MsSusan", "MrNoah", "Maya" , "Matt", "Madison", "Liam", "Jannet" , "Felix", "Ethan", "Emily", "Andrew"};
+    string[] characters = { "Violet", "MsSusan", "MrNoah", "Maya", "Matt", "Madison", "Liam", "Jannet", "Felix", "Ethan", "Emily", "Andrew" };
 
     public void MakeCharacterHappy(string characterName)
     {
@@ -45,7 +45,8 @@ public class FaceAnimationController : MonoBehaviour
     public void MakeAllCharactersHappy()
     {
         string characterName = "Violet";
-        for (int characterNum = 0; characterNum < 12; ++characterNum) {
+        for (int characterNum = 0; characterNum < 12; ++characterNum)
+        {
             characterName = characters[characterNum];
             if (GameObject.Find(characterName) != null)
             {

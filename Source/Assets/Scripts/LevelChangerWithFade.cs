@@ -37,6 +37,6 @@ public class LevelChangerWithFade : MonoBehaviour
         {
             SceneManager.LoadScene(changeToScene);
         }
-        
+
     }
 }

@@ -41,7 +41,7 @@ public class TaskManager : MonoBehaviour
 
     void FindImages()
     {
-        for(int i = 0; i < tasks.Length; i++)
+        for (int i = 0; i < tasks.Length; i++)
         {
             images[i] = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.GetChild(1).gameObject;
             images[i].SetActive(false);
@@ -58,7 +58,7 @@ public class TaskManager : MonoBehaviour
         if (TaskUI.activeSelf)
         {
             Time.timeScale = 0;
-        } 
+        }
         else
         {
             Time.timeScale = 1;
@@ -71,7 +71,7 @@ public class TaskManager : MonoBehaviour
     {
         StreamReader input_stream = new StreamReader(path);
         texts = new List<String>();
-  
+
         while (!input_stream.EndOfStream)
         {
             string line = input_stream.ReadLine();
@@ -83,7 +83,7 @@ public class TaskManager : MonoBehaviour
     //Add first tasks
     public void AddFirstTasks()
     {
-        for( int i = 0; i < tasks.Length; i++)
+        for (int i = 0; i < tasks.Length; i++)
         {
             tasks[i].text = texts[newTask];
             images[i].SetActive(false);
@@ -91,11 +91,11 @@ public class TaskManager : MonoBehaviour
             current_index++;
         }
     }
-      
+
     //Add a new task 
     public void AddNewTask(string taskExplanation)
     {
-        if(current_index < 10)
+        if (current_index < 10)
         {
             tasks[current_index].text = taskExplanation;
             images[current_index].SetActive(false);
@@ -112,7 +112,7 @@ public class TaskManager : MonoBehaviour
     public void RemoveTask(string explanation)
     {
         int index = GetIndexOfTask(explanation);
-        if( tasks[index].text != null)
+        if (tasks[index].text != null)
         {
             tasks[index].text = null;
             images[index].SetActive(false);
@@ -122,7 +122,7 @@ public class TaskManager : MonoBehaviour
             {
                 tasks[i].text = tasks[i + 1].text;
                 bool first = images[i].activeSelf;
-                bool second = images[i+1].activeSelf;
+                bool second = images[i + 1].activeSelf;
 
                 if (first != second)
                 {
@@ -136,7 +136,7 @@ public class TaskManager : MonoBehaviour
     //Remove completed tasks
     public void RemoveTasks()
     {
-        for( int i = 0; i < tasks.Length; i++)
+        for (int i = 0; i < tasks.Length; i++)
         {
             if (images[i].activeSelf)
             {
@@ -154,7 +154,7 @@ public class TaskManager : MonoBehaviour
     public int GetIndexOfTask(string taskExplanation)
     {
         int found = -1;
-        for(int i = 0; i < tasks.Length; ++i)
+        for (int i = 0; i < tasks.Length; ++i)
         {
             if (tasks[i].text == taskExplanation)
                 found = i;
@@ -197,7 +197,7 @@ public class TaskManager : MonoBehaviour
                 }
             }
         }
-        double temp =  (completed / total) * 100;
+        double temp = (completed / total) * 100;
         completeness.text = temp + "% Complete";
     }
 }

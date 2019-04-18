@@ -12,7 +12,7 @@ public class MusicController : MonoBehaviour
     {
         TrackSelector = Random.Range(0, 3);
 
-        if(TrackSelector == 0)
+        if (TrackSelector == 0)
         {
             Track1.Play();
             TrackHistory = 1;
@@ -33,7 +33,7 @@ public class MusicController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Track1.isPlaying == false && Track2.isPlaying == false && Track3.isPlaying == false)
+        if (Track1.isPlaying == false && Track2.isPlaying == false && Track3.isPlaying == false)
         {
             TrackSelector = Random.Range(0, 3);
 

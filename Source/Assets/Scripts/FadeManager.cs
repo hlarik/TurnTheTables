@@ -38,7 +38,7 @@ public class FadeManager : MonoBehaviour
             cg.alpha = f;
             yield return new WaitForSeconds(0.05f);
         }
-        
+
     }
 
     public IEnumerator StartFadingOut(CanvasGroup cg)

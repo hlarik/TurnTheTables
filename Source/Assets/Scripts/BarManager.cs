@@ -18,7 +18,7 @@ public class BarManager : MonoBehaviour
 
     public GameObject FloatingTextObject;
 
-   
+
 
     // Start is called before the first frame update
     private void Start()
@@ -53,7 +53,7 @@ public class BarManager : MonoBehaviour
     public void IncreaseFriendliness()
     {
         currentScoreFr += hitPoint;
-        if(currentScoreFr > maxPoint)
+        if (currentScoreFr > maxPoint)
         {
             currentScoreFr = maxPoint;
         }
@@ -103,7 +103,7 @@ public class BarManager : MonoBehaviour
 
         if (FloatingTextObject)
         {
-             ShowFloatingText(true);
+            ShowFloatingText(true);
         }
 
     }

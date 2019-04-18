@@ -13,16 +13,12 @@ public class ChairTrigger : MonoBehaviour
     bool collision;
 
     private GameObject cameraScript;
-
-    double distance = 1;
     Animator anim;
-
-    string state = "";
-    public GameObject moveSpot;
+ /* public GameObject moveSpot;
     int curMS = 0;
     public float rotSpeed = 0.2f;
     public float speed = 1.5f;
-    float accuracyMS = 0.01f;
+    float accuracyMS = 0.01f;*/
     PlayableDirector pd;
 
     bool hasPlayed = false;
@@ -48,7 +44,7 @@ public class ChairTrigger : MonoBehaviour
             uiObject.SetActive(false);
             GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
             cameraScript.GetComponent<CameraController>().disableCameraMouse();
-            state = "isStanding";
+            //state = "isStanding";
             if (pd != null)
             {
                 pd.Play();

@@ -12,7 +12,7 @@ public class RainController : MonoBehaviour
     private GameObject backgroundMusic;
     public GameObject player;
 
- 
+
     //For testing purposes
     public void OnTriggerEnter(Collider other)
     {
@@ -35,7 +35,7 @@ public class RainController : MonoBehaviour
         {
             if (t.name == "Rain")
             {
-                 rainObject = t.gameObject;
+                rainObject = t.gameObject;
             }
         }
         /////////////////

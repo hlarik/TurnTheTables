@@ -30,12 +30,26 @@ public class DialogueManager : MonoBehaviour
 
     string currentDialogueName;
 
+    bool openAgaian;
+    DialogueDecisionMaker dialogueEventHandler;
+    PlayerController PlayerControllerScript;
+    DialogueDecisionMaker postCutSceneDecisionMakerScript;
+    FaceAnimationController faceControllerScript;
+    RainController rainScript;
+    int prevID;     //This is for when increasing strength and friendliness, so it doesnt count the same id twice
+
     private void Start()
     {
         DialogueIDManager = GameObject.Find("DialogueIDManager");
         cameraScript = Camera.main.gameObject;
         DialogueUI.SetActive(false);
         currentDialogueName = "";
+        openAgaian = true;
+        dialogueEventHandler = GameObject.Find("PostDialogueEventHandler").GetComponent<DialogueDecisionMaker>();
+        PlayerControllerScript = GameObject.Find("Violet").GetComponent<PlayerController>();
+        postCutSceneDecisionMakerScript = GameObject.Find("PostDialogueEventHandler").GetComponent<DialogueDecisionMaker>();
+        faceControllerScript = new FaceAnimationController();
+        rainScript = GameObject.Find("RainParent").GetComponent<RainController>();
     }
 
     private void OnEnable()
@@ -53,7 +67,7 @@ public class DialogueManager : MonoBehaviour
         {
             EndDialogue(null);
         }
-        
+
         /*VD.OnNodeChange -= UpdateUI;
         //VD.OnEnd -= EndDialogue;
         VD.EndDialogue();*/
@@ -64,9 +78,10 @@ public class DialogueManager : MonoBehaviour
         if (VD.isActive)
         {
             //aklimiza gelirse duzletelim
-            if(Input.GetKeyDown(KeyCode.Space) && !VD.nodeData.isPlayer)
+            if (Input.GetKeyDown(KeyCode.Space) && !VD.nodeData.isPlayer)
             {
                 VD.Next();
+                //VD.SetNode(0); //directly pass to node bilmem kac
             }
         }
     }
@@ -76,18 +91,30 @@ public class DialogueManager : MonoBehaviour
     {
         //When dialogue starts diable camera movement and character movement
         cameraScript.GetComponent<CameraController>().disableCameraMouse();
-        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
 
+        if( PlayerControllerScript != null  )
+            PlayerControllerScript.enabled = false;
         currentDialogueName = npcDialogue.assignedDialogue;
-        DialogueIDManager.GetComponent<DialogueIDs>().AddDialogue(currentDialogueName);
+        
+        //If dialogue already exists
+      //  if ( !DialogueIDManager.GetComponent<DialogueIDs>().DialogueExists(currentDialogueName) )
+   //         DialogueIDManager.GetComponent<DialogueIDs>().AddDialogue(currentDialogueName);
+
+        Debug.Log("sth here1");
 
         VD.OnNodeChange += UpdateUI;
+
+        Debug.Log("sth here1");
+
         VD.BeginDialogue(npcDialogue);
+
+        Debug.Log("sth here2");
+
         VD.OnEnd += EndDialogue;
         DialogueUI.SetActive(true);
         animator.SetBool("isOpen", true);
 
-        
+
 
         //Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAspeaking" + npcDialogue.tag);
 
@@ -98,11 +125,45 @@ public class DialogueManager : MonoBehaviour
     void UpdateUI(VD.NodeData data)
     {
         NPCname.text = data.tag;
+
+
+        //Make deciisons according to the player's actions
+        if (data != null &&
+            DialogueIDManager.GetComponent<DialogueIDs>().GetBadDialogues(currentDialogueName) != null &&
+            DialogueIDManager.GetComponent<DialogueIDs>().GetIgnoredDialogues(currentDialogueName) != null &&
+            DialogueIDManager.GetComponent<DialogueIDs>().GetGoodDialogues(currentDialogueName) != null &&
+            prevID != data.nodeID)
+        //!DialogueIDManager.GetComponent<DialogueIDs>().GetDialogueIDs(currentDialogueName).Contains(data.nodeID))
+        {
+            prevID = data.nodeID;
+            if (DialogueIDManager.GetComponent<DialogueIDs>().GetBadDialogues(currentDialogueName).Contains(data.nodeID))
+            {
+                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() - 1);
+                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetFriendliness(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness() - 1);
+                Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
+                Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
+            }
+            if (DialogueIDManager.GetComponent<DialogueIDs>().GetIgnoredDialogues(currentDialogueName).Contains(data.nodeID))
+            {
+                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() - 1);
+                Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
+                Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
+            }
+            if (DialogueIDManager.GetComponent<DialogueIDs>().GetGoodDialogues(currentDialogueName).Contains(data.nodeID))
+            {
+                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() + 1);
+                Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
+                Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
+                rainScript.MakeItStop();
+                faceControllerScript.MakeAllCharactersHappy();
+            }
+        }
+
         DialogueIDManager.GetComponent<DialogueIDs>().AddDialogueID(currentDialogueName, data.nodeID);
 
         if (data.tag == "Violet")
         {
-            rawImageCamera = (Camera) GameObject.FindGameObjectWithTag("Player").transform.Find("frontcamera").gameObject.GetComponent<Camera>();
+            rawImageCamera = (Camera)GameObject.FindGameObjectWithTag("Player").transform.Find("frontcamera").gameObject.GetComponent<Camera>();
         }
         else
         {
@@ -159,11 +220,23 @@ public class DialogueManager : MonoBehaviour
         VD.OnEnd -= EndDialogue;
         VD.EndDialogue();
 
-        cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        if (cameraScript != null)
+            cameraScript.GetComponent<CameraController>().enableCameraMouse();
+
         animator.SetBool("isOpen", false);
-        GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+        if (PlayerControllerScript != null)
+            PlayerControllerScript.enabled = true;
         DialogueUI.SetActive(false);
 
+        CheckDialogueEndStatus(currentDialogueName);
+
+        //If bad deciisons were made during the dialogue
+        if (postCutSceneDecisionMakerScript.NumOfBadIds(currentDialogueName) > 0)
+        {
+            faceControllerScript.MakeAllCharactersSad();
+            rainScript.MakeItRain();
+            DialogueIDManager.GetComponent<DialogueIDs>().DeleteDialogue(currentDialogueName);
+        }
         currentDialogueName = "";
     }
 
@@ -183,6 +256,24 @@ public class DialogueManager : MonoBehaviour
         {
             NPCmessage.text += letter;
             yield return null;
+        }
+    }
+
+    //Check what to do after dialogue
+    public void CheckDialogueEndStatus(string dialogueName)
+    {
+        if (dialogueName == "InnerVoiceFeedback")
+        {
+            if (VD.isActive) //??
+            {
+                if (openAgaian && VD.nodeData.nodeID == 0) //If it is the ignore case
+                    GameObject.Find("CutSceneTrigger_1").GetComponent<CutSceneManager>().OpenDecisionCanvas();
+
+                if (VD.nodeData.nodeID == 0)
+                {
+                    openAgaian = !openAgaian;
+                }
+            }
         }
     }
 }

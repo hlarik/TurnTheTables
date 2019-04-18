@@ -20,7 +20,7 @@ public class LevelControl : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.E) && collision )
+        if (Input.GetKey(KeyCode.E) && collision)
         {
             //Eger scenede yoksa onlem olarak koyuyorum 
             if (SceneChangerScript != null)
@@ -39,7 +39,7 @@ public class LevelControl : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") )
+        if (other.CompareTag("Player"))
         {
             collision = true;
             uiObject.SetActive(true);
