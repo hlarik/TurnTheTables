@@ -6,46 +6,31 @@ using System.IO;
 using System;
 
 public class TaskManager : MonoBehaviour
-{
-
-    /*public struct Tasks
-    {
-        public string taskName;
-        public int taskIndex;
-    }*/
-
+{  
     public GameObject TaskUI;
     public Text[] tasks;
-    //public Tasks[] tasksInfo;
-    //public Animator anim1;
+    public Animator anim1;
     public Text completeness;
     CanvasGroup cg;
     GameObject FadeManager;
 
-    List<String> texts;
+    string[] texts = new string[20];
     public static int newTask = 0;
-    public static int current_index = 0;
     string path = "Assets/Resources/Tasks/tasks.txt";
-    GameObject[] images = new GameObject[10];
 
     // Start is called before the first frame update
     void Start()
     {
-        FindImages();
         FadeManager = GameObject.Find("FadeManager");
         TaskUI.SetActive(false);
-        //ReadFileIntoTaskArray();
-        UpdateCompleteness();
-
-    }
-
-    void FindImages()
-    {
-        for(int i = 0; i < tasks.Length; i++)
-        {
-            images[i] = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.GetChild(1).gameObject;
-            images[i].SetActive(false);
-        }
+        ReadFileIntoTaskArray();
+        //AddFirstTasks();
+        //AddNewTask(newTask);
+        //AddNewTask(newTask);
+        //AddNewTask(newTask);
+        //RemoveTask(1);
+        //UpdateTask(0);
+        //UpdateCompleteness();
     }
 
     // Update is called once per frame
@@ -66,16 +51,15 @@ public class TaskManager : MonoBehaviour
 
     }
 
-    //Read all tasks from file and write into the list
     void ReadFileIntoTaskArray()
     {
         StreamReader input_stream = new StreamReader(path);
-        texts = new List<String>();
-  
+        int i = 0;
         while (!input_stream.EndOfStream)
         {
             string line = input_stream.ReadLine();
-            texts.Add(line);
+            texts[i] = line;
+            i++;
         }
 
     }
@@ -86,50 +70,31 @@ public class TaskManager : MonoBehaviour
         for( int i = 0; i < tasks.Length; i++)
         {
             tasks[i].text = texts[newTask];
-            images[i].SetActive(false);
+            GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(false);
             newTask++;
-            current_index++;
         }
+        GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(7).transform.GetChild(1).gameObject.SetActive(true);
     }
       
     //Add a new task 
-    public void AddNewTask(string taskExplanation)
+    public void AddNewTask(int index)
     {
-        if(current_index < 10)
-        {
-            tasks[current_index].text = taskExplanation;
-            images[current_index].SetActive(false);
-            //cg = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetComponent<CanvasGroup>();
-            //FadeManager.GetComponent<FadeManager>().FadeIn(cg);
-            //newTask++;
-            current_index++;
-            //anim1.SetBool("fadeIn", false);
-        }
-
+        tasks[index].text = texts[newTask];
+        GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetChild(1).gameObject.SetActive(false);
+        //cg = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetComponent<CanvasGroup>();
+        //FadeManager.GetComponent<FadeManager>().FadeIn(cg);
+        newTask++;
+        anim1.SetBool("fadeIn", false);
     }
 
     //Remove a selected task
-    public void RemoveTask(string explanation)
+    public void RemoveTask(int index)
     {
-        int index = GetIndexOfTask(explanation);
         if( tasks[index].text != null)
         {
             tasks[index].text = null;
-            images[index].SetActive(false);
-            //AddNewTask();
-
-            for (int i = index; i < current_index; i++)
-            {
-                tasks[i].text = tasks[i + 1].text;
-                bool first = images[i].activeSelf;
-                bool second = images[i+1].activeSelf;
-
-                if (first != second)
-                {
-                    images[i].SetActive(second);
-                }
-            }
-            current_index--;
+            GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetChild(1).gameObject.SetActive(false);
+            AddNewTask(index);
         }
     }
 
@@ -138,66 +103,44 @@ public class TaskManager : MonoBehaviour
     {
         for( int i = 0; i < tasks.Length; i++)
         {
-            if (images[i].activeSelf)
+            if (GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.GetChild(1).gameObject.activeSelf)
             {
                 //firstly, remove the task by animation slowly
                 //then, add new task in place of removed one
                 //cg = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.GetComponent<CanvasGroup>();
                 //FadeManager.GetComponent<FadeManager>().FadeOut(cg);
-                images[i].SetActive(false);
-                //anim1.SetBool("fadeOut", true);
-                current_index--;
+                GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(false);
+                anim1.SetBool("fadeOut", true);
+                AddNewTask(i);
             }
         }
     }
 
-    public int GetIndexOfTask(string taskExplanation)
-    {
-        int found = -1;
-        for(int i = 0; i < tasks.Length; ++i)
-        {
-            if (tasks[i].text == taskExplanation)
-                found = i;
-        }
-        return found;
-    }
-
     //Cross check for the completed task
-    public void UpdateTask(string taskExplanation)
+    public void UpdateTask(int index)
     {
-        int index = GetIndexOfTask(taskExplanation);
-        if (index < current_index)
-        {
-            images[index].SetActive(true);
-        }
-        UpdateCompleteness();
+        GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetChild(1).gameObject.SetActive(true);
     }
 
     //Check whether the selected task is completed
     public bool CheckCompleteness(int index)
     {
-        return images[index].activeSelf;
+        return GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetChild(1).gameObject.activeSelf;
     }
 
     //Update the percent of completed tasks
     public void UpdateCompleteness()
     {
         double completed = 0;
-        double total = 0;
 
         for (int i = 0; i < tasks.Length; i++)
         {
-            if (tasks[i].text != "")
+            if (CheckCompleteness(i))
             {
-                total++;
-                Debug.Log("total=" + total);
-                if (CheckCompleteness(i))
-                {
-                    completed++;
-                }
+                completed++;
             }
         }
-        double temp =  (completed / total) * 100;
+        double temp =  (completed / (double) tasks.Length) * 100;
         completeness.text = temp + "% Complete";
     }
 }
