@@ -232,7 +232,11 @@ public class DialogueIDs : MonoBehaviour
             }
         }
         return null;
+<<<<<<< HEAD
     }
+=======
+    } 
+>>>>>>> parent of fed4654... Revert "Merge branch 'master' of https://github.com/hlarik/TurnTheTables"
 
     public void DeleteDialogue(string dialogueName)
     {
