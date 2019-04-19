@@ -43,12 +43,12 @@ public class DialogueIDs : MonoBehaviour
 
     void Start()
     {
-        GameObject.Find("TaskManager").GetComponent<TaskManager>().AddNewTask("report to an adult");
+        /*GameObject.Find("TaskManager").GetComponent<TaskManager>().AddNewTask("report to an adult");
         GameObject.Find("TaskManager").GetComponent<TaskManager>().UpdateTask("report to an adult");
         GameObject.Find("TaskManager").GetComponent<TaskManager>().AddNewTask("talk");
         GameObject.Find("TaskManager").GetComponent<TaskManager>().AddNewTask("walk");
         GameObject.Find("TaskManager").GetComponent<TaskManager>().RemoveTask("talk");
-        GameObject.Find("TaskManager").GetComponent<TaskManager>().UpdateTask("walk");
+        GameObject.Find("TaskManager").GetComponent<TaskManager>().UpdateTask("walk");*/
         /*linesInFile = TextFile.text.Split('\n');
         Debug.Log(TextFile.text);*/
         if (Instance == null)

@@ -9,7 +9,11 @@ public class FaceAnimationController : MonoBehaviour
     public void MakeCharacterHappy(string characterName)
     {
         if (GameObject.Find(characterName) != null)
+        {
+            GameObject.Find(characterName).GetComponent<Animator>().SetBool("isShocked", false);
+            GameObject.Find(characterName).GetComponent<Animator>().SetBool("isSad", false);
             GameObject.Find(characterName).GetComponent<Animator>().SetBool("isHappy", true);
+        }
         else
             Debug.Log("In MakeCharacterHappy - Character with name " + characterName + " doesn't exist in scene");
     }
@@ -17,17 +21,25 @@ public class FaceAnimationController : MonoBehaviour
     public void MakeCharacterSad(string characterName)
     {
         if (GameObject.Find(characterName) != null)
+        {
+            GameObject.Find(characterName).GetComponent<Animator>().SetBool("isHappy", false);
+            GameObject.Find(characterName).GetComponent<Animator>().SetBool("isShocked", false);
             GameObject.Find(characterName).GetComponent<Animator>().SetBool("isSad", true);
+        }
         else
-            Debug.Log("In MakeCharacterHappy - Character with name " + characterName + " doesn't exist in scene");
+            Debug.Log("In MakeCharacterSad - Character with name " + characterName + " doesn't exist in scene");
     }
 
     public void MakeCharacterShocked(string characterName)
     {
         if (GameObject.Find(characterName) != null)
+        {
+            GameObject.Find(characterName).GetComponent<Animator>().SetBool("isSad", false);
+            GameObject.Find(characterName).GetComponent<Animator>().SetBool("isHappy", false);
             GameObject.Find(characterName).GetComponent<Animator>().SetBool("isShocked", true);
+        }
         else
-            Debug.Log("In MakeCharacterHappy - Character with name " + characterName + " doesn't exist in scene");
+            Debug.Log("In MakeCharacterShocked - Character with name " + characterName + " doesn't exist in scene");
     }
 
     public void MakeCharacterNormal(string characterName)
@@ -39,7 +51,7 @@ public class FaceAnimationController : MonoBehaviour
             GameObject.Find(characterName).GetComponent<Animator>().SetBool("isShocked", false);
         }
         else
-            Debug.Log("In MakeCharacterHappy - Character with name " + characterName + " doesn't exist in scene");
+            Debug.Log("In MakeCharacterNormal - Character with name " + characterName + " doesn't exist in scene");
     }
 
     public void MakeAllCharactersHappy()
@@ -74,7 +86,7 @@ public class FaceAnimationController : MonoBehaviour
                 GameObject.Find(characterName).GetComponent<Animator>().SetBool("isSad", true);
             }
             else
-                Debug.Log("In MakeCharacterHappy - Character with name " + characterName + " doesn't exist in scene");
+                Debug.Log("In MakeCharacterSad - Character with name " + characterName + " doesn't exist in scene");
         }
     }
 
@@ -92,7 +104,7 @@ public class FaceAnimationController : MonoBehaviour
                 GameObject.Find(characterName).GetComponent<Animator>().SetBool("isShocked", true);
             }
             else
-                Debug.Log("In MakeCharacterHappy - Character with name " + characterName + " doesn't exist in scene");
+                Debug.Log("In MakeCharacterShocked - Character with name " + characterName + " doesn't exist in scene");
         }
     }
 
@@ -109,7 +121,7 @@ public class FaceAnimationController : MonoBehaviour
                 GameObject.Find(characterName).GetComponent<Animator>().SetBool("isShocked", false);
             }
             else
-                Debug.Log("In MakeCharacterHappy - Character with name " + characterName + " doesn't exist in scene");
+                Debug.Log("In MakeCharacterNormal - Character with name " + characterName + " doesn't exist in scene");
         }
     }
 }

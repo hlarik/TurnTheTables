@@ -46,16 +46,21 @@ public class DialogueDecisionMaker : MonoBehaviour
 
     public int NumOfBadIds(string dialogueName)
     {
-        List<int> badIds = dialogueIDManager.GetBadDialogues(dialogueName);     //The original ignroed data in this dialogue
+        List<int> badIds = dialogueIDManager.GetBadDialogues(dialogueName);         //The original ignroed data in this dialogue
         List<int> selectedIds = dialogueIDManager.GetDialogueIDs(dialogueName);         //This is the one selected by the player
         int badIdNum = 0;
-        foreach (int id in selectedIds)
+        Debug.Log("Entered here " + dialogueName);
+        if (badIds != null && selectedIds != null)
         {
-            if (badIds.Contains(id))
+            foreach (int id in selectedIds)
             {
-                badIdNum++;
+                if (badIds.Contains(id))
+                {
+                    badIdNum++;
+                }
             }
         }
+        Debug.Log("Entered here " + dialogueName + "Bad id's: " + badIdNum);
         return badIdNum;
     }
 
