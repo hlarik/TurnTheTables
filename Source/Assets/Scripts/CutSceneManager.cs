@@ -28,6 +28,7 @@ public class CutSceneManager : MonoBehaviour
     PlayerController playerControllerScript;
     RainController rainController;
     FaceAnimationController faceController;
+    TaskManager TaskManagerScript;
 
 
     //UI eleements
@@ -36,6 +37,7 @@ public class CutSceneManager : MonoBehaviour
     //Empathy Camera
     public Camera empathyCamera;
     public Camera mainCamera;
+    LevelChangerWithFade empathyFadeInandOut;      // for empathy fade animation 
 
     //To turn character towards the npc she wants to talk to 
     Vector3 delta;
@@ -70,7 +72,8 @@ public class CutSceneManager : MonoBehaviour
         ChangeToMainCamera();
         againIgnore = true;
         rnd = new System.Random();
-
+        empathyFadeInandOut = GameObject.Find("BlackFade").GetComponent<LevelChangerWithFade>();
+        TaskManagerScript = GameObject.Find("TaskManager").GetComponent<TaskManager>();
         //empathyCamera = bullied.transform.Find("EmpathyCamera").GetComponent<Camera>();
         //Debug.Log("aklsdj  ===   " + maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(15));
         //virtualCam = GameObject.Find("CinemachineVirtualCameras");
@@ -144,14 +147,16 @@ public class CutSceneManager : MonoBehaviour
 
         if (empathyButtonClicked && !VD.isActive)
         {
-            pdEmpathy = timeline.GetComponent<PlayableDirector>();
-            if (pdEmpathy != null)
-            {
+            //pdEmpathy = timeline.GetComponent<PlayableDirector>();
+            empathyFadeInandOut.empathyFade();
+            //if (pdEmpathy != null)
+           //{
                 playerControllerScript.enabled = false;
                 cameraScript.GetComponent<CameraController>().disableCameraMouse();
-                ChangeToEmpathyCamera();
-                pdEmpathy.Play();
-            }
+               // ChangeToEmpathyCamera();
+                Invoke("callEmpathyScene", 1.2f);
+                //pdEmpathy.Play();
+            //}
             empathyButtonClicked = false;
         }
 
@@ -159,7 +164,6 @@ public class CutSceneManager : MonoBehaviour
         {
             OpenDecisionCanvas();
             ignoreButtonClicked = false;
-
         }
 
         if (talkButtonClicked && !VD.isActive)
@@ -167,6 +171,15 @@ public class CutSceneManager : MonoBehaviour
             talkButtonClicked = false;
             playerMoveTowardTarget = true;
         }
+    }
+
+    public void callEmpathyScene()
+    {
+        pdEmpathy = timeline.GetComponent<PlayableDirector>();
+        playerControllerScript.enabled = false;
+        cameraScript.GetComponent<CameraController>().disableCameraMouse();
+        ChangeToEmpathyCamera();
+        pdEmpathy.Play();
     }
 
     public void OnTriggerEnter(Collider other)
@@ -233,7 +246,7 @@ public class CutSceneManager : MonoBehaviour
         else
         {
             maincharacter.GetComponent<MainPlayerStats>().SetFriendliness(maincharacter.GetComponent<MainPlayerStats>().GetFriendliness() - 1);
-            faceController.MakeAllCharactersHappy();
+            faceController.MakeAllCharactersSad();
             EndScenario();
             /*innerVoiceAnimator.SetBool("isOpen", true);
             StopAllCoroutines();
@@ -251,6 +264,7 @@ public class CutSceneManager : MonoBehaviour
         pd = null;
         maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(reportDialogues[rnd.Next(0, reportDialogues.Length)]);
         maincharacter.GetComponent<MainPlayerStats>().SetStrength(maincharacter.GetComponent<MainPlayerStats>().GetStrength() + 1);
+        TaskManagerScript.AddNewTask("Report-Andrew-Matt");
         rainController.MakeItStop();
         faceController.MakeAllCharactersHappy();
         Destroy(this);

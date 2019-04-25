@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VIDE_Data;
+using System;
 
 public class InteractWithCharacter : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class InteractWithCharacter : MonoBehaviour
     bool turningTowardsMainPlayer = false;
     bool mainPlayerTurningTowardsNPC = false;
     bool ePressed = false;
+
+    //Burda artik cok caresisim 
+    bool hasReachedAtLast = false;
+    bool VDwasActive = false;
 
     /// <summary>
     Vector3 delta; //For NPC
@@ -42,37 +47,59 @@ public class InteractWithCharacter : MonoBehaviour
             {
                 EPressed();
             }
-
             //Don't stop turning until chaarcter is totally faced
             if (turningTowardsMainPlayer)
             {
                 transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
-                if (transform.rotation.eulerAngles == Quaternion.LookRotation(delta).eulerAngles)
+                if (transform.rotation.eulerAngles == Quaternion.LookRotation(delta).eulerAngles || transform.rotation.eulerAngles.Equals(Quaternion.LookRotation(delta).eulerAngles))
                 {
                     turningTowardsMainPlayer = false;
+                    hasReachedAtLast = true;
                     ePressed = false;
                 }
             }
 
         }
-        if((this.tag == "Ms. Susan" || this.tag == "Mr. Noah") &&  this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle") && !this.GetComponent<Animator>().IsInTransition(0))
+        if((this.tag == "Ms. Susan" || this.tag == "Mr. Noah") &&  this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle") && !this.GetComponent<Animator>().IsInTransition(0) && ePressed)
         {
-            turningTowardsMainPlayer = true;
             if (ePressed)
             {
                 Interact();
                 ePressed = false;
             }
+            turningTowardsMainPlayer = true;
             delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
             transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
         }
 
+        if (hasReachedAtLast && !VD.isActive && VDwasActive)
+        {
+            if (this.tag == "Mr. Noah")
+            {
+                this.GetComponent<Animator>().SetBool("reportEnd", true);
+                this.GetComponent<Animator>().SetBool("violetReporting", false);
+                this.GetComponent<MaleTeacher_VioletReport>().turnToInitialRoattion();
+            }
+            else if (this.tag == "Ms. Susan")
+            {
+                //turningTowardsMainPlayer = false;
+                GameObject.Find("MsSusan_Chair").GetComponent<Animator>().SetBool("SusanStand", false);
+                GameObject.Find("MsSusan_Chair").GetComponent<Animator>().SetBool("SusanSit", true);
+                this.GetComponent<Animator>().SetBool("reportEnd", true);
+                this.GetComponent<Animator>().SetBool("violetReporting", false);
+                this.GetComponent<MaleTeacher_VioletReport>().turnToInitialRoattion();
+            }
+            VDwasActive = false;
+        }
 
+        if (VD.isActive)
+            VDwasActive = true;
     }
 
     public void EPressed()
     {
         ePressed = true;
+        hasReachedAtLast = false;
         //E is pressed so we could close the ui now
         if (this.tag != "Player")
         {
@@ -94,15 +121,12 @@ public class InteractWithCharacter : MonoBehaviour
 
             //Start dialogue with that character
             if(this.tag != "Ms. Susan" && this.tag != "Mr. Noah")
+            { 
                 Interact();
-
-            if (this.tag != "Ms. Susan" && this.tag != "Mr. Noah")
-            {
                 turningTowardsMainPlayer = true;
                 delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
                 transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
             }
-
         }
     }
 
@@ -144,11 +168,11 @@ public class InteractWithCharacter : MonoBehaviour
         if (this.tag != "Player")
         {
             collision = false;
-            turningTowardsMainPlayer = false;
             uiObject.SetActive(false);
         }
-        if (!VD.isActive && other.CompareTag("Player"))
+        /*if (other.CompareTag("Player"))
         {
+            turningTowardsMainPlayer = false;
             if (this.tag == "Mr. Noah")
             {
                 this.GetComponent<Animator>().SetBool("reportEnd", true);
@@ -157,14 +181,14 @@ public class InteractWithCharacter : MonoBehaviour
             }
             else if (this.tag == "Ms. Susan")
             {
-                turningTowardsMainPlayer = false;
+                //turningTowardsMainPlayer = false;
                 GameObject.Find("MsSusan_Chair").GetComponent<Animator>().SetBool("SusanStand", false);
                 GameObject.Find("MsSusan_Chair").GetComponent<Animator>().SetBool("SusanSit", true);
                 this.GetComponent<Animator>().SetBool("reportEnd", true);
                 this.GetComponent<Animator>().SetBool("violetReporting", false);
                 this.GetComponent<MaleTeacher_VioletReport>().turnToInitialRoattion();
             }
-        }
+        }*/
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -107,15 +107,9 @@ public class DialogueManager : MonoBehaviour
         if ( !DialogueIDManager.GetComponent<DialogueIDs>().DialogueExists(currentDialogueName) )
             DialogueIDManager.GetComponent<DialogueIDs>().AddDialogue(currentDialogueName);
 
-        Debug.Log("sth here1");
-
         VD.OnNodeChange += UpdateUI;
 
-        Debug.Log("sth here1");
-
         VD.BeginDialogue(npcDialogue);
-
-        Debug.Log("sth here2");
 
         VD.OnEnd += EndDialogue;
         DialogueUI.SetActive(true);

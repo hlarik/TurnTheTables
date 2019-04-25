@@ -49,12 +49,14 @@ public class MaleTeacher_VioletReport : MonoBehaviour
     {
         if (turningTowardsInitialRot)
         {
+            //Debug.Log(this.transform.rotation.eulerAngles + "\t\t");
             transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, initialRotation.eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
-            if (transform.rotation.eulerAngles == initialRotation.eulerAngles)
+            if (transform.rotation.eulerAngles == initialRotation.eulerAngles || transform.rotation.eulerAngles.Equals(initialRotation.eulerAngles))
             {
                 turningTowardsInitialRot = false;
             }
         }
     }
+
 
 }

@@ -29,14 +29,14 @@ public class BarManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        /*if (Input.GetKeyDown(KeyCode.F))
         {
             IncreaseFriendliness();
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             DecreaseStrength();
-        }
+        }*/
     }
 
     //***** Friendliness Bar Control *****

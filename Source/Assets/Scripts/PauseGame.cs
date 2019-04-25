@@ -21,13 +21,13 @@ public class PauseGame : MonoBehaviour
             isPaussed = !isPaussed;
         }
 
-        if (isPaussed)
+        /*if (isPaussed)
         {
             Time.timeScale = 0;
         }
         else
         {
             Time.timeScale = 1;
-        }
+        }*/
     }
 }
