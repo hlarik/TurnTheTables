@@ -69,7 +69,12 @@ public class DialogueManager : MonoBehaviour
         {
             EndDialogue(null);
         }
+        if (cameraScript != null)
+            cameraScript.GetComponent<CameraController>().enableCameraMouse();
 
+        animator.SetBool("isOpen", false);
+        if (PlayerControllerScript != null)
+            PlayerControllerScript.enabled = true;
         /*VD.OnNodeChange -= UpdateUI;
         //VD.OnEnd -= EndDialogue;
         VD.EndDialogue();*/
@@ -102,15 +107,9 @@ public class DialogueManager : MonoBehaviour
         if ( !DialogueIDManager.GetComponent<DialogueIDs>().DialogueExists(currentDialogueName) )
             DialogueIDManager.GetComponent<DialogueIDs>().AddDialogue(currentDialogueName);
 
-        Debug.Log("sth here1");
-
         VD.OnNodeChange += UpdateUI;
 
-        Debug.Log("sth here1");
-
         VD.BeginDialogue(npcDialogue);
-
-        Debug.Log("sth here2");
 
         VD.OnEnd += EndDialogue;
         DialogueUI.SetActive(true);
@@ -127,7 +126,6 @@ public class DialogueManager : MonoBehaviour
     void UpdateUI(VD.NodeData data)
     {
         NPCname.text = data.tag;
-
 
         //Make deciisons according to the player's actions
         if (data != null &&

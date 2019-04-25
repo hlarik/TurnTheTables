@@ -31,9 +31,9 @@ public class TaskManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        TaskUI.SetActive(true);
         FindImages();
         FadeManager = GameObject.Find("FadeManager");
-        TaskUI.SetActive(false);
         //ReadFileIntoTaskArray();
         UpdateCompleteness();
 
@@ -51,19 +51,31 @@ public class TaskManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        /*if (Input.GetKeyDown(KeyCode.T))
         {
             TaskUI.SetActive(!TaskUI.activeSelf);
-        }
-        if (TaskUI.activeSelf)
+        }*/
+        /*if (TaskUI.activeSelf)
         {
             Time.timeScale = 0;
         }
         else
         {
             Time.timeScale = 1;
-        }
+        }*/
 
+    }
+
+    public void ActivateDeactivateTaskManager()
+    {
+        //TaskUI.SetActive(!TaskUI.activeSelf);
+        TaskUI.transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", true);
+    }
+
+    public void DeactivateTaskManager()
+    {
+        //TaskUI.SetActive(!TaskUI.activeSelf);
+        TaskUI.transform.GetChild(0).GetComponent<Animator>().SetBool("isOpen", false);
     }
 
     //Read all tasks from file and write into the list
