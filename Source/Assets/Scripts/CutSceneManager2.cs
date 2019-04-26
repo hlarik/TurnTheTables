@@ -15,19 +15,25 @@ public class CutSceneManager2 : MonoBehaviour
     public GameObject bully;
     public GameObject virtualCam;
     public GameObject barManager;
-    public GameObject moveSpot;
-
-    private GameObject cameraScript2;
-
+    public GameObject[] moveSpots;
+    public GameObject JannetChair;
     public GameObject InteractCanvas;
     public GameObject TaskCanvas;
     public GameObject SitTextCanvas;
 
-    PlayerController playerControllerScript;
-    bool moveTowardsChair = false;
+    private GameObject cameraScript2;
 
+    PlayerController playerControllerScript;
     GameObject Jannet;
-    
+    Vector3 turnSmoothVelocity;
+    float turnSmoothTime = 0.2f;
+    float rotSpeed = 8f;
+
+    bool moveTowardsChair = false;
+    bool turningTowardsTarget = false;
+    bool reachedTarget = false;
+    int curMS = 0;
+
     void Start()
     {
         playerControllerScript = GameObject.Find("Violet").GetComponent<PlayerController>();
@@ -44,60 +50,57 @@ public class CutSceneManager2 : MonoBehaviour
         //Jannet goes back to her chair
         if (moveTowardsChair)
         {
-            // play turn left animation
-
-            float step = playerControllerScript.walkSpeed * Time.deltaTime; // calculate distance to move
-            Vector3 direction = moveSpot.transform.position - Jannet.transform.position;
-            direction.y = 0;
-            float angle = Vector3.Angle(direction, Jannet.transform.forward);
-            Jannet.transform.position = Vector3.MoveTowards(Jannet.transform.position, moveSpot.transform.position, step);
-            Jannet.transform.rotation = Quaternion.Slerp(Jannet.transform.rotation, Quaternion.LookRotation(direction), 0.2f * Time.deltaTime);
-            Jannet.transform.Translate(0, 0, Time.deltaTime * 1.5f);
-
-            /*if () // angle is greater
+            // turn towards target
+            if (turningTowardsTarget)
             {
-
-            }*/
-
-            // rotate & walk towards 1st point
-
-
-
-            //Jannet.gameObject.GetComponent<Transform>().rotation = 
-
-            if (Vector3.Distance(moveSpot.transform.position, Jannet.transform.position) < 0.2f)
-            {
-                Debug.Log("moveTowardsChair");
-                moveTowardsChair = false;
-            }
-
-            /*Vector3 direction = player.position - this.transform.position;
-            direction.y = 0;
-            float angle = Vector3.Angle(direction, this.transform.forward);
-
-            if (state == "patrol" && moveSpots.Length > 0)
-            {
-                anim.SetBool("isInteracting", false);
-                anim.SetBool("isWalking", true);
-                if (Vector3.Distance(moveSpots[curMS].transform.position, transform.position) < accuracyMS)
+                Vector3 direction = moveSpots[curMS].transform.position - Jannet.transform.position;//moveSpot.transform.position - Jannet.transform.position;
+                Jannet.transform.rotation = Quaternion.Slerp(Jannet.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime * 2);
+                if ((int)Quaternion.LookRotation(direction).eulerAngles.y == (int)Jannet.transform.rotation.eulerAngles.y)//|| Jannet.transform.rotation.Equals(direction))
                 {
+                    turningTowardsTarget = false;
+                }
+            }
+            else
+            {
+                bully.GetComponent<Animator>().SetTrigger("Turn");
+                float step = playerControllerScript.walkSpeed * Time.deltaTime / 2;
+                Jannet.transform.position = Vector3.MoveTowards(Jannet.transform.position, moveSpots[curMS].transform.position, step);
+
+                if (Vector3.Distance(moveSpots[curMS].transform.position, Jannet.transform.position) < 0.1f)
+                {
+                    turningTowardsTarget = true;
                     curMS++;
-                    if (curMS >= moveSpots.Length)
+                    if (curMS >= moveSpots.Length-1)
                     {
-                        curMS = 0;
+                        moveTowardsChair = false;
+                        bully.GetComponent<Animator>().SetBool("atTarget", true);
+                        reachedTarget = true;
+                        JannetChair.GetComponent<Animator>().SetTrigger("JannetAtTarget");
                     }
                 }
-
-                //rotate towards waypoint
-                direction = moveSpots[curMS].transform.position - transform.position;
-                this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
-                this.transform.Translate(0, 0, Time.deltaTime * speed);
-                */
-
+            }
+        }
+        //turn and sit
+        if (reachedTarget)
+        {
+            if (turningTowardsTarget)
+            {
+                Vector3 direction = moveSpots[curMS].transform.position - Jannet.transform.position;
+                Jannet.transform.rotation = Quaternion.Slerp(Jannet.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime * 2);
+                if ((int)Quaternion.LookRotation(direction).eulerAngles.y == (int)Jannet.transform.rotation.eulerAngles.y)
+                {
+                    turningTowardsTarget = false;
+                }
+            }
+            else
+            {
+                JannetChair.GetComponent<Animator>().SetTrigger("JannetSit");
+                bully.GetComponent<Animator>().SetTrigger("Turn");
 
                 //Destroy(this);
             }
         }
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -121,72 +124,20 @@ public class CutSceneManager2 : MonoBehaviour
     // called in timeline CutScene2 in cutSceneTrigger2.0
     public void TalkWithNPC()
     {
-        //pd2 = null;
         bully.gameObject.GetComponent<InteractWithCharacter>().Interact();
         maincharacter.gameObject.GetComponent<Animator>().SetFloat("speedPercent", 0.0f);
-        //Destroy(this);
-
-        //StartCoroutine(wait());
     }
 
     public void EndScenario()
     {
-        Debug.Log("ENdScenario");
         // enable player controller and camera mouse
         playerControllerScript.enabled = true;
         cameraScript2.GetComponent<CameraController>().enableCameraMouse();
         
-        //play turn left animation
-        
-        StartCoroutine(wait());
-
-       // moveTowardsChair = true;
-    }
-
-    public IEnumerator wait()
-    {
-       // bully.gameObject.GetComponent<InteractWithCharacter>().Interact();
-       // maincharacter.gameObject.GetComponent<Animator>().SetFloat("speedPercent", 0.0f);
-
-        //yield return new WaitForSeconds(5);
-        Jannet.gameObject.transform.GetChild(0).GetComponent<JannetAnimations>().LeftTurn();
-
-        //Vector3 y ;
-        //y. = ;//392.14f; y.x = 0; y.z = 0;
-        //Vector3 y2;
-        //y2.y = 209.45f; y2.x = 0; y2.z = 0;
-       //Jannet.transform.rotation = Quaternion.FromToRotation(Jannet.transform.rotation.y, Jannet.transform.rotation.y );//182.69);//209.45;
-
-        yield return new WaitForSeconds(2);
-
-        Quaternion rot = Jannet.transform.rotation;
-        rot.y = 250f;
-        Jannet.transform.SetPositionAndRotation(Jannet.transform.position, rot);// = 209.45;
-
-
+        virtualCam.SetActive(false);
+        //pd2 = null;
+        turningTowardsTarget = true;
         moveTowardsChair = true;
-
-        //spacePressed();
+        //destroy(this);
     }
-
-    /*  public IEnumerator wait()
-      {
-          bully.gameObject.GetComponent<InteractWithCharacter>().Interact();
-          maincharacter.gameObject.GetComponent<Animator>().SetFloat("speedPercent", 0.0f);
-
-          yield return new WaitForSeconds(5);
-
-          spacePressed();
-
-          yield return new WaitForSeconds(3);
-
-          spacePressed();
-      }
-
-      void spacePressed()
-      {
-          VD.Next();
-      }
-      */
-
 }
