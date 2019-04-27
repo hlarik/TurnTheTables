@@ -25,7 +25,7 @@ public class TaskManager : MonoBehaviour
     List<String> texts;
     public static int newTask = 0;
     public static int current_index = 0;
-    string path = "Assets/Resources/Tasks/tasks.txt";
+    string path = "Assets/Resources/TaskToDo/tasks.txt";
     GameObject[] images = new GameObject[10];
 
     // Start is called before the first frame update
@@ -34,9 +34,8 @@ public class TaskManager : MonoBehaviour
         TaskUI.SetActive(true);
         FindImages();
         FadeManager = GameObject.Find("FadeManager");
-        //ReadFileIntoTaskArray();
+        ReadFileIntoTaskArray();
         UpdateCompleteness();
-
     }
 
     void FindImages()
@@ -81,13 +80,22 @@ public class TaskManager : MonoBehaviour
     //Read all tasks from file and write into the list
     void ReadFileIntoTaskArray()
     {
-        StreamReader input_stream = new StreamReader(path);
+        /*StreamReader input_stream = new StreamReader(path);
         texts = new List<String>();
 
         while (!input_stream.EndOfStream)
         {
             string line = input_stream.ReadLine();
-            texts.Add(line);
+        }*/
+        string line = null;
+        StreamReader reader = new StreamReader(path);
+        while ((line = reader.ReadLine()) != null)
+        {
+            if (current_index < 10)
+            {
+                tasks[current_index].text = line;
+                current_index++;
+            }
         }
 
     }
@@ -107,22 +115,61 @@ public class TaskManager : MonoBehaviour
     //Add a new task 
     public void AddNewTask(string taskExplanation)
     {
-        if (current_index < 10)
+        using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
         {
-            tasks[current_index].text = taskExplanation;
-            images[current_index].SetActive(false);
-            //cg = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetComponent<CanvasGroup>();
-            //FadeManager.GetComponent<FadeManager>().FadeIn(cg);
-            //newTask++;
-            current_index++;
-            //anim1.SetBool("fadeIn", false);
+            file.WriteLine(taskExplanation);
         }
+            if (current_index < 10)
+            {
+                tasks[current_index].text = taskExplanation;
+                images[current_index].SetActive(false);
+                //cg = GameObject.Find("TaskManagerCanvas").transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(index).transform.GetComponent<CanvasGroup>();
+                //FadeManager.GetComponent<FadeManager>().FadeIn(cg);
+                //newTask++;
+                current_index++;
+                //anim1.SetBool("fadeIn", false);
+            }
 
+    }
+
+    public Text[] GetAllTasks()
+    {
+        return tasks;
     }
 
     //Remove a selected task
     public void RemoveTask(string explanation)
     {
+        string line = null;
+        var fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+        //var writer = new StreamWriter(fs);
+        var reader = new StreamReader(fs);
+        List<String> lines = new List<string>();
+        while ((line = reader.ReadLine()) != null)
+        {
+            if (String.Compare(line, explanation) == 0)
+                continue;
+
+            lines.Add(line);
+            //writer.WriteLine(line);
+        }
+        reader.Close();
+        File.WriteAllLines(path, lines.ToArray());
+
+
+        /*using (StreamReader reader = new StreamReader(path))
+        {
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (String.Compare(line, explanation) == 0)
+                        continue;
+
+                    writer.WriteLine(line);
+                }
+            }
+        }*/
         int index = GetIndexOfTask(explanation);
         if (tasks[index].text != null)
         {

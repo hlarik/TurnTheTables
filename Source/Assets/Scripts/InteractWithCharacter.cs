@@ -22,6 +22,7 @@ public class InteractWithCharacter : MonoBehaviour
     bool turningTowardsMainPlayer = false;
     bool mainPlayerTurningTowardsNPC = false;
     bool ePressed = false;
+    bool isContacting = false;
 
     //Burda artik cok caresisim 
     bool hasReachedAtLast = false;
@@ -128,6 +129,14 @@ public class InteractWithCharacter : MonoBehaviour
                 transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
             }
         }
+        if (!VD.isActive)
+        {
+            isContacting = false;
+        }
+        else
+        {
+            isContacting = true;
+        }
     }
 
     public void Interact()
@@ -140,6 +149,11 @@ public class InteractWithCharacter : MonoBehaviour
             else
                 NPCDialogue(GetComponent<VIDE_Assign>());
         }
+    }
+
+    public bool isInContact()
+    {
+        return isContacting;
     }
 
     void OnTriggerEnter(Collider other)
