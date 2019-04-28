@@ -5,22 +5,31 @@ using UnityEngine;
 public class MotherAnimations : MonoBehaviour
 {
     Animator anim;
-    public GameObject mainPlayer;
-    public void Talk1()
+    public GameObject mainCharacter;
+
+    public void Talking1()
     {
         GetComponent<Animator>().Play("Talking1", -1, 0f);
     }
 
-    public void TalkMain()
+    public void Talking2()
     {
-        // mainPlayer = GetComponent<GameObject>();
-        mainPlayer.GetComponent<Animator>().Play("Shrugging", -1, 0f);
-
+        GetComponent<Animator>().Play("Talking2", -1, 0f);
     }
 
-    //
-    /*  public void Talk2()
-      {
-          anim.Play("New cube Animation");
-      }*/
+    public void Waving()
+    {
+        GetComponent<Animator>().Play("Waving", -1, 0f);
+    }
+
+    public void shrugging()
+    {
+        mainCharacter.GetComponent<Animator>().Play("Shrugging", -1, 0f);
+    }
+
+    public void WavingViolet()
+    {
+        mainCharacter.GetComponent<Animator>().Play("Waving", -1, 0f);
+    }
+
 }
