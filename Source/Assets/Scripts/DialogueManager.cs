@@ -180,7 +180,7 @@ public class DialogueManager : MonoBehaviour
             if (DialogueIDManager.GetComponent<DialogueIDs>().GetGoodDialogues(currentDialogueName).Contains(data.nodeID))
             {
                 GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() + 1);
-                barManagerScript.IncreaseStrength();
+                //barManagerScript.IncreaseStrength();
                 Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
                 Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
                 rainScript.MakeItStop();

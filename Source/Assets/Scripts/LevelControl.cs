@@ -8,6 +8,7 @@ public class LevelControl : MonoBehaviour
     public string sceneName;
     public GameObject uiObject;
     bool collision;
+    GlobalController globalControllerScript;
 
     GameObject SceneChangerScript;
 
@@ -16,6 +17,7 @@ public class LevelControl : MonoBehaviour
         collision = false;
         uiObject.SetActive(false);
         SceneChangerScript = GameObject.Find("BlackFade"); //.GetComponent<LevelChangerWithFade>();
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
     }
 
     void Update()
@@ -32,6 +34,7 @@ public class LevelControl : MonoBehaviour
             {
                 SceneManager.LoadScene(sceneName);
             }
+            globalControllerScript.AddLeavePosInScene(SceneManager.GetActiveScene().name, GameObject.Find("Violet").transform.position);
             /*anim.SetTrigger("FadeOut");
             SceneManager.LoadScene(sceneName);*/ //--> this part of the code is trasnsfered to SceneChanger with Fade script in Canvases --> FadeCanvas --> BlackFade
         }
@@ -50,5 +53,10 @@ public class LevelControl : MonoBehaviour
     {
         collision = false;
         uiObject.SetActive(false);
+    }
+
+    void SaveData()
+    {
+
     }
 }

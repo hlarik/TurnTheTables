@@ -11,6 +11,7 @@ public class MaleTeacher_VioletReport : MonoBehaviour
     Animator anim;
     Quaternion initialRotation;
     bool turningTowardsInitialRot;
+    float rotSpeed = 2f;
 
     void Start()
     {
@@ -41,7 +42,8 @@ public class MaleTeacher_VioletReport : MonoBehaviour
     public void turnToInitialRoattion()
     {
         turningTowardsInitialRot = true;
-        transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, initialRotation.eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+        //transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, initialRotation.eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+        transform.rotation = Quaternion.Slerp(this.transform.rotation, initialRotation, rotSpeed * Time.deltaTime);
     }
 
     // Update is called once per frame
@@ -50,8 +52,10 @@ public class MaleTeacher_VioletReport : MonoBehaviour
         if (turningTowardsInitialRot)
         {
             //Debug.Log(this.transform.rotation.eulerAngles + "\t\t");
-            transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, initialRotation.eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
-            if (transform.rotation.eulerAngles == initialRotation.eulerAngles || transform.rotation.eulerAngles.Equals(initialRotation.eulerAngles))
+            //transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, initialRotation.eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Slerp(this.transform.rotation, initialRotation, rotSpeed * Time.deltaTime);
+            //if (transform.rotation == initialRotation || transform.rotation.Equals(initialRotation))
+            if (Vector3.Distance(transform.eulerAngles, initialRotation.eulerAngles) <= 0.01f)
             {
                 turningTowardsInitialRot = false;
             }

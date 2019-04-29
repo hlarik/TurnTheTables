@@ -27,6 +27,7 @@ public class InteractWithCharacter : MonoBehaviour
     //Burda artik cok caresisim 
     bool hasReachedAtLast = false;
     bool VDwasActive = false;
+    float rotSpeed = 3f;
 
     /// <summary>
     Vector3 delta; //For NPC
@@ -51,8 +52,9 @@ public class InteractWithCharacter : MonoBehaviour
             //Don't stop turning until chaarcter is totally faced
             if (turningTowardsMainPlayer)
             {
-                transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
-                if (transform.rotation.eulerAngles == Quaternion.LookRotation(delta).eulerAngles || transform.rotation.eulerAngles.Equals(Quaternion.LookRotation(delta).eulerAngles))
+                transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(delta), rotSpeed * Time.deltaTime);// ref turnSmoothVelocity, turnSmoothTime);
+                //if (transform.rotation == Quaternion.LookRotation(delta) || transform.rotation.Equals(Quaternion.LookRotation(delta)))
+                if(Vector3.Distance(transform.eulerAngles, Quaternion.LookRotation(delta).eulerAngles) <= 0.01f)
                 {
                     turningTowardsMainPlayer = false;
                     hasReachedAtLast = true;
@@ -70,7 +72,8 @@ public class InteractWithCharacter : MonoBehaviour
             }
             turningTowardsMainPlayer = true;
             delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
-            transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+            //transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(delta), rotSpeed * Time.deltaTime);
         }
 
         if (hasReachedAtLast && !VD.isActive && VDwasActive)
@@ -95,6 +98,11 @@ public class InteractWithCharacter : MonoBehaviour
 
         if (VD.isActive)
             VDwasActive = true;
+    }
+
+    public bool GetWhetherTurning()
+    {
+        return turningTowardsMainPlayer;
     }
 
     public void EPressed()
@@ -126,7 +134,8 @@ public class InteractWithCharacter : MonoBehaviour
                 Interact();
                 turningTowardsMainPlayer = true;
                 delta = new Vector3(mainPlayer.transform.position.x - this.transform.position.x, 0.0f, mainPlayer.transform.position.z - this.transform.position.z);
-                transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+                transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(delta), rotSpeed * Time.deltaTime);
+                //transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, Quaternion.LookRotation(delta).eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
             }
         }
         if (!VD.isActive)

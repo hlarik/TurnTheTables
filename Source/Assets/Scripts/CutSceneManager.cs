@@ -13,6 +13,7 @@ public class CutSceneManager : MonoBehaviour
     PlayableDirector pdEmpathy;
     Animator UIanimator;
     public GameObject bullied;
+    public GameObject bully;
     public GameObject maincharacter;
     private GameObject cameraScript;
     bool playerMoveTowardTarget = false;
@@ -29,6 +30,9 @@ public class CutSceneManager : MonoBehaviour
     RainController rainController;
     FaceAnimationController faceController;
     TaskManager TaskManagerScript;
+    GlobalController globalControllerScript;
+    GeneralPatrolScript patrolScript;
+    GeneralPatrolScript patrolScriptBully;
 
 
     //UI eleements
@@ -58,6 +62,14 @@ public class CutSceneManager : MonoBehaviour
 
     void Start()
     {
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+        /*if (globalControllerScript.isCutSceneFinished(this.name))
+            Destroy(this);*/
+
+        patrolScript = bullied.GetComponent<GeneralPatrolScript>();
+        patrolScript.enabled = false;
+        patrolScriptBully = bully.GetComponent<GeneralPatrolScript>();
+        patrolScriptBully.enabled = false;
         faceController = new FaceAnimationController();
         rainController = GameObject.Find("RainParent").GetComponent<RainController>();
         playerControllerScript = GameObject.Find("Violet").GetComponent<PlayerController>();
@@ -141,6 +153,7 @@ public class CutSceneManager : MonoBehaviour
                 VD.SetNode(0);
                 playerMoveTowardTarget = false;
                 maincharacter.gameObject.GetComponent<Animator>().SetFloat("speedPercent", 0.0f);
+                EndScenario();
                 Destroy(this);
             }
         }
@@ -184,6 +197,7 @@ public class CutSceneManager : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        globalControllerScript.AddFinishedCutScene(this.name);
         pd = timeline.GetComponent<PlayableDirector>();
         virtualCam.SetActive(true);
         if (pd != null)
@@ -267,7 +281,8 @@ public class CutSceneManager : MonoBehaviour
         TaskManagerScript.AddNewTask("Report-Andrew-Matt");
         rainController.MakeItStop();
         faceController.MakeAllCharactersHappy();
-        Destroy(this);
+        //Destroy(this);
+        EndScenario();
         //Destroy(this);
     }
 
@@ -325,6 +340,9 @@ public class CutSceneManager : MonoBehaviour
     {
         playerControllerScript.enabled = true;
         cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        patrolScript.enabled = true;
+        patrolScriptBully.enabled = true;
+        //Destroy(timeline);
         Destroy(this);
     }
 

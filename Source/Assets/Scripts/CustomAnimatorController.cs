@@ -7,6 +7,7 @@ public class CustomAnimatorController : MonoBehaviour
     //For rotating to the inital rotation
     Vector3 turnSmoothVelocity;
     float turnSmoothTime = 0.2f;
+    float rotSpeed = 2f;
 
     InteractWithCharacter interactScript;
     Quaternion initialRotation;
@@ -24,14 +25,18 @@ public class CustomAnimatorController : MonoBehaviour
 
     void Update()
     {
-        if (turningTowardsInitialRot)
+        bool AnotherTurningEvent = interactScript.GetWhetherTurning();
+        if (turningTowardsInitialRot && !AnotherTurningEvent)
         {
             //Debug.Log(this.transform.rotation.eulerAngles + "\t\t");
             Debug.Log(this.tag + "|||||||||||||||||Turning");
-            transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, initialRotation.eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
-            if (transform.rotation.eulerAngles == initialRotation.eulerAngles || transform.rotation.eulerAngles.Equals(initialRotation.eulerAngles))
+            //transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, initialRotation.eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Slerp(this.transform.rotation, initialRotation, rotSpeed * Time.deltaTime);
+            //if (transform.rotation.eulerAngles == initialRotation.eulerAngles || transform.rotation.eulerAngles.Equals(initialRotation.eulerAngles))
+            if(Vector3.Distance(transform.eulerAngles, initialRotation.eulerAngles) <= 0.01f)
             {
                 turningTowardsInitialRot = false;
+                this.GetComponent<Animator>().SetBool("isIdle", false);
                 this.GetComponent<Animator>().SetTrigger("talking1");
             }
         }
@@ -39,28 +44,32 @@ public class CustomAnimatorController : MonoBehaviour
 
     public void makeCharacterIdle()
     {
-        this.GetComponent<Animator>().SetTrigger("isIdle");
+        this.GetComponent<Animator>().SetBool("isIdle", true);
     }
 
     public void makeCharacterShy()
     {
+        this.GetComponent<Animator>().SetBool("isIdle", false);
         this.GetComponent<Animator>().SetTrigger("isShy");
     }
 
     public void makeCharacterAngry()
     {
+        this.GetComponent<Animator>().SetBool("isIdle", false);
         this.GetComponent<Animator>().SetTrigger("isAngry");
     }
 
     public void TalkWithoutTurning()
     {
+        this.GetComponent<Animator>().SetBool("isIdle", false);
         this.GetComponent<Animator>().SetTrigger("talking1");
     }
 
     public void makeCharacterTalk()
     {
-        makeCharacterIdle();
+        //makeCharacterIdle();
+        this.GetComponent<Animator>().SetBool("isIdle", true);
         turningTowardsInitialRot = true;
-        transform.eulerAngles = Vector3.SmoothDamp(this.transform.rotation.eulerAngles, initialRotation.eulerAngles, ref turnSmoothVelocity, turnSmoothTime);
+        transform.rotation = Quaternion.Slerp(this.transform.rotation, initialRotation, rotSpeed * Time.deltaTime);
     }
 }
