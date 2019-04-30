@@ -61,4 +61,18 @@ public class MusicController : MonoBehaviour
 
         DontDestroyOnLoad(transform.gameObject);
     }
+
+    public void increaseMusicVolume()
+    {
+        Track1.volume = 1f;
+        Track2.volume = 1f;
+        Track3.volume = 1f;
+    }
+
+    public void lowerMusicVolume()
+    {
+        Track1.volume = 0.1f;
+        Track2.volume = 0.1f;
+        Track3.volume = 0.1f;
+    }
 }
