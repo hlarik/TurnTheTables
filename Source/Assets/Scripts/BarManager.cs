@@ -54,6 +54,7 @@ public class BarManager : MonoBehaviour
         {
             UpdateFriendlinessBar();
             playerStats.SetFriendliness(Convert.ToInt32(currentScoreFr));
+            FloatingTextObject.GetComponent<TextMeshProUGUI>().color = Color.red;
             ShowFloatingText(true);
         }
     }
@@ -70,6 +71,7 @@ public class BarManager : MonoBehaviour
         {
             UpdateFriendlinessBar();
             playerStats.SetFriendliness(Convert.ToInt32(currentScoreFr));
+            FloatingTextObject.GetComponent<TextMeshProUGUI>().color = Color.red;
             ShowFloatingText(false);
         }
     }
@@ -96,6 +98,7 @@ public class BarManager : MonoBehaviour
         {
             UpdateStrengthBar();
             playerStats.SetFriendliness(Convert.ToInt32(currentScoreSt));
+            FloatingTextObject.GetComponent<TextMeshProUGUI>().color = Color.blue;
             ShowFloatingText(true);
         }     
     }
@@ -112,6 +115,7 @@ public class BarManager : MonoBehaviour
         {
             UpdateStrengthBar();
             playerStats.SetFriendliness(Convert.ToInt32(currentScoreSt));
+            FloatingTextObject.GetComponent<TextMeshProUGUI>().color = Color.blue;
             ShowFloatingText(false);
         }
     }

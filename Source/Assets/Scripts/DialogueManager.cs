@@ -166,21 +166,26 @@ public class DialogueManager : MonoBehaviour
             prevID = data.nodeID;
             if (DialogueIDManager.GetComponent<DialogueIDs>().GetBadDialogues(currentDialogueName).Contains(data.nodeID))
             {
-                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() - 1);
-                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetFriendliness(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness() - 1);
+                //GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() - 1);
+                //GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetFriendliness(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness() - 1);
+                barManagerScript.DecreaseStrength();
+                barManagerScript.DecreaseFriendliness();
                 Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
                 Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
             }
             if (DialogueIDManager.GetComponent<DialogueIDs>().GetIgnoredDialogues(currentDialogueName).Contains(data.nodeID))
             {
-                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() - 1);
+                //GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() - 1);
+                barManagerScript.DecreaseStrength();
                 Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
                 Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
             }
             if (DialogueIDManager.GetComponent<DialogueIDs>().GetGoodDialogues(currentDialogueName).Contains(data.nodeID))
             {
-                GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() + 1);
+                //GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() + 1);
                 //barManagerScript.IncreaseStrength();
+                barManagerScript.IncreaseStrength();
+                barManagerScript.IncreaseFriendliness();
                 Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
                 Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
                 rainScript.MakeItStop();
