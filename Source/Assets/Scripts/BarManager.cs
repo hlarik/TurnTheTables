@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System;
 
 public class BarManager : MonoBehaviour
 {
@@ -11,32 +13,23 @@ public class BarManager : MonoBehaviour
     public RawImage currentStrengthBar;
     public Text ratioTextSt;
 
-    private double currentScoreFr = 50;
-    private double currentScoreSt = 50;
+    private double currentScoreFr;
+    private double currentScoreSt;
     private double maxPoint = 100;
     private double hitPoint = 1;
 
     public GameObject FloatingTextObject;
-
-
+    public Animator anim;
+    MainPlayerStats playerStats;
 
     // Start is called before the first frame update
     private void Start()
     {
+        playerStats = GameObject.Find("Violet").GetComponent<MainPlayerStats>();
+        currentScoreFr = Convert.ToDouble(playerStats.GetFriendliness());
+        currentScoreSt = Convert.ToDouble(playerStats.GetStrength());
         UpdateFriendlinessBar();
         UpdateStrengthBar();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            IncreaseFriendliness();
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            DecreaseStrength();
-        }
     }
 
     //***** Friendliness Bar Control *****
@@ -57,14 +50,14 @@ public class BarManager : MonoBehaviour
         {
             currentScoreFr = maxPoint;
         }
-        UpdateFriendlinessBar();
-
-        if (FloatingTextObject)
+        else
         {
+            UpdateFriendlinessBar();
+            playerStats.SetFriendliness(Convert.ToInt32(currentScoreFr));
             ShowFloatingText(true);
         }
-
     }
+
     // Decrease friendliness
     public void DecreaseFriendliness()
     {
@@ -73,10 +66,10 @@ public class BarManager : MonoBehaviour
         {
             currentScoreFr = 0;
         }
-        UpdateFriendlinessBar();
-
-        if (FloatingTextObject)
+        else
         {
+            UpdateFriendlinessBar();
+            playerStats.SetFriendliness(Convert.ToInt32(currentScoreFr));
             ShowFloatingText(false);
         }
     }
@@ -99,14 +92,14 @@ public class BarManager : MonoBehaviour
         {
             currentScoreSt = maxPoint;
         }
-        UpdateStrengthBar();
-
-        if (FloatingTextObject)
+        else
         {
+            UpdateStrengthBar();
+            playerStats.SetFriendliness(Convert.ToInt32(currentScoreSt));
             ShowFloatingText(true);
-        }
-
+        }     
     }
+
     // Decrease strength
     public void DecreaseStrength()
     {
@@ -115,10 +108,10 @@ public class BarManager : MonoBehaviour
         {
             currentScoreSt = 0;
         }
-        UpdateStrengthBar();
-
-        if (FloatingTextObject)
+        else
         {
+            UpdateStrengthBar();
+            playerStats.SetFriendliness(Convert.ToInt32(currentScoreSt));
             ShowFloatingText(false);
         }
     }
@@ -127,14 +120,13 @@ public class BarManager : MonoBehaviour
     {
         if (increase)
         {
-            FloatingTextObject.GetComponent<TextMesh>().text = "+1";
+            FloatingTextObject.GetComponent<TextMeshProUGUI>().text = "+1";
         }
         else
         {
-            FloatingTextObject.GetComponent<TextMesh>().text = "-1";
-        }
-
-        Instantiate(FloatingTextObject, transform.position, Quaternion.identity);
+            FloatingTextObject.GetComponent<TextMeshProUGUI>().text = "-1";
+        }      
+        anim.SetTrigger("open");
     }
 }
 
