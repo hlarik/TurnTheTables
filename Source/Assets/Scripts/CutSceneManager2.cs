@@ -70,7 +70,7 @@ public class CutSceneManager2 : MonoBehaviour
                 {
                     turningTowardsTarget = true;
                     curMS++;
-                    if (curMS >= moveSpots.Length-1)
+                    if (curMS >= moveSpots.Length - 1)
                     {
                         moveTowardsChair = false;
                         bully.GetComponent<Animator>().SetBool("atTarget", true);
@@ -120,7 +120,7 @@ public class CutSceneManager2 : MonoBehaviour
             pd2.Play();
         }
     }
-    
+
     // called in timeline CutScene2 in cutSceneTrigger2.0
     public void TalkWithNPC()
     {
@@ -133,7 +133,7 @@ public class CutSceneManager2 : MonoBehaviour
         // enable player controller and camera mouse
         playerControllerScript.enabled = true;
         cameraScript2.GetComponent<CameraController>().enableCameraMouse();
-        
+
         virtualCam.SetActive(false);
         //pd2 = null;
         turningTowardsTarget = true;
