@@ -21,7 +21,7 @@ public class InnerVoiceFeedbackManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Ignore_Post_Cutscene()

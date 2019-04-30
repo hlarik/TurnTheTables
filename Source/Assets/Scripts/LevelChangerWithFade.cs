@@ -37,6 +37,11 @@ public class LevelChangerWithFade : MonoBehaviour
         {
             SceneManager.LoadScene(changeToScene);
         }
-        
+
+    }
+
+    public void empathyFade()
+    {
+        anim.SetTrigger("empathySelected");
     }
 }

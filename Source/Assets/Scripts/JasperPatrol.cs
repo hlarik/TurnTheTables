@@ -34,7 +34,7 @@ public class JasperPatrol : MonoBehaviour
             if (Vector3.Distance(moveSpots[curMS].transform.position, transform.position) < accuracyMS)
             {
                 curMS++;
-                if ( curMS >= moveSpots.Length )
+                if (curMS >= moveSpots.Length)
                 {
                     curMS = 0;
                 }

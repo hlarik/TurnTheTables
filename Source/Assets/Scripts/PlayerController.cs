@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     Transform cameraT;
 
     public string name;
+    GlobalController globalControllerScript;
 
     void Start()
     {
@@ -34,15 +36,25 @@ public class PlayerController : MonoBehaviour
         //Set cameras accordingly
         if (GameObject.Find("CinemachineVirtualCameras") != null)
             GameObject.Find("CinemachineVirtualCameras").SetActive(false);
+
+        //Get where player left off
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+        Vector3 temp = globalControllerScript.GetPlayerPosOnScene(SceneManager.GetActiveScene().name);
+        if(temp != Vector3.zero)
+            this.transform.position = temp;
+
     }
 
     /*
      * TODO : Save the data to the global object
      * */
-    void SaveData()
-    {
 
-    }
+
+    /*void PlayerIsComingBack()
+    {
+        // Player comes back
+        this.transform.position = new Vector3(PlayerPrefs.GetFloat("X"), PlayerPrefs.GetFloat("Y"), PlayerPrefs.GetFloat("Z"));
+    }*/
 
     void Update()
     {
