@@ -12,16 +12,16 @@ public class RainController : MonoBehaviour
     private GameObject backgroundMusic;
     public GameObject player;
 
-
+ 
     //For testing purposes
-    public void OnTriggerEnter(Collider other)
+    /*public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             MakeItRain();
         }
 
-    }
+    }*/
 
 
     // Start is called before the first frame update
@@ -35,7 +35,7 @@ public class RainController : MonoBehaviour
         {
             if (t.name == "Rain")
             {
-                rainObject = t.gameObject;
+                 rainObject = t.gameObject;
             }
         }
         /////////////////
@@ -43,14 +43,14 @@ public class RainController : MonoBehaviour
 
     }
 
-    public void MakeItRain()
+    public  void MakeItRain()
     {
         rainObject.SetActive(true);
         lightning.SetActive(false);
         backgroundMusic.SetActive(false);
     }
 
-    public void MakeItStop()
+    public  void MakeItStop()
     {
         rainObject.SetActive(false);
         lightning.SetActive(true);

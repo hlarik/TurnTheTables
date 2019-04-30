@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using VIDE_Data;
+using System.IO;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -36,6 +38,7 @@ public class DialogueManager : MonoBehaviour
     DialogueDecisionMaker postCutSceneDecisionMakerScript;
     FaceAnimationController faceControllerScript;
     RainController rainScript;
+    TaskManager TaskManagerScript;
     BarManager barManagerScript;
     int prevID;     //This is for when increasing strength and friendliness, so it doesnt count the same id twice
 
@@ -52,6 +55,7 @@ public class DialogueManager : MonoBehaviour
         barManagerScript = GameObject.Find("BarManager").GetComponent<BarManager>();
         faceControllerScript = new FaceAnimationController();
         rainScript = GameObject.Find("RainParent").GetComponent<RainController>();
+        TaskManagerScript = GameObject.Find("TaskManager").GetComponent<TaskManager>();
     }
 
     private void OnEnable()
@@ -69,7 +73,12 @@ public class DialogueManager : MonoBehaviour
         {
             EndDialogue(null);
         }
+        if (cameraScript != null)
+            cameraScript.GetComponent<CameraController>().enableCameraMouse();
 
+        animator.SetBool("isOpen", false);
+        if (PlayerControllerScript != null)
+            PlayerControllerScript.enabled = true;
         /*VD.OnNodeChange -= UpdateUI;
         //VD.OnEnd -= EndDialogue;
         VD.EndDialogue();*/
@@ -102,21 +111,13 @@ public class DialogueManager : MonoBehaviour
         if ( !DialogueIDManager.GetComponent<DialogueIDs>().DialogueExists(currentDialogueName) )
             DialogueIDManager.GetComponent<DialogueIDs>().AddDialogue(currentDialogueName);
 
-        Debug.Log("sth here1");
-
         VD.OnNodeChange += UpdateUI;
 
-        Debug.Log("sth here1");
-
         VD.BeginDialogue(npcDialogue);
-
-        Debug.Log("sth here2");
 
         VD.OnEnd += EndDialogue;
         DialogueUI.SetActive(true);
         animator.SetBool("isOpen", true);
-
-
 
         //Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAspeaking" + npcDialogue.tag);
 
@@ -127,7 +128,32 @@ public class DialogueManager : MonoBehaviour
     void UpdateUI(VD.NodeData data)
     {
         NPCname.text = data.tag;
-
+        
+        if(currentDialogueName == "MsSusan" || currentDialogueName == "MrNoah")
+        {
+            if(data.nodeID == 2 && data.commentIndex == 1)
+            {
+                //Check whether there are tasks
+                string whatToReport = "";
+                Text[] texts = TaskManagerScript.GetAllTasks();
+                foreach (Text  missions in texts)
+                {
+                    Debug.Log(missions);
+                    if (missions.text.Contains("Report"))
+                    {
+                        whatToReport = missions.text;
+                        TaskManagerScript.RemoveTask(missions.text);
+                        break;
+                    }
+                }
+                if(whatToReport == "")
+                {
+                    VD.SetNode(11);
+                }
+                string[] split = whatToReport.Split('-');
+                data.comments[1] = "I recently saw " + split[2] + " bullying " + split[1] + ".";
+            }
+        }
 
         //Make deciisons according to the player's actions
         if (data != null &&
@@ -154,7 +180,7 @@ public class DialogueManager : MonoBehaviour
             if (DialogueIDManager.GetComponent<DialogueIDs>().GetGoodDialogues(currentDialogueName).Contains(data.nodeID))
             {
                 GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() + 1);
-                barManagerScript.IncreaseStrength();
+                //barManagerScript.IncreaseStrength();
                 Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
                 Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
                 rainScript.MakeItStop();

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a8ae94f20ac7474bba963b30f3714dd, type: 3}
+  m_Name: SportsHallQuiz
+  m_EditorClassIdentifier: 
+  _info: Quiz
+  _questions:
+  - _question: Why would she throw ball to Violet?
+    _answer:
+    - _answer: She is jealous of Violet.
+      _feedback: Yes, Maybe. Violet is a cute girl.
+    - _answer: She sees Violet weak.
+      _feedback: This is a good reason.
+    - _answer: She just wants attention.
+      _feedback: Yes, Most of the bullies receive attention by annoying people.
+  - _question: Do you think she has personnal problems?
+    _answer:
+    - _answer: She is a sociopath.
+      _feedback: Ahaha. Its rude also :/
+    - _answer: She is not taken care from her parents well.
+      _feedback: Well, that can be a valid reason.
+    - _answer: No, She is just bored.
+      _feedback: I don't think so.

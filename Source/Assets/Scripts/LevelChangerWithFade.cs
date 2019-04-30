@@ -39,4 +39,9 @@ public class LevelChangerWithFade : MonoBehaviour
         }
 
     }
+
+    public void empathyFade()
+    {
+        anim.SetTrigger("empathySelected");
+    }
 }

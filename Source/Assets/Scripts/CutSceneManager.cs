@@ -13,6 +13,7 @@ public class CutSceneManager : MonoBehaviour
     PlayableDirector pdEmpathy;
     Animator UIanimator;
     public GameObject bullied;
+    public GameObject bully;
     public GameObject maincharacter;
     private GameObject cameraScript;
     bool playerMoveTowardTarget = false;
@@ -28,6 +29,10 @@ public class CutSceneManager : MonoBehaviour
     PlayerController playerControllerScript;
     RainController rainController;
     FaceAnimationController faceController;
+    TaskManager TaskManagerScript;
+    GlobalController globalControllerScript;
+    GeneralPatrolScript patrolScript;
+    GeneralPatrolScript patrolScriptBully;
 
 
     //UI eleements
@@ -36,6 +41,7 @@ public class CutSceneManager : MonoBehaviour
     //Empathy Camera
     public Camera empathyCamera;
     public Camera mainCamera;
+    LevelChangerWithFade empathyFadeInandOut;      // for empathy fade animation 
 
     //To turn character towards the npc she wants to talk to 
     Vector3 delta;
@@ -56,6 +62,24 @@ public class CutSceneManager : MonoBehaviour
 
     void Start()
     {
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+        /*if (globalControllerScript.isCutSceneFinished(this.name))
+            Destroy(this);*/
+        
+        patrolScript = bullied.GetComponent<GeneralPatrolScript>();
+        patrolScript.enabled = false;
+        patrolScriptBully = bully.GetComponent<GeneralPatrolScript>();
+        patrolScriptBully.enabled = false;
+
+        if (globalControllerScript.isCutSceneFinished(this.name))
+        {
+            bully.SetActive(true);
+            patrolScript.enabled = true;
+            patrolScriptBully.enabled = true;
+            Debug.Log("EXISTS SOMEHOWWW");
+            Destroy(this);
+        }
+
         faceController = new FaceAnimationController();
         rainController = GameObject.Find("RainParent").GetComponent<RainController>();
         playerControllerScript = GameObject.Find("Violet").GetComponent<PlayerController>();
@@ -70,7 +94,8 @@ public class CutSceneManager : MonoBehaviour
         ChangeToMainCamera();
         againIgnore = true;
         rnd = new System.Random();
-
+        empathyFadeInandOut = GameObject.Find("BlackFade").GetComponent<LevelChangerWithFade>();
+        TaskManagerScript = GameObject.Find("TaskManager").GetComponent<TaskManager>();
         //empathyCamera = bullied.transform.Find("EmpathyCamera").GetComponent<Camera>();
         //Debug.Log("aklsdj  ===   " + maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(15));
         //virtualCam = GameObject.Find("CinemachineVirtualCameras");
@@ -94,6 +119,7 @@ public class CutSceneManager : MonoBehaviour
 
                 DecisionsCanvas.SetActive(true);
                 UIanimator.SetBool("isOpen", true);
+                globalControllerScript.AddFinishedCutScene(this.name);
             }
         }
 
@@ -138,20 +164,23 @@ public class CutSceneManager : MonoBehaviour
                 VD.SetNode(0);
                 playerMoveTowardTarget = false;
                 maincharacter.gameObject.GetComponent<Animator>().SetFloat("speedPercent", 0.0f);
+                EndScenario();
                 Destroy(this);
             }
         }
 
         if (empathyButtonClicked && !VD.isActive)
         {
-            pdEmpathy = timeline.GetComponent<PlayableDirector>();
-            if (pdEmpathy != null)
-            {
+            //pdEmpathy = timeline.GetComponent<PlayableDirector>();
+            empathyFadeInandOut.empathyFade();
+            //if (pdEmpathy != null)
+           //{
                 playerControllerScript.enabled = false;
                 cameraScript.GetComponent<CameraController>().disableCameraMouse();
-                ChangeToEmpathyCamera();
-                pdEmpathy.Play();
-            }
+               // ChangeToEmpathyCamera();
+                Invoke("callEmpathyScene", 1.2f);
+                //pdEmpathy.Play();
+            //}
             empathyButtonClicked = false;
         }
 
@@ -159,7 +188,6 @@ public class CutSceneManager : MonoBehaviour
         {
             OpenDecisionCanvas();
             ignoreButtonClicked = false;
-
         }
 
         if (talkButtonClicked && !VD.isActive)
@@ -169,8 +197,18 @@ public class CutSceneManager : MonoBehaviour
         }
     }
 
+    public void callEmpathyScene()
+    {
+        pdEmpathy = timeline.GetComponent<PlayableDirector>();
+        playerControllerScript.enabled = false;
+        cameraScript.GetComponent<CameraController>().disableCameraMouse();
+        ChangeToEmpathyCamera();
+        pdEmpathy.Play();
+    }
+
     public void OnTriggerEnter(Collider other)
     {
+        globalControllerScript.AddFinishedCutScene(this.name);
         pd = timeline.GetComponent<PlayableDirector>();
         virtualCam.SetActive(true);
         if (pd != null)
@@ -233,7 +271,7 @@ public class CutSceneManager : MonoBehaviour
         else
         {
             maincharacter.GetComponent<MainPlayerStats>().SetFriendliness(maincharacter.GetComponent<MainPlayerStats>().GetFriendliness() - 1);
-            faceController.MakeAllCharactersHappy();
+            faceController.MakeAllCharactersSad();
             EndScenario();
             /*innerVoiceAnimator.SetBool("isOpen", true);
             StopAllCoroutines();
@@ -251,9 +289,11 @@ public class CutSceneManager : MonoBehaviour
         pd = null;
         maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(reportDialogues[rnd.Next(0, reportDialogues.Length)]);
         maincharacter.GetComponent<MainPlayerStats>().SetStrength(maincharacter.GetComponent<MainPlayerStats>().GetStrength() + 1);
+        TaskManagerScript.AddNewTask("Report-Andrew-Matt");
         rainController.MakeItStop();
         faceController.MakeAllCharactersHappy();
-        Destroy(this);
+        //Destroy(this);
+        EndScenario();
         //Destroy(this);
     }
 
@@ -311,6 +351,9 @@ public class CutSceneManager : MonoBehaviour
     {
         playerControllerScript.enabled = true;
         cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        patrolScript.enabled = true;
+        patrolScriptBully.enabled = true;
+        //Destroy(timeline);
         Destroy(this);
     }
 

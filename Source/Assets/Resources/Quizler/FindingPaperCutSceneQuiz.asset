@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a8ae94f20ac7474bba963b30f3714dd, type: 3}
+  m_Name: FindingPaperCutSceneQuiz
+  m_EditorClassIdentifier: 
+  _info: Quiz
+  _questions:
+  - _question: How can you get rid of this situation?
+    _answer:
+    - _answer: I can report it to teacher.
+      _feedback: Yes, you are right. Adults can help Violet.
+    - _answer: I can ignore it.
+      _feedback: Do you think it is a reasonable answer? I don't think so.
+    - _answer: I can talk with her.
+      _feedback: Yes, you can but not in a rude way.
+  - _question: Do you think will she receive letter again?
+    _answer:
+    - _answer: Yes
+      _feedback: Yes unless Violet does something.
+    - _answer: No
+      _feedback: Why? It is not the last day of school.
+    - _answer: Maybe
+      _feedback: Yes, It depends on the person's mood.
