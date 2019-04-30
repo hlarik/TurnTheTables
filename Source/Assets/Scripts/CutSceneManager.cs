@@ -33,6 +33,7 @@ public class CutSceneManager : MonoBehaviour
     GlobalController globalControllerScript;
     GeneralPatrolScript patrolScript;
     GeneralPatrolScript patrolScriptBully;
+    BarManager barManagerScript;
 
 
     //UI eleements
@@ -96,6 +97,7 @@ public class CutSceneManager : MonoBehaviour
         rnd = new System.Random();
         empathyFadeInandOut = GameObject.Find("BlackFade").GetComponent<LevelChangerWithFade>();
         TaskManagerScript = GameObject.Find("TaskManager").GetComponent<TaskManager>();
+        barManagerScript = GameObject.Find("BarManager").GetComponent<BarManager>();
         //empathyCamera = bullied.transform.Find("EmpathyCamera").GetComponent<Camera>();
         //Debug.Log("aklsdj  ===   " + maincharacter.gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(15));
         //virtualCam = GameObject.Find("CinemachineVirtualCameras");
@@ -234,6 +236,7 @@ public class CutSceneManager : MonoBehaviour
         maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(talkDialogues[rnd.Next(0, talkDialogues.Length)]);
         talkButtonClicked = true;
         maincharacter.GetComponent<MainPlayerStats>().SetFriendliness(maincharacter.GetComponent<MainPlayerStats>().GetFriendliness() + 1);
+        barManagerScript.IncreaseFriendliness();
 
     }
 
@@ -250,6 +253,7 @@ public class CutSceneManager : MonoBehaviour
             rainController.MakeItStop();
             faceController.MakeAllCharactersHappy();
             maincharacter.GetComponent<MainPlayerStats>().SetFriendliness(maincharacter.GetComponent<MainPlayerStats>().GetFriendliness() + 1);
+            barManagerScript.IncreaseFriendliness();
         }
         empathizeOnFirstCall = 1;
 
@@ -271,6 +275,7 @@ public class CutSceneManager : MonoBehaviour
         else
         {
             maincharacter.GetComponent<MainPlayerStats>().SetFriendliness(maincharacter.GetComponent<MainPlayerStats>().GetFriendliness() - 1);
+            barManagerScript.DecreaseFriendliness();
             faceController.MakeAllCharactersSad();
             EndScenario();
             /*innerVoiceAnimator.SetBool("isOpen", true);
@@ -288,7 +293,8 @@ public class CutSceneManager : MonoBehaviour
         UIanimator.SetBool("isOpen", false);
         pd = null;
         maincharacter.GetComponent<InteractWithCharacter>().InnerVoiceDialogue(reportDialogues[rnd.Next(0, reportDialogues.Length)]);
-        maincharacter.GetComponent<MainPlayerStats>().SetStrength(maincharacter.GetComponent<MainPlayerStats>().GetStrength() + 1);
+        //maincharacter.GetComponent<MainPlayerStats>().SetStrength(maincharacter.GetComponent<MainPlayerStats>().GetStrength() + 1);
+        barManagerScript.IncreaseStrength();
         TaskManagerScript.AddNewTask("Report-Andrew-Matt");
         rainController.MakeItStop();
         faceController.MakeAllCharactersHappy();
