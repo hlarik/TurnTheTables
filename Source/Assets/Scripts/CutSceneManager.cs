@@ -65,11 +65,21 @@ public class CutSceneManager : MonoBehaviour
         globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
         /*if (globalControllerScript.isCutSceneFinished(this.name))
             Destroy(this);*/
-
+        
         patrolScript = bullied.GetComponent<GeneralPatrolScript>();
         patrolScript.enabled = false;
         patrolScriptBully = bully.GetComponent<GeneralPatrolScript>();
         patrolScriptBully.enabled = false;
+
+        if (globalControllerScript.isCutSceneFinished(this.name))
+        {
+            bully.SetActive(true);
+            patrolScript.enabled = true;
+            patrolScriptBully.enabled = true;
+            Debug.Log("EXISTS SOMEHOWWW");
+            Destroy(this);
+        }
+
         faceController = new FaceAnimationController();
         rainController = GameObject.Find("RainParent").GetComponent<RainController>();
         playerControllerScript = GameObject.Find("Violet").GetComponent<PlayerController>();
@@ -109,6 +119,7 @@ public class CutSceneManager : MonoBehaviour
 
                 DecisionsCanvas.SetActive(true);
                 UIanimator.SetBool("isOpen", true);
+                globalControllerScript.AddFinishedCutScene(this.name);
             }
         }
 

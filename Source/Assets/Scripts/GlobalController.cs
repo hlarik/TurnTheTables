@@ -56,6 +56,13 @@ public class GlobalController : MonoBehaviour
 
     public bool isCutSceneFinished(string triggerName)
     {
+        if (finishedCutSceneTriggers != null)
+            for (int i = 0; i < finishedCutSceneTriggers.Count; ++i)
+            {
+                Debug.Log("inside global cont: " + finishedCutSceneTriggers[i]);
+            }
+        else
+            Debug.Log("is nulllll");
         return finishedCutSceneTriggers.Contains(triggerName);
     }
 

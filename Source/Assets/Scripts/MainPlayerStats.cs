@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class MainPlayerStats : MonoBehaviour
 {
-    int friendliness;
-    int strength;
+    int friendliness = 50;
+    int strength = 50;
 
     // Start is called before the first frame update
     void Start()
     {
-        friendliness = 50;   //In a scale of 100
-        strength = 50;       //In a scale of 100
+        /*friendliness = 50;   //In a scale of 100
+        strength = 50;       //In a scale of 100*/
     }
 
     public void SetFriendliness(int friendliness)
