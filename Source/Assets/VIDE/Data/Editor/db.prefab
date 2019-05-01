@@ -43,101 +43,116 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 268dc70b105993846a123be43345df63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileIndex: 6
+  fileIndex: 10
   skinIndex: 0
   loadTag: 
   startID: 0
   curFocusID: 0
-  currentID: 40682
+  currentID: 6816
   autosave: 1
   previewPanning: 0
-  currentDiag: 6
+  currentDiag: 10
   locEdit: 0
   pNodeID: 18
   aNodeID: 2
   S_playerDiags:
   - commentCount: 1
     s_comment:
-    - text: Hey, are you okay?
+    - text: "Hey! watch where you\u2019re going, freak!"
       extraData: ExtraData
       inputSetIndex: 0
-      outputNodeIndex: 1
-      outActionIndex: -1
+      outputNodeIndex: -1
+      outActionIndex: 0
       showmore: 0
       outRect:
         serializedVersion: 2
         x: 302
         y: 59
         width: 30
-        height: 21
+        height: 29
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
     ID: 0
     rect:
       serializedVersion: 2
-      x: -260
-      y: 10
+      x: -50
+      y: 190
       width: 349
-      height: 120.399994
-    pTag: Violet
+      height: 129
+    pTag: Jannet
     expand: 0
     sprite: {fileID: 0}
     vars: []
     varKeys: []
     isPlayer: 0
-  - commentCount: 2
+  - commentCount: 3
     s_comment:
-    - text: uhm..
-      extraData: ExtraData
-      inputSetIndex: 1
-      outputNodeIndex: 2
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 59
-        width: 30
-        height: 21
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: Yeah, thanks
+    - text: Don't be so mean! You bumped into me.
       extraData: ExtraData
       inputSetIndex: 1
       outputNodeIndex: -1
-      outActionIndex: -1
+      outActionIndex: 5
       showmore: 0
       outRect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
+        x: 302
+        y: 59
+        width: 30
+        height: 29
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    ID: 5
+    - text: I-I-I'm sorry...
+      extraData: ExtraData
+      inputSetIndex: 1
+      outputNodeIndex: -1
+      outActionIndex: 6
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 302
+        y: 89
+        width: 30
+        height: 21
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: Didn't you're mom teach you how to walk?!
+      extraData: ExtraData
+      inputSetIndex: 1
+      outputNodeIndex: -1
+      outActionIndex: 7
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 302
+        y: 111
+        width: 30
+        height: 29
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    ID: 1
     rect:
       serializedVersion: 2
-      x: 0
-      y: 230
+      x: 540
+      y: 190
       width: 349
-      height: 142.4
-    pTag: Andrew
+      height: 181
+    pTag: Violet
     expand: 0
     sprite: {fileID: 0}
     vars: []
     varKeys: []
-    isPlayer: 0
+    isPlayer: 1
   - commentCount: 1
     s_comment:
-    - text: I'm Violet, what's your name?
+    - text: Don't blame me, it's your fault!
       extraData: ExtraData
       inputSetIndex: 2
-      outputNodeIndex: 3
-      outActionIndex: -1
+      outputNodeIndex: -1
+      outActionIndex: 3
       showmore: 0
       outRect:
         serializedVersion: 2
@@ -148,14 +163,14 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    ID: 6
+    ID: 2
     rect:
       serializedVersion: 2
-      x: 140
-      y: 0
+      x: 1340
+      y: 100
       width: 349
-      height: 120.399994
-    pTag: Violet
+      height: 121
+    pTag: Jannet
     expand: 0
     sprite: {fileID: 0}
     vars: []
@@ -163,7 +178,7 @@ MonoBehaviour:
     isPlayer: 0
   - commentCount: 1
     s_comment:
-    - text: I'm Andrew, nice to meet you...
+    - text: B-But...
       extraData: ExtraData
       inputSetIndex: 3
       outputNodeIndex: 4
@@ -178,14 +193,14 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    ID: 7
+    ID: 8
     rect:
       serializedVersion: 2
-      x: 450
-      y: 250
+      x: 1930
+      y: 110
       width: 349
-      height: 120.399994
-    pTag: Andrew
+      height: 121
+    pTag: Violet
     expand: 0
     sprite: {fileID: 0}
     vars: []
@@ -193,11 +208,11 @@ MonoBehaviour:
     isPlayer: 0
   - commentCount: 1
     s_comment:
-    - text: What just happened?
+    - text: You better watch your back!
       extraData: ExtraData
       inputSetIndex: 4
-      outputNodeIndex: 5
-      outActionIndex: -1
+      outputNodeIndex: -1
+      outActionIndex: 8
       showmore: 0
       outRect:
         serializedVersion: 2
@@ -208,22 +223,22 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    ID: 1
+    ID: 9
     rect:
       serializedVersion: 2
-      x: 620
-      y: -10
+      x: 1930
+      y: 260
       width: 349
-      height: 120.399994
-    pTag: Violet
+      height: 121
+    pTag: Jannet
     expand: 0
     sprite: {fileID: 0}
     vars: []
     varKeys: []
     isPlayer: 0
-  - commentCount: 2
+  - commentCount: 1
     s_comment:
-    - text: uhm.. what do you mean?
+    - text: Hey, don't be so sad...
       extraData: ExtraData
       inputSetIndex: 5
       outputNodeIndex: 6
@@ -238,9 +253,39 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    - text: I just tripped if that's what you're asking?
+    ID: 14
+    rect:
+      serializedVersion: 2
+      x: -40
+      y: 620
+      width: 349
+      height: 121
+    pTag: Violet
+    expand: 0
+    sprite: {fileID: 0}
+    vars: []
+    varKeys: []
+    isPlayer: 0
+  - commentCount: 2
+    s_comment:
+    - text: Whatever, you made me look like a fool...
       extraData: ExtraData
-      inputSetIndex: 5
+      inputSetIndex: 6
+      outputNodeIndex: 7
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 302
+        y: 59
+        width: 30
+        height: 29
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: Leave me alone...
+      extraData: ExtraData
+      inputSetIndex: 6
       outputNodeIndex: -1
       outActionIndex: -1
       showmore: 0
@@ -253,24 +298,24 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    ID: 2
+    ID: 15
     rect:
       serializedVersion: 2
-      x: 860
-      y: 240
+      x: 340
+      y: 620
       width: 349
-      height: 150
-    pTag: Andrew
+      height: 151
+    pTag: Jannet
     expand: 0
     sprite: {fileID: 0}
     vars: []
     varKeys: []
     isPlayer: 0
-  - commentCount: 2
+  - commentCount: 7
     s_comment:
-    - text: It won't stop if you keep on ignoring it...
+    - text: No Jannet, I just won against you, taht's it.
       extraData: ExtraData
-      inputSetIndex: 6
+      inputSetIndex: 7
       outputNodeIndex: 8
       outActionIndex: -1
       showmore: 0
@@ -283,37 +328,7 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    - text: oh ok then, bye...
-      extraData: ExtraData
-      inputSetIndex: 6
-      outputNodeIndex: 7
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 88
-        width: 30
-        height: 21
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    ID: 3
-    rect:
-      serializedVersion: 2
-      x: 1100
-      y: -20
-      width: 349
-      height: 150
-    pTag: Violet
-    expand: 0
-    sprite: {fileID: 0}
-    vars: []
-    varKeys: []
-    isPlayer: 1
-  - commentCount: 1
-    s_comment:
-    - text: B-Bye...
+    - text: Look, you have always been so mean to me...
       extraData: ExtraData
       inputSetIndex: 7
       outputNodeIndex: -1
@@ -328,39 +343,9 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    ID: 4
-    rect:
-      serializedVersion: 2
-      x: 1330
-      y: 280
-      width: 349
-      height: 120.399994
-    pTag: Andrew
-    expand: 0
-    sprite: {fileID: 0}
-    vars: []
-    varKeys: []
-    isPlayer: 0
-  - commentCount: 3
-    s_comment:
-    - text: Yeah you're right...
+    - text: not only me but others too...
       extraData: ExtraData
-      inputSetIndex: 8
-      outputNodeIndex: 9
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 59
-        width: 30
-        height: 21
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: '...'
-      extraData: ExtraData
-      inputSetIndex: 8
+      inputSetIndex: 7
       outputNodeIndex: -1
       outActionIndex: -1
       showmore: 0
@@ -373,9 +358,9 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    - text: I don't know what to do about it...
+    - text: being mean to people won't make you strong...
       extraData: ExtraData
-      inputSetIndex: 8
+      inputSetIndex: 7
       outputNodeIndex: -1
       outActionIndex: -1
       showmore: 0
@@ -388,159 +373,9 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    ID: 8
-    rect:
-      serializedVersion: 2
-      x: 1910
-      y: -210
-      width: 349
-      height: 172
-    pTag: Andrew
-    expand: 0
-    sprite: {fileID: 0}
-    vars: []
-    varKeys: []
-    isPlayer: 0
-  - commentCount: 3
-    s_comment:
-    - text: You should tell this to a teacher, they will help you
+    - text: or it won't make you look cool...
       extraData: ExtraData
-      inputSetIndex: 9
-      outputNodeIndex: 13
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 59
-        width: 30
-        height: 29
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: It's best to ignore
-      extraData: ExtraData
-      inputSetIndex: 9
-      outputNodeIndex: 12
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 88
-        width: 30
-        height: 21
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: 'Once a loser always a loser, hahahaha... '
-      extraData: ExtraData
-      inputSetIndex: 9
-      outputNodeIndex: 10
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 110
-        width: 30
-        height: 29
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    ID: 9
-    rect:
-      serializedVersion: 2
-      x: 1920
-      y: -10
-      width: 349
-      height: 179.59999
-    pTag: Violet
-    expand: 0
-    sprite: {fileID: 0}
-    vars: []
-    varKeys: []
-    isPlayer: 1
-  - commentCount: 1
-    s_comment:
-    - text: '!?!?!?!'
-      extraData: ExtraData
-      inputSetIndex: 10
-      outputNodeIndex: 11
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 59
-        width: 30
-        height: 21
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    ID: 10
-    rect:
-      serializedVersion: 2
-      x: 1980
-      y: 240
-      width: 349
-      height: 120.399994
-    pTag: Andrew
-    expand: 0
-    sprite: {fileID: 0}
-    vars: []
-    varKeys: []
-    isPlayer: 0
-  - commentCount: 1
-    s_comment:
-    - text: Nevermind, gotta go to class, Byee
-      extraData: ExtraData
-      inputSetIndex: 11
-      outputNodeIndex: 7
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 59
-        width: 30
-        height: 29
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    ID: 11
-    rect:
-      serializedVersion: 2
-      x: 1730
-      y: 440
-      width: 349
-      height: 128
-    pTag: Violet
-    expand: 0
-    sprite: {fileID: 0}
-    vars: []
-    varKeys: []
-    isPlayer: 0
-  - commentCount: 2
-    s_comment:
-    - text: Yeah you're right
-      extraData: ExtraData
-      inputSetIndex: 12
-      outputNodeIndex: 11
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 59
-        width: 30
-        height: 21
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: what can i even do anyways...
-      extraData: ExtraData
-      inputSetIndex: 12
+      inputSetIndex: 7
       outputNodeIndex: -1
       outActionIndex: -1
       showmore: 0
@@ -553,39 +388,9 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    ID: 12
-    rect:
-      serializedVersion: 2
-      x: 1510
-      y: 100
-      width: 349
-      height: 142.4
-    pTag: Andrew
-    expand: 0
-    sprite: {fileID: 0}
-    vars: []
-    varKeys: []
-    isPlayer: 0
-  - commentCount: 3
-    s_comment:
-    - text: I've been through these kind of stuff
+    - text: You just make people around you upset, that's it!
       extraData: ExtraData
-      inputSetIndex: 13
-      outputNodeIndex: 14
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 59
-        width: 30
-        height: 29
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: It's tough really...
-      extraData: ExtraData
-      inputSetIndex: 13
+      inputSetIndex: 7
       outputNodeIndex: -1
       outActionIndex: -1
       showmore: 0
@@ -598,174 +403,9 @@ MonoBehaviour:
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
-    - text: But ignoring is never a solution!
+    - text: In the end, you will find yourself being upset just like this...
       extraData: ExtraData
-      inputSetIndex: 13
-      outputNodeIndex: -1
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    ID: 13
-    rect:
-      serializedVersion: 2
-      x: 2300
-      y: -260
-      width: 349
-      height: 172
-    pTag: Violet
-    expand: 0
-    sprite: {fileID: 0}
-    vars: []
-    varKeys: []
-    isPlayer: 0
-  - commentCount: 3
-    s_comment:
-    - text: Easy said, than done...
-      extraData: ExtraData
-      inputSetIndex: 14
-      outputNodeIndex: 15
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 59
-        width: 30
-        height: 21
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: What if they start making fun of me...
-      extraData: ExtraData
-      inputSetIndex: 14
-      outputNodeIndex: -1
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: What if they call me a tattletale!?
-      extraData: ExtraData
-      inputSetIndex: 14
-      outputNodeIndex: -1
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    ID: 14
-    rect:
-      serializedVersion: 2
-      x: 2560
-      y: -30
-      width: 349
-      height: 172
-    pTag: Andrew
-    expand: 0
-    sprite: {fileID: 0}
-    vars: []
-    varKeys: []
-    isPlayer: 0
-  - commentCount: 2
-    s_comment:
-    - text: Well is it better to live this way?
-      extraData: ExtraData
-      inputSetIndex: 15
-      outputNodeIndex: 16
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 59
-        width: 30
-        height: 21
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: You can't know, if you don't try
-      extraData: ExtraData
-      inputSetIndex: 15
-      outputNodeIndex: 16
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 81
-        width: 30
-        height: 21
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    ID: 15
-    rect:
-      serializedVersion: 2
-      x: 2900
-      y: -270
-      width: 349
-      height: 142.4
-    pTag: Violet
-    expand: 0
-    sprite: {fileID: 0}
-    vars: []
-    varKeys: []
-    isPlayer: 1
-  - commentCount: 3
-    s_comment:
-    - text: Well, it's up to you now
-      extraData: ExtraData
-      inputSetIndex: 16
-      outputNodeIndex: 17
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 302
-        y: 59
-        width: 30
-        height: 21
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: Nevermind, I gotta go to class
-      extraData: ExtraData
-      inputSetIndex: 16
-      outputNodeIndex: -1
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: Take care
-      extraData: ExtraData
-      inputSetIndex: 16
+      inputSetIndex: 7
       outputNodeIndex: -1
       outActionIndex: -1
       showmore: 0
@@ -781,60 +421,753 @@ MonoBehaviour:
     ID: 16
     rect:
       serializedVersion: 2
-      x: 3100
-      y: 100
+      x: 710
+      y: 560
       width: 349
-      height: 164.4
+      height: 293
     pTag: Violet
     expand: 0
     sprite: {fileID: 0}
     vars: []
     varKeys: []
     isPlayer: 0
-  - commentCount: 2
+  - commentCount: 1
     s_comment:
-    - text: Uhm, t-thanks for the advice
+    - text: I always thought I would be cool if I acted that way...
       extraData: ExtraData
-      inputSetIndex: 17
-      outputNodeIndex: -1
+      inputSetIndex: 8
+      outputNodeIndex: 9
       outActionIndex: -1
       showmore: 0
       outRect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
-      sprites: {fileID: 0}
-      audios: {fileID: 0}
-      visible: 1
-    - text: see you around...
-      extraData: ExtraData
-      inputSetIndex: 17
-      outputNodeIndex: -1
-      outActionIndex: -1
-      showmore: 0
-      outRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 0
-        height: 0
+        x: 302
+        y: 59
+        width: 30
+        height: 29
       sprites: {fileID: 0}
       audios: {fileID: 0}
       visible: 1
     ID: 17
     rect:
       serializedVersion: 2
-      x: 3340
-      y: -230
+      x: 1070
+      y: 570
       width: 349
-      height: 142.4
-    pTag: Andrew
+      height: 129
+    pTag: Jannet
     expand: 0
     sprite: {fileID: 0}
     vars: []
     varKeys: []
     isPlayer: 0
-  S_actionNodes: []
+  - commentCount: 3
+    s_comment:
+    - text: '...and, do you think you look cool now?'
+      extraData: ExtraData
+      inputSetIndex: 9
+      outputNodeIndex: 10
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 302
+        y: 59
+        width: 30
+        height: 29
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: sorry but, acting that way ruins other people's lives,
+      extraData: ExtraData
+      inputSetIndex: 9
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: and also your too...
+      extraData: ExtraData
+      inputSetIndex: 9
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    ID: 18
+    rect:
+      serializedVersion: 2
+      x: 1070
+      y: 710
+      width: 349
+      height: 181
+    pTag: Violet
+    expand: 0
+    sprite: {fileID: 0}
+    vars: []
+    varKeys: []
+    isPlayer: 0
+  - commentCount: 3
+    s_comment:
+    - text: Fine okay!
+      extraData: ExtraData
+      inputSetIndex: 10
+      outputNodeIndex: 11
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 302
+        y: 59
+        width: 30
+        height: 21
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: You were the good girl and you won!
+      extraData: ExtraData
+      inputSetIndex: 10
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: Now just leave me alone!
+      extraData: ExtraData
+      inputSetIndex: 10
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    ID: 19
+    rect:
+      serializedVersion: 2
+      x: 1060
+      y: 900
+      width: 349
+      height: 173
+    pTag: Jannet
+    expand: 0
+    sprite: {fileID: 0}
+    vars: []
+    varKeys: []
+    isPlayer: 0
+  - commentCount: 3
+    s_comment:
+    - text: No, look we are all friends...
+      extraData: ExtraData
+      inputSetIndex: 11
+      outputNodeIndex: 12
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 302
+        y: 59
+        width: 30
+        height: 21
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: These kind of stuff happen,
+      extraData: ExtraData
+      inputSetIndex: 11
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: we can forgive each other
+      extraData: ExtraData
+      inputSetIndex: 11
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    ID: 20
+    rect:
+      serializedVersion: 2
+      x: 1060
+      y: 1080
+      width: 349
+      height: 165
+    pTag: Violet
+    expand: 0
+    sprite: {fileID: 0}
+    vars: []
+    varKeys: []
+    isPlayer: 0
+  - commentCount: 3
+    s_comment:
+    - text: uhm...
+      extraData: ExtraData
+      inputSetIndex: 12
+      outputNodeIndex: 13
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 302
+        y: 59
+        width: 30
+        height: 21
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: sorry...
+      extraData: ExtraData
+      inputSetIndex: 12
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: for being such a bully...
+      extraData: ExtraData
+      inputSetIndex: 12
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    ID: 21
+    rect:
+      serializedVersion: 2
+      x: 1060
+      y: 1250
+      width: 349
+      height: 165
+    pTag: Jannet
+    expand: 0
+    sprite: {fileID: 0}
+    vars: []
+    varKeys: []
+    isPlayer: 0
+  - commentCount: 3
+    s_comment:
+    - text: Apology accepted!
+      extraData: ExtraData
+      inputSetIndex: 13
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: so now...
+      extraData: ExtraData
+      inputSetIndex: 13
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    - text: let's DANCE!
+      extraData: ExtraData
+      inputSetIndex: 13
+      outputNodeIndex: -1
+      outActionIndex: -1
+      showmore: 0
+      outRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      sprites: {fileID: 0}
+      audios: {fileID: 0}
+      visible: 1
+    ID: 22
+    rect:
+      serializedVersion: 2
+      x: 1060
+      y: 1420
+      width: 349
+      height: 165
+    pTag: Violet
+    expand: 0
+    sprite: {fileID: 0}
+    vars: []
+    varKeys: []
+    isPlayer: 0
+  S_actionNodes:
+  - pauseHere: 0
+    gameObjectName: Jannet
+    methodName: TurnLeft
+    nameIndex: 7
+    methodIndex: 15
+    paramIndex: 0
+    opts:
+    - '[No method]'
+    - EPressed
+    - Interact
+    - InnerVoiceDialogue
+    - GetAssigned
+    - AssignNew
+    - SaveState
+    - LoadState
+    - OnBeforeSerialize
+    - OnAfterDeserialize
+    - LookingDown
+    - SadIdle
+    - Talking
+    - YellingOut
+    - Angry
+    - TurnLeft
+    - SexyWalking
+    - StandToSit
+    nameOpts:
+    - '[No object]'
+    - DialogueManager
+    - DialogueIDManager
+    - MainCamera
+    - Violet
+    - CM vcam1
+    - CutScene2.0_Trigger
+    - Jannet
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    rect:
+      serializedVersion: 2
+      x: 320
+      y: 190
+      width: 200
+      height: 158
+    ID: 4
+    outPlayerIndex: 1
+    outActionIndex: -1
+    more: 0
+    ovrStartNode: -1
+    renameDialogue: 
+  - pauseHere: 0
+    gameObjectName: Jannet
+    methodName: SadIdle
+    nameIndex: 7
+    methodIndex: 11
+    paramIndex: 0
+    opts:
+    - '[No method]'
+    - EPressed
+    - Interact
+    - InnerVoiceDialogue
+    - GetAssigned
+    - AssignNew
+    - SaveState
+    - LoadState
+    - OnBeforeSerialize
+    - OnAfterDeserialize
+    - LookingDown
+    - SadIdle
+    - YellingOut
+    - TurnLeft
+    - SexyWalking
+    - StandToSit
+    nameOpts:
+    - '[No object]'
+    - DialogueManager
+    - DialogueIDManager
+    - MainCamera
+    - Violet
+    - CM vcam1
+    - CutScene2.0_Trigger
+    - Jannet
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    rect:
+      serializedVersion: 2
+      x: 1130
+      y: 240
+      width: 200
+      height: 158
+    ID: 5
+    outPlayerIndex: -1
+    outActionIndex: 8
+    more: 0
+    ovrStartNode: -1
+    renameDialogue: 
+  - pauseHere: 0
+    gameObjectName: Jannet
+    methodName: Angry
+    nameIndex: 7
+    methodIndex: 13
+    paramIndex: 0
+    opts:
+    - '[No method]'
+    - EPressed
+    - Interact
+    - InnerVoiceDialogue
+    - GetAssigned
+    - AssignNew
+    - SaveState
+    - LoadState
+    - OnBeforeSerialize
+    - OnAfterDeserialize
+    - LookingDown
+    - SadIdle
+    - YellingOut
+    - Angry
+    - TurnLeft
+    - SexyWalking
+    - StandToSit
+    nameOpts:
+    - '[No object]'
+    - DialogueManager
+    - DialogueIDManager
+    - MainCamera
+    - Violet
+    - CM vcam1
+    - CutScene2.0_Trigger
+    - Jannet
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    rect:
+      serializedVersion: 2
+      x: 1130
+      y: 80
+      width: 200
+      height: 158
+    ID: 7
+    outPlayerIndex: 2
+    outActionIndex: -1
+    more: 0
+    ovrStartNode: -1
+    renameDialogue: 
+  - pauseHere: 0
+    gameObjectName: Jannet
+    methodName: Talking
+    nameIndex: 7
+    methodIndex: 12
+    paramIndex: 0
+    opts:
+    - '[No method]'
+    - EPressed
+    - Interact
+    - InnerVoiceDialogue
+    - GetAssigned
+    - AssignNew
+    - SaveState
+    - LoadState
+    - OnBeforeSerialize
+    - OnAfterDeserialize
+    - LookingDown
+    - SadIdle
+    - Talking
+    - YellingOut
+    - Angry
+    - TurnLeft
+    - SexyWalking
+    - StandToSit
+    nameOpts:
+    - '[No object]'
+    - DialogueManager
+    - DialogueIDManager
+    - MainCamera
+    - Violet
+    - CM vcam1
+    - CutScene2.0_Trigger
+    - Jannet
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    rect:
+      serializedVersion: 2
+      x: 1700
+      y: 90
+      width: 200
+      height: 158
+    ID: 6
+    outPlayerIndex: 3
+    outActionIndex: -1
+    more: 0
+    ovrStartNode: -1
+    renameDialogue: 
+  - pauseHere: 0
+    gameObjectName: Jannet
+    methodName: AngryPoint
+    nameIndex: 7
+    methodIndex: 18
+    paramIndex: 0
+    opts:
+    - '[No method]'
+    - EPressed
+    - Interact
+    - InnerVoiceDialogue
+    - GetAssigned
+    - AssignNew
+    - SaveState
+    - LoadState
+    - OnBeforeSerialize
+    - OnAfterDeserialize
+    - LookingDown
+    - SadIdle
+    - Talking
+    - YellingOut
+    - Angry
+    - TurnLeft
+    - SexyWalking
+    - StandToSit
+    - AngryPoint
+    nameOpts:
+    - '[No object]'
+    - DialogueManager
+    - DialogueIDManager
+    - MainCamera
+    - Violet
+    - CM vcam1
+    - CutScene2.0_Trigger
+    - Jannet
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    rect:
+      serializedVersion: 2
+      x: 1130
+      y: 400
+      width: 200
+      height: 158
+    ID: 3
+    outPlayerIndex: 4
+    outActionIndex: -1
+    more: 0
+    ovrStartNode: -1
+    renameDialogue: 
+  - pauseHere: 0
+    gameObjectName: BarManager
+    methodName: IncreaseStrength
+    nameIndex: 1
+    methodIndex: 5
+    paramIndex: 0
+    opts:
+    - '[No method]'
+    - UpdateFriendlinessBar
+    - IncreaseFriendliness
+    - DecreaseFriendliness
+    - UpdateStrengthBar
+    - IncreaseStrength
+    - DecreaseStrength
+    - ShowFloatingText
+    nameOpts:
+    - '[No object]'
+    - BarManager
+    - DialogueManager
+    - DialogueIDManager
+    - MainCamera
+    - Violet
+    - CM vcam1
+    - CutScene2.0_Trigger
+    - Jannet
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    rect:
+      serializedVersion: 2
+      x: 910
+      y: 80
+      width: 200
+      height: 158
+    ID: 10
+    outPlayerIndex: -1
+    outActionIndex: 2
+    more: 0
+    ovrStartNode: -1
+    renameDialogue: 
+  - pauseHere: 0
+    gameObjectName: BarManager
+    methodName: DecreaseStrength
+    nameIndex: 1
+    methodIndex: 6
+    paramIndex: 0
+    opts:
+    - '[No method]'
+    - UpdateFriendlinessBar
+    - IncreaseFriendliness
+    - DecreaseFriendliness
+    - UpdateStrengthBar
+    - IncreaseStrength
+    - DecreaseStrength
+    - ShowFloatingText
+    nameOpts:
+    - '[No object]'
+    - BarManager
+    - DialogueManager
+    - DialogueIDManager
+    - MainCamera
+    - Violet
+    - CM vcam1
+    - CutScene2.0_Trigger
+    - Jannet
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    rect:
+      serializedVersion: 2
+      x: 910
+      y: 240
+      width: 200
+      height: 158
+    ID: 11
+    outPlayerIndex: -1
+    outActionIndex: 1
+    more: 0
+    ovrStartNode: -1
+    renameDialogue: 
+  - pauseHere: 0
+    gameObjectName: BarManager
+    methodName: DecreaseFriendliness
+    nameIndex: 1
+    methodIndex: 3
+    paramIndex: 0
+    opts:
+    - '[No method]'
+    - UpdateFriendlinessBar
+    - IncreaseFriendliness
+    - DecreaseFriendliness
+    - UpdateStrengthBar
+    - IncreaseStrength
+    - DecreaseStrength
+    - ShowFloatingText
+    nameOpts:
+    - '[No object]'
+    - BarManager
+    - DialogueManager
+    - DialogueIDManager
+    - MainCamera
+    - Violet
+    - CM vcam1
+    - CutScene2.0_Trigger
+    - Jannet
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    rect:
+      serializedVersion: 2
+      x: 910
+      y: 400
+      width: 200
+      height: 158
+    ID: 12
+    outPlayerIndex: -1
+    outActionIndex: 4
+    more: 0
+    ovrStartNode: -1
+    renameDialogue: 
+  - pauseHere: 0
+    gameObjectName: CutScene2.0_Trigger
+    methodName: EndScenario
+    nameIndex: 6
+    methodIndex: 3
+    paramIndex: 0
+    opts:
+    - '[No method]'
+    - StartCutScene
+    - TalkWithNPC
+    - EndScenario
+    nameOpts:
+    - '[No object]'
+    - DialogueManager
+    - DialogueIDManager
+    - MainCamera
+    - Violet
+    - CM vcam1
+    - CutScene2.0_Trigger
+    - BarManager
+    - Jannet
+    param_bool: 0
+    param_string: 
+    param_int: 0
+    param_float: 0
+    rect:
+      serializedVersion: 2
+      x: 1990
+      y: 390
+      width: 200
+      height: 158
+    ID: 13
+    outPlayerIndex: -1
+    outActionIndex: -1
+    more: 0
+    ovrStartNode: -1
+    renameDialogue: 
   S_selNodes: []
