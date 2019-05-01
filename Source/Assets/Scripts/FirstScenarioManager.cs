@@ -25,7 +25,7 @@ public class FirstScenarioManager : MonoBehaviour
     int curMS = 0;
 
     private GameObject cameraScript;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -76,7 +76,7 @@ public class FirstScenarioManager : MonoBehaviour
         }
     }
 
-        public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
