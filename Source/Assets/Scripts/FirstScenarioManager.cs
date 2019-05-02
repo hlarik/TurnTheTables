@@ -16,11 +16,6 @@ public class FirstScenarioManager : MonoBehaviour
     PlayableDirector pd;
     PlayerController playerControllerScript;
     GameObject MotherParent;
-    GameObject Maya;
-    GameObject Liam;
-    GameObject Ethan;
-    GameObject Andrew;
-    GameObject Felix;
     Vector3 turnSmoothVelocity;
     float turnSmoothTime = 0.2f;
     float rotSpeed = 8f;
@@ -30,7 +25,7 @@ public class FirstScenarioManager : MonoBehaviour
     int curMS = 0;
 
     private GameObject cameraScript;
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -39,16 +34,6 @@ public class FirstScenarioManager : MonoBehaviour
         playerControllerScript = GameObject.Find("Violet").GetComponent<PlayerController>();
         cameraScript = Camera.main.gameObject;
         MotherParent = GameObject.Find("Mother_Parent");
-        Maya = GameObject.Find("Maya");
-        Maya.GetComponent<Animator>().SetTrigger("isTalking");
-        Liam = GameObject.Find("Liam");
-        Liam.GetComponent<Animator>().SetTrigger("isSittingLaughing");
-        Ethan = GameObject.Find("Ethan");
-        Ethan.GetComponent<Animator>().SetTrigger("isLaughing");
-       // Andrew = GameObject.Find("Andrew");
-       // Andrew.GetComponent<Animator>().SetTrigger("isRunning");
-       // Felix = GameObject.Find("Felix");
-       // Felix.GetComponent<Animator>().SetTrigger("isRunning");
     }
 
     void Update()
@@ -91,7 +76,7 @@ public class FirstScenarioManager : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {

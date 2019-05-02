@@ -16,8 +16,6 @@ public class DanceBattlePanelScript : MonoBehaviour
     bool Won = false;
 
     PlayableDirector selected;
-    PlayableDirector JannetVioletTalk;
-    bool violetTalkTrigger = true;
 
     GameObject SceneChangerScript;
 
@@ -29,7 +27,6 @@ public class DanceBattlePanelScript : MonoBehaviour
         breakdanceWin = GameObject.Find("Breakdance_Win").GetComponent<PlayableDirector>();
         breakdanceLose = GameObject.Find("Breakdance_Lose").GetComponent<PlayableDirector>();
         entrance = GameObject.Find("DanceBattle_Timeline").GetComponent<PlayableDirector>();
-        JannetVioletTalk = GameObject.Find("Win").GetComponent<PlayableDirector>();
         SceneChangerScript = GameObject.Find("BlackFade");
     }
 
@@ -46,7 +43,7 @@ public class DanceBattlePanelScript : MonoBehaviour
             GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
             Camera.main.GetComponent<CameraController>().enableCameraMouse();
             GameObject virtualCams = GameObject.Find("VirtualCameras");
-            for (int i = 0; i < virtualCams.transform.childCount; i++)
+            for (int i = 0; i < virtualCams.transform.GetChildCount(); i++)
             {
                 virtualCams.transform.GetChild(i).gameObject.SetActive(false);
             }
@@ -61,11 +58,6 @@ public class DanceBattlePanelScript : MonoBehaviour
                 {
                     SceneManager.LoadScene("FirstFloor");
                 }
-            }
-            else if(violetTalkTrigger)
-            {
-                JannetVioletTalk.Play();
-                violetTalkTrigger = false;
             }
 
         }

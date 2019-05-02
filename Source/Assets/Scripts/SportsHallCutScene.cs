@@ -32,14 +32,44 @@ public class SportsHallCutScene : MonoBehaviour
     bool isQuizNotStarted = false;
 
     private GameObject backgroundMusic;
+    BarManager bar;
+    TaskManager task;
 
+    private GameObject QuestionCanvas;
+    private GameObject QPanel;
+
+    bool isReportClicked = false;
+
+
+    private GameObject exitTxt;  ///?????????
+    private GameObject dialogTxt;
+
+   // GlobalController globalControllerScript; //???
 
 
     // Start is called before the first frame update
     void Start()
     {
-        backgroundMusic = GameObject.Find("BackgroundMusic");
+      
+        exitTxt = GameObject.Find("Enter thru Door Canvas");
+        dialogTxt = GameObject.Find("Interact with character canvas");
+        exitTxt.SetActive(false);
+        dialogTxt.SetActive(false);
+        /*QuestionCanvas = GameObject.Find("QuestionCanvas");
+        QPanel = GameObject.Find("QPanel");
 
+        Transform[] children = QuestionCanvas.GetComponentsInChildren<Transform>(true);
+        foreach (Transform t in children)
+        {
+            if (t.name == "QPanel")
+            {
+                QPanel = t.gameObject;
+            }
+        }*/
+
+        backgroundMusic = GameObject.Find("BackgroundMusic");
+        bar = GameObject.Find("BarManager").GetComponent<BarManager>();
+        task = GameObject.Find("TaskManager").GetComponent<TaskManager>();
         pd = GetComponent<PlayableDirector>();
        // pd2 = GetComponent<PlayableDirector>();
         cameraScript = Camera.main.gameObject;
@@ -47,8 +77,8 @@ public class SportsHallCutScene : MonoBehaviour
         optionParentCanvas = GameObject.Find("SportsHallCutsceneCanvas");
         optionCanvas = GameObject.Find("SportsCutsceneOption");
 
-        Transform[] children = optionParentCanvas.GetComponentsInChildren<Transform>(true);
-        foreach (Transform t in children)
+        Transform[] children3 = optionParentCanvas.GetComponentsInChildren<Transform>(true);
+        foreach (Transform t in children3)
         {
             if (t.name == "SportsCutsceneOption")
             {
@@ -68,6 +98,14 @@ public class SportsHallCutScene : MonoBehaviour
                 cinemachine = t.gameObject;
             }
         }
+
+        //??????
+      /*  globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+        if (globalControllerScript.isCutSceneFinished(this.name))
+        {
+
+            Destroy(this);
+        }*/
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -126,6 +164,7 @@ public class SportsHallCutScene : MonoBehaviour
 
     public void IgnoreNote()
     {
+        bar.DecreaseStrength();
         rain.MakeItRain();
         closeOptionsCanvas();
         qm.startQuiz();
@@ -134,6 +173,10 @@ public class SportsHallCutScene : MonoBehaviour
 
     public void ReportToTeacher()
     {
+     //   if(isReportClicked == false)
+        task.AddNewTask("Report-Violet-Jannet");
+        isReportClicked = true;
+        bar.IncreaseStrength();
         closeOptionsCanvas();
         qm.startQuiz();
         Destroy(this);
@@ -145,8 +188,6 @@ public class SportsHallCutScene : MonoBehaviour
         backgroundMusic.GetComponent<MusicController>().lowerMusicVolume();
         closeOptionsCanvas();
         reactCutScene.PlayCutScene();
- 
-
     }
 
     public void closeOptionsCanvas()
