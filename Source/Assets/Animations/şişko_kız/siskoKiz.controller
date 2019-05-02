@@ -39,7 +39,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: isTalking
+  - m_Name: isRubbingArm
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -118,7 +118,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isTalking
+    m_ConditionEvent: isRubbingArm
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102962426013056196}
@@ -454,7 +454,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Talking
+  m_Name: RubbingArm
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -467,7 +467,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7b7e9d8a939fcc241a4cfdffce588a8f, type: 3}
+  m_Motion: {fileID: 7400000, guid: c988a38993161dc4b9b22709a82a5c80, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
