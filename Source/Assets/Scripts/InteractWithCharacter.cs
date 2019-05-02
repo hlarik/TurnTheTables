@@ -162,13 +162,13 @@ public class InteractWithCharacter : MonoBehaviour
 
     public void JannetOpenVDLastScene()
     {
+        uiObject.SetActive(false);
         if (!VD.isActive)
         {
             if (GameObject.Find("Jannet").GetComponent<VIDE_Assign>() == null)
                 Debug.Log("No dialogue assigned");
             else
             {
-                Debug.Log("|||||||||||||HEREEE");
                 NPCDialogue(GameObject.Find("Jannet").GetComponent<VIDE_Assign>());
                 VD.SetNode(14);
             }

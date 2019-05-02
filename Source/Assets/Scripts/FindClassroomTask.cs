@@ -7,7 +7,7 @@ public class FindClassroomTask : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GameObject.Find("GaneMaster").GetComponent<GlobalController>().isCutSceneFinished(this.name))
+        if (GameObject.Find("GameMaster").GetComponent<GlobalController>().isCutSceneFinished(this.name))
             Destroy(this);
     }
 
@@ -16,10 +16,8 @@ public class FindClassroomTask : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameObject.Find("TaskPopupCanvas").transform.GetChild(0).GetComponent<InGameMenuController>().ClickMenuButton();
+            Destroy(this);
+            GameObject.Find("GameMaster").GetComponent<GlobalController>().AddFinishedCutScene(this.name);
         }
-        Destroy(this);
-        GameObject.Find("GaneMaster").GetComponent<GlobalController>().AddFinishedCutScene(this.name);
     }
-
-
 }

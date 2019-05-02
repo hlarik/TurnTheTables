@@ -210,15 +210,16 @@ public class CutSceneManager : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        globalControllerScript.AddFinishedCutScene(this.name);
+        
         pd = timeline.GetComponent<PlayableDirector>();
         virtualCam.SetActive(true);
-        if (pd != null)
+        if (pd != null && !globalControllerScript.isCutSceneFinished(this.name))
         {
             playerControllerScript.enabled = false;
             cameraScript.GetComponent<CameraController>().disableCameraMouse();
             pd.Play();
         }
+        globalControllerScript.AddFinishedCutScene(this.name);
     }
 
     public void TalkWithNPC()

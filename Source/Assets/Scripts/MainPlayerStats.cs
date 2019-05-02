@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class MainPlayerStats : MonoBehaviour
 {
-    int friendliness = 50;
-    int strength = 50;
+    GlobalController globalControllerScript;
+    int friendliness;
+    int strength;
 
     // Start is called before the first frame update
     void Start()
     {
         /*friendliness = 50;   //In a scale of 100
         strength = 50;       //In a scale of 100*/
+        //friendliness = globalControllerScript.GetFriendliness();
+        //strength = globalControllerScript.GetStrength();
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+        friendliness = globalControllerScript.GetFriendliness();
+        strength = globalControllerScript.GetStrength();
+        Debug.Log("In MainPlayerStats start() | friendliness: " + friendliness + "\tstrength" + strength);
     }
 
     public void SetFriendliness(int friendliness)
