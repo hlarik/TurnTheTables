@@ -12,10 +12,9 @@ public class GeneralPatrolScript : MonoBehaviour
     string state = "patrol";
     public GameObject[] moveSpots;
     int curMS = 0;
-    float rotSpeed = 5f;
-    public float speed;
-    float accuracyMS = 1.0f;
-    public float speedPC;
+    public float rotSpeed = 5f;
+    public float speed = 1.5f;
+    public float accuracyMS = 5.0f;
 
     void Start()
     {
@@ -31,8 +30,8 @@ public class GeneralPatrolScript : MonoBehaviour
         if (state == "patrol" && moveSpots.Length > 0)
         {
             //anim.SetBool("isInteracting", false);
-            anim.SetFloat("speedPercent", speedPC);
-            //zzzanim.SetBool("isWalking", true);
+            anim.SetFloat("speedPercent", 0.5f);
+            //anim.SetBool("isWalking", true);
             if (Vector3.Distance(moveSpots[curMS].transform.position, transform.position) < accuracyMS)
             {
                 curMS++;
@@ -58,7 +57,7 @@ public class GeneralPatrolScript : MonoBehaviour
         }
         else
         {
-            anim.SetFloat("speedPercent", speedPC);
+            anim.SetFloat("speedPercent", 0.5f);
             state = "patrol";
         }
     }

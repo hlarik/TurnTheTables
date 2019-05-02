@@ -21,15 +21,19 @@ public class BarManager : MonoBehaviour
     public GameObject FloatingTextObject;
     public Animator anim;
     MainPlayerStats playerStats;
+    GlobalController globalControllerScript;
 
     // Start is called before the first frame update
     private void Start()
     {
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
         playerStats = GameObject.Find("Violet").GetComponent<MainPlayerStats>();
-        currentScoreFr = Convert.ToDouble(playerStats.GetFriendliness());
-        currentScoreSt = Convert.ToDouble(playerStats.GetStrength());
+        currentScoreFr = Convert.ToDouble(globalControllerScript.GetFriendliness());
+        currentScoreSt = Convert.ToDouble(globalControllerScript.GetStrength());
+        Debug.Log("In BarManager: " + currentScoreFr + "\t" + currentScoreSt);
         UpdateFriendlinessBar();
         UpdateStrengthBar();
+        Debug.Log("In BarManager: " + currentScoreFr + "\t" + currentScoreSt);
     }
 
     //***** Friendliness Bar Control *****
@@ -97,7 +101,7 @@ public class BarManager : MonoBehaviour
         else
         {
             UpdateStrengthBar();
-            playerStats.SetFriendliness(Convert.ToInt32(currentScoreSt));
+            playerStats.SetStrength(Convert.ToInt32(currentScoreSt));
             FloatingTextObject.GetComponent<TextMeshProUGUI>().color = Color.blue;
             ShowFloatingText(true);
         }     

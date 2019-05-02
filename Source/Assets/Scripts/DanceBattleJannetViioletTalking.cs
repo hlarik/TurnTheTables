@@ -33,6 +33,20 @@ public class DanceBattleJannetViioletTalking : MonoBehaviour
                 SceneManager.LoadScene("FirstFloor");
             }
         }
+
+        //Exit Credits sceen on click
+        if(finishingDance != null && Input.GetMouseButtonDown(0))
+        {
+            if (SceneChangerScript != null)
+            {
+                //DontDestroyOnLoad(GameObject.Find("MainCharacter")); ----> Bunu sonradan yapariz!!!
+                SceneChangerScript.GetComponent<LevelChangerWithFade>().ChangeLevelWithFade("FirstFloor");
+            }
+            else
+            {
+                SceneManager.LoadScene("FirstFloor");
+            }
+        }
     }
 
     public void CallVDInsideJannet()

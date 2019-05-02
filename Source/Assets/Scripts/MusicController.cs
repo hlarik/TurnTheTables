@@ -6,6 +6,8 @@ public class MusicController : MonoBehaviour
 {
     public AudioSource Track1, Track2, Track3;
     public int TrackSelector, TrackHistory;
+    private static bool keepFadingIn, keepFadingOut;
+    public static MusicController instance;
 
     // Start is called before the first frame update
     void Start()
@@ -56,9 +58,52 @@ public class MusicController : MonoBehaviour
 
     }
 
+    public void FadeInCaller(float speed, float maxVolume)
+    {
+        instance.StartCoroutine(FadeIn(speed, maxVolume));
+    }
+
+    public void FadeOutCaller(float speed)
+    {
+        instance.StartCoroutine(FadeOut(speed));
+    }
+
+    IEnumerator FadeIn(float speed, float maxVolume)
+    {
+        keepFadingIn = true;
+        keepFadingOut = false;
+        Track1.volume = 0;
+        float audioVolume = Track1.volume;
+
+        while (Track1.volume < maxVolume && keepFadingIn)
+        {
+            audioVolume += speed;
+            Track1.volume = audioVolume;
+            Track2.volume = audioVolume;
+            Track3.volume = audioVolume;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    IEnumerator FadeOut(float speed)
+    {
+        keepFadingIn = true;
+        keepFadingOut = false;
+        float audioVolume = Track1.volume;
+
+        while (Track1.volume >= speed && keepFadingIn)
+        {
+            audioVolume -= speed;
+            Track1.volume = audioVolume;
+            Track2.volume = audioVolume;
+            Track3.volume = audioVolume;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     void Awake()
     {
-
+        instance = this;
         DontDestroyOnLoad(transform.gameObject);
     }
 
