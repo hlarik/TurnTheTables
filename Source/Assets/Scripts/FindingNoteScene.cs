@@ -26,6 +26,14 @@ public class FindingNoteScene : MonoBehaviour
     public RainController rain;
     private GameObject backgroundMusic;
 
+    private GameObject exitTxt;  ///?????????
+    private GameObject dialogTxt;
+
+    //GlobalController globalControllerScript; //???
+
+    BarManager bar;
+    TaskManager task;
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -42,6 +50,14 @@ public class FindingNoteScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        exitTxt = GameObject.Find("Enter thru Door Canvas");
+        dialogTxt = GameObject.Find("Interact with character canvas");
+        exitTxt.SetActive(false);
+        dialogTxt.SetActive(false);
+
+        bar = GameObject.Find("BarManager").GetComponent<BarManager>();
+        task = GameObject.Find("TaskManager").GetComponent<TaskManager>();
+
         backgroundMusic = GameObject.Find("BackgroundMusic");
 
         cameraScript = Camera.main.gameObject;
@@ -73,6 +89,16 @@ public class FindingNoteScene : MonoBehaviour
         }
 
 
+        //??????
+       /* globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+        if (globalControllerScript.isCutSceneFinished(this.name))
+        {
+
+            Destroy(this);
+        }*/
+
+
+
     }
 
     void Update()
@@ -97,7 +123,7 @@ public class FindingNoteScene : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
-        cameraScript.GetComponent<CameraController>().disableCameraMouse();
+        //cameraScript.GetComponent<CameraController>().disableCameraMouse();
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
 
         IgnoreButton = GameObject.Find("IgnoreButton").GetComponent<Button>();
@@ -110,12 +136,16 @@ public class FindingNoteScene : MonoBehaviour
 
     public void IgnoreNote()
     {
+        bar.DecreaseStrength();
         rain.MakeItRain();
         closeNote();
     }
 
     public void ReportToTeacher()
     {
+        rain.MakeItStop();
+        task.AddNewTask("Report-Violet-Janet"); //Kim yapayım?
+        bar.IncreaseStrength();
         closeNote();
     }
 
@@ -123,7 +153,7 @@ public class FindingNoteScene : MonoBehaviour
     {
         noteImage.SetActive(false);
 
-        cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        //cameraScript.GetComponent<CameraController>().enableCameraMouse();
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
 
         Cursor.visible = false; //?
