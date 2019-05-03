@@ -43,7 +43,7 @@ public class DanceBattlePanelScript : MonoBehaviour
             GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
             Camera.main.GetComponent<CameraController>().enableCameraMouse();
             GameObject virtualCams = GameObject.Find("VirtualCameras");
-            for (int i = 0; i < virtualCams.transform.GetChildCount(); i++)
+            for (int i = 0; i < virtualCams.transform.childCount; i++)
             {
                 virtualCams.transform.GetChild(i).gameObject.SetActive(false);
             }
