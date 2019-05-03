@@ -151,7 +151,10 @@ public class DialogueManager : MonoBehaviour
                     VD.SetNode(11);
                 }
                 string[] split = whatToReport.Split('-');
-                data.comments[1] = "I recently saw " + split[2] + " bullying " + split[1] + ".";
+                if(split[1] == "Violet")
+                    data.comments[1] = "" + split[2] + " is bullying me";
+                else
+                    data.comments[1] = "I recently saw " + split[2] + " bullying " + split[1] + ".";
             }
         }
 

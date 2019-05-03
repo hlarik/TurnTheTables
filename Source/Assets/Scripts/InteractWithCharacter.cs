@@ -169,8 +169,9 @@ public class InteractWithCharacter : MonoBehaviour
                 Debug.Log("No dialogue assigned");
             else
             {
+                Debug.Log("!!!!!!!!!HERE!!!!!!!!!");
                 NPCDialogue(GameObject.Find("Jannet").GetComponent<VIDE_Assign>());
-                VD.SetNode(14);
+                VD.SetNode(15);
             }
         }
     }
