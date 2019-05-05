@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
 
     public void ClickNewGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Outdoors");
     }
 
     public void ClickLoadGame()
