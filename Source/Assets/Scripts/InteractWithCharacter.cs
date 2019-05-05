@@ -160,6 +160,22 @@ public class InteractWithCharacter : MonoBehaviour
         }
     }
 
+    public void JannetOpenVDLastScene()
+    {
+        uiObject.SetActive(false);
+        if (!VD.isActive)
+        {
+            if (GameObject.Find("Jannet").GetComponent<VIDE_Assign>() == null)
+                Debug.Log("No dialogue assigned");
+            else
+            {
+                Debug.Log("!!!!!!!!!HERE!!!!!!!!!");
+                NPCDialogue(GameObject.Find("Jannet").GetComponent<VIDE_Assign>());
+                VD.SetNode(15);
+            }
+        }
+    }
+
     public bool isInContact()
     {
         return isContacting;

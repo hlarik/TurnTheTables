@@ -14,17 +14,22 @@ public class CutSceneManager2 : MonoBehaviour
     public GameObject maincharacter;
     public GameObject bully;
     public GameObject virtualCam;
-    public GameObject barManager;
     public GameObject[] moveSpots;
     public GameObject JannetChair;
-    public GameObject InteractCanvas;
     public GameObject TaskCanvas;
     public GameObject SitTextCanvas;
 
     private GameObject cameraScript2;
 
+    GameObject Emily;
+    GameObject Madison;
+    GameObject Liam;
+    GameObject Ethan;
+    GameObject Felix;
+
     PlayerController playerControllerScript;
     GameObject Jannet;
+    TaskManager taskManagerScript;
     Vector3 turnSmoothVelocity;
     float turnSmoothTime = 0.2f;
     float rotSpeed = 8f;
@@ -40,8 +45,18 @@ public class CutSceneManager2 : MonoBehaviour
         cameraScript2 = Camera.main.gameObject;
         pd2 = timeline2.GetComponent<PlayableDirector>();
         SitTextCanvas.SetActive(false);
-        InteractCanvas.SetActive(false);
         Jannet = GameObject.Find("Jannet_Parent");
+        taskManagerScript = GameObject.Find("TaskManager").GetComponent<TaskManager>();
+        Emily = GameObject.Find("Emily");
+        Emily.GetComponent<Animator>().SetTrigger("isSittingTalking");
+        Madison = GameObject.Find("Madison");
+        Madison.GetComponent<Animator>().SetTrigger("isSittingTalking");
+        Liam = GameObject.Find("Liam");
+        Liam.GetComponent<Animator>().SetTrigger("isWriting");
+        Ethan = GameObject.Find("Ethan");
+        Ethan.GetComponent<Animator>().SetTrigger("isPlayingGuitar");
+        Felix = GameObject.Find("Felix");
+        Felix.GetComponent<Animator>().SetTrigger("isSittingCheering");
     }
 
     // Update is called once per frame
@@ -62,6 +77,7 @@ public class CutSceneManager2 : MonoBehaviour
             }
             else
             {
+                bully.GetComponent<Animator>().SetFloat("speedPercent", 0.5f);
                 bully.GetComponent<Animator>().SetTrigger("Turn");
                 float step = playerControllerScript.walkSpeed * Time.deltaTime / 2;
                 Jannet.transform.position = Vector3.MoveTowards(Jannet.transform.position, moveSpots[curMS].transform.position, step);
@@ -104,14 +120,16 @@ public class CutSceneManager2 : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        // show task popup
+        Time.timeScale = 0;
         TaskCanvas.SetActive(true);
+        taskManagerScript.AddNewTask("Find A Seat To Sit");
         playerControllerScript.enabled = false;
         cameraScript2.GetComponent<CameraController>().disableCameraMouse();
     }
 
     public void StartCutScene()
     {
+        Time.timeScale = 1;
         virtualCam.SetActive(true);
         if (pd2 != null)
         {
@@ -140,4 +158,31 @@ public class CutSceneManager2 : MonoBehaviour
         moveTowardsChair = true;
         //destroy(this);
     }
+
+    public void EnableNewTaskCanvas()
+    {
+        Time.timeScale = 0;
+        TaskCanvas.SetActive(true);
+        taskManagerScript.AddNewTask("Go To Sports Hall");
+        playerControllerScript.enabled = false;
+        cameraScript2.GetComponent<CameraController>().disableCameraMouse();
+    }
+
+    public void DisableNewTaskCanvas()
+    {
+        Time.timeScale = 0;
+        TaskCanvas.SetActive(true);
+        taskManagerScript.AddNewTask("Go To Sports Hall");
+        playerControllerScript.enabled = false;
+        cameraScript2.GetComponent<CameraController>().disableCameraMouse();
+    }
+
+    public void DisableTaskCanvas()
+    {
+        Time.timeScale = 1;
+        TaskCanvas.SetActive(false);
+        playerControllerScript.enabled = true;
+        cameraScript2.GetComponent<CameraController>().enableCameraMouse();
+    }
+
 }

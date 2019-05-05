@@ -15,8 +15,8 @@ public class GlobalController : MonoBehaviour
     public static GlobalController Instance;
 
     //Stuff to save
-    public int stregnth;
-    public int friendliness;
+    int strength = 50;
+    int friendliness = 50;
     Transform violetPosition;
     public List<ScenePlayerPosition> playerPos = new List<ScenePlayerPosition>();
     public List<string> finishedCutSceneTriggers = new List<string>();
@@ -79,6 +79,24 @@ public class GlobalController : MonoBehaviour
         return Vector3.zero;
     }
 
+    public void SavePlayerStats()
+    {
+        MainPlayerStats temp = GameObject.Find("Violet").GetComponent<MainPlayerStats>();
+        this.strength = temp.GetStrength();
+        this.friendliness = temp.GetFriendliness();
+        Debug.Log("saving player stats, saving friendliness " + friendliness + " || strength " + strength);
+    }
+
+    public int GetStrength()
+    {
+        return strength;
+    }
+
+    public int GetFriendliness()
+    {
+        return friendliness;
+    }
+
     //Also dont forget the tasks
 
     void Awake()
@@ -93,6 +111,5 @@ public class GlobalController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
 }

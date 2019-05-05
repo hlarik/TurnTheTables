@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using UnityEngine.UI;
 using VIDE_Data;
 
 public class FirstScenarioManager : MonoBehaviour
@@ -13,9 +14,16 @@ public class FirstScenarioManager : MonoBehaviour
     public GameObject virtualCam;
     public GameObject timeline;
     public GameObject[] moveSpots;
+    public GameObject taskCanvas;
+
     PlayableDirector pd;
     PlayerController playerControllerScript;
+
     GameObject MotherParent;
+    GameObject Maya;
+    GameObject Ethan;
+
+    TaskManager taskManagerScript;
     Vector3 turnSmoothVelocity;
     float turnSmoothTime = 0.2f;
     float rotSpeed = 8f;
@@ -24,8 +32,10 @@ public class FirstScenarioManager : MonoBehaviour
     bool reachedTarget = false;
     int curMS = 0;
 
+    GameObject interactCanvas;
+    GameObject exitCanvas;
+
     private GameObject cameraScript;
-    
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +44,11 @@ public class FirstScenarioManager : MonoBehaviour
         playerControllerScript = GameObject.Find("Violet").GetComponent<PlayerController>();
         cameraScript = Camera.main.gameObject;
         MotherParent = GameObject.Find("Mother_Parent");
+        taskManagerScript = GameObject.Find("TaskManager").GetComponent<TaskManager>();
+        Maya = GameObject.Find("Maya");
+        Maya.GetComponent<Animator>().SetTrigger("isTalking");
+        Ethan = GameObject.Find("Ethan");
+        Ethan.GetComponent<Animator>().SetTrigger("isLaughing");
     }
 
     void Update()
@@ -98,9 +113,27 @@ public class FirstScenarioManager : MonoBehaviour
         // enable player controller and camera mouse
         playerControllerScript.enabled = true;
         cameraScript.GetComponent<CameraController>().enableCameraMouse();
-
         virtualCam.SetActive(false);
         sceneEnded = true;
         turningTowardsTarget = true;
+
+        EnableTaskCanvas();
+    }
+
+    public void EnableTaskCanvas()
+    {
+        Time.timeScale = 0;
+        taskCanvas.SetActive(true);
+        taskManagerScript.AddNewTask("Go Inside Your New School");
+        playerControllerScript.enabled = false;
+        cameraScript.GetComponent<CameraController>().disableCameraMouse();
+    }
+
+    public void DisableTaskCanvas()
+    {
+        Time.timeScale = 1;
+        taskCanvas.SetActive(false);
+        playerControllerScript.enabled = true;
+        cameraScript.GetComponent<CameraController>().enableCameraMouse();
     }
 }
