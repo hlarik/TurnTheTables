@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ChairTrigger : MonoBehaviour
 {
@@ -14,17 +15,13 @@ public class ChairTrigger : MonoBehaviour
 
     private GameObject cameraScript;
     Animator anim;
- /* public GameObject moveSpot;
-    int curMS = 0;
-    public float rotSpeed = 0.2f;
-    public float speed = 1.5f;
-    float accuracyMS = 0.01f;*/
     PlayableDirector pd;
-
     bool hasPlayed = false;
-
-    //UI eleements
+    
     public GameObject LevelCompleteCanvas;
+    public GameObject TaskCanvas;
+
+    TaskManager taskManagerScript;
 
     void Start()
     {
@@ -34,6 +31,7 @@ public class ChairTrigger : MonoBehaviour
         cameraScript = Camera.main.gameObject;
         anim = GetComponent<Animator>();
         pd = cutScene.GetComponent<PlayableDirector>();
+        taskManagerScript = GameObject.Find("TaskManager").GetComponent<TaskManager>();
     }
 
     void Update()
@@ -57,33 +55,13 @@ public class ChairTrigger : MonoBehaviour
             if (pd.state != PlayState.Playing)
             {
                 // when cutscene is finished popup level complete panel
+                Time.timeScale = 0;
                 LevelCompleteCanvas.SetActive(true);
+                pd = null;
+                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+                cameraScript.GetComponent<CameraController>().enableCameraMouse();
             }
         }
-
-
-
-        // start timeline
-
-
-        /*Vector3 direction = moveSpot.transform.position - maincharacter.transform.position;
-        direction.y = 0;
-        float angle = Vector3.Angle(direction, maincharacter.transform.forward);
-
-        if (state == "isStanding")
-        {
-            if (Vector3.Distance(moveSpot.transform.position, maincharacter.transform.position) > accuracyMS)
-            {
-                // move violet towards chair
-                maincharacter.transform.position = Vector3.MoveTowards(maincharacter.transform.position, moveSpot.transform.position, Time.deltaTime * speed);
-                direction = moveSpot.transform.position - transform.position;
-                maincharacter.transform.rotation = Quaternion.Slerp(maincharacter.transform.rotation, Quaternion.LookRotation(direction), rotSpeed * Time.deltaTime);
-            }
-            else
-            {
-                state = "isSitting";
-            }
-        }*/
     }
 
     void OnTriggerEnter(Collider other)
@@ -102,5 +80,28 @@ public class ChairTrigger : MonoBehaviour
             collision = false;
             uiObject.SetActive(false);
         }
+    }
+    
+    public void EnableNewTaskCanvas()
+    {
+        TaskCanvas.SetActive(true);
+        taskManagerScript.AddNewTask("Go To Sports Hall");
+        Time.timeScale = 0;
+    }
+
+    public void DisableNewTaskCanvas()
+    {
+        Time.timeScale = 1;
+        TaskCanvas.SetActive(false);
+       // GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+       // cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        Destroy(this);
+    }
+
+    public void DisableTaskCanvas()
+    {
+        Time.timeScale = 1;
+        LevelCompleteCanvas.SetActive(false);
+        EnableNewTaskCanvas();
     }
 }

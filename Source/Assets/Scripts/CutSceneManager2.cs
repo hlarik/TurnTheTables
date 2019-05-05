@@ -96,7 +96,6 @@ public class CutSceneManager2 : MonoBehaviour
                 }
             }
         }
-        //turn and sit
         if (reachedTarget)
         {
             if (turningTowardsTarget)
@@ -112,8 +111,7 @@ public class CutSceneManager2 : MonoBehaviour
             {
                 JannetChair.GetComponent<Animator>().SetTrigger("JannetSit");
                 bully.GetComponent<Animator>().SetTrigger("Turn");
-
-                //Destroy(this);
+                Destroy(this);
             }
         }
     }
@@ -153,36 +151,7 @@ public class CutSceneManager2 : MonoBehaviour
         cameraScript2.GetComponent<CameraController>().enableCameraMouse();
         
         virtualCam.SetActive(false);
-        //pd2 = null;
         turningTowardsTarget = true;
         moveTowardsChair = true;
-        //destroy(this);
     }
-
-    public void EnableNewTaskCanvas()
-    {
-        Time.timeScale = 0;
-        TaskCanvas.SetActive(true);
-        taskManagerScript.AddNewTask("Go To Sports Hall");
-        playerControllerScript.enabled = false;
-        cameraScript2.GetComponent<CameraController>().disableCameraMouse();
-    }
-
-    public void DisableNewTaskCanvas()
-    {
-        Time.timeScale = 0;
-        TaskCanvas.SetActive(true);
-        taskManagerScript.AddNewTask("Go To Sports Hall");
-        playerControllerScript.enabled = false;
-        cameraScript2.GetComponent<CameraController>().disableCameraMouse();
-    }
-
-    public void DisableTaskCanvas()
-    {
-        Time.timeScale = 1;
-        TaskCanvas.SetActive(false);
-        playerControllerScript.enabled = true;
-        cameraScript2.GetComponent<CameraController>().enableCameraMouse();
-    }
-
 }
