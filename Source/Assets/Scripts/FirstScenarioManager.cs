@@ -15,9 +15,14 @@ public class FirstScenarioManager : MonoBehaviour
     public GameObject timeline;
     public GameObject[] moveSpots;
     public GameObject taskCanvas;
+
     PlayableDirector pd;
     PlayerController playerControllerScript;
+
     GameObject MotherParent;
+    GameObject Maya;
+    GameObject Ethan;
+
     TaskManager taskManagerScript;
     Vector3 turnSmoothVelocity;
     float turnSmoothTime = 0.2f;
@@ -40,6 +45,10 @@ public class FirstScenarioManager : MonoBehaviour
         cameraScript = Camera.main.gameObject;
         MotherParent = GameObject.Find("Mother_Parent");
         taskManagerScript = GameObject.Find("TaskManager").GetComponent<TaskManager>();
+        Maya = GameObject.Find("Maya");
+        Maya.GetComponent<Animator>().SetTrigger("isTalking");
+        Ethan = GameObject.Find("Ethan");
+        Ethan.GetComponent<Animator>().SetTrigger("isLaughing");
     }
 
     void Update()

@@ -12,9 +12,10 @@ public class GeneralPatrolScript : MonoBehaviour
     string state = "patrol";
     public GameObject[] moveSpots;
     int curMS = 0;
-    public float rotSpeed = 5f;
-    public float speed = 1.5f;
-    public float accuracyMS = 5.0f;
+    float rotSpeed = 5f;
+    public float speed; // yurume/kosma hizi
+    public float speedPercent; // 0'sa duruyor, 0.5'se yuruyor, 1'se kosuyor
+    float accuracyMS = 1.0f;
 
     void Start()
     {
@@ -30,7 +31,7 @@ public class GeneralPatrolScript : MonoBehaviour
         if (state == "patrol" && moveSpots.Length > 0)
         {
             //anim.SetBool("isInteracting", false);
-            anim.SetFloat("speedPercent", 0.5f);
+            anim.SetFloat("speedPercent", speedPercent);
             //anim.SetBool("isWalking", true);
             if (Vector3.Distance(moveSpots[curMS].transform.position, transform.position) < accuracyMS)
             {
@@ -57,7 +58,7 @@ public class GeneralPatrolScript : MonoBehaviour
         }
         else
         {
-            anim.SetFloat("speedPercent", 0.5f);
+            anim.SetFloat("speedPercent", speedPercent);
             state = "patrol";
         }
     }
