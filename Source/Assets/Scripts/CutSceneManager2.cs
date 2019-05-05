@@ -25,6 +25,7 @@ public class CutSceneManager2 : MonoBehaviour
 
     PlayerController playerControllerScript;
     GameObject Jannet;
+    TaskManager taskManagerScript;
     Vector3 turnSmoothVelocity;
     float turnSmoothTime = 0.2f;
     float rotSpeed = 8f;
@@ -42,6 +43,7 @@ public class CutSceneManager2 : MonoBehaviour
         SitTextCanvas.SetActive(false);
         InteractCanvas.SetActive(false);
         Jannet = GameObject.Find("Jannet_Parent");
+        taskManagerScript = GameObject.Find("TaskManager").GetComponent<TaskManager>();
     }
 
     // Update is called once per frame
@@ -104,14 +106,16 @@ public class CutSceneManager2 : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        // show task popup
+        Time.timeScale = 0;
         TaskCanvas.SetActive(true);
+        taskManagerScript.AddNewTask("Find A Seat To Sit");
         playerControllerScript.enabled = false;
         cameraScript2.GetComponent<CameraController>().disableCameraMouse();
     }
 
     public void StartCutScene()
     {
+        Time.timeScale = 1;
         virtualCam.SetActive(true);
         if (pd2 != null)
         {
