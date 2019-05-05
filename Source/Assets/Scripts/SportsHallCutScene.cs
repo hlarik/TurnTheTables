@@ -12,7 +12,7 @@ public class SportsHallCutScene : MonoBehaviour
     private GameObject optionParentCanvas;
     private GameObject optionCanvas;
 
-    private GameObject cameraScript;
+    private CameraController cameraScript;
 
     private GameObject cinemachineParent;
     private GameObject cinemachine;
@@ -44,13 +44,17 @@ public class SportsHallCutScene : MonoBehaviour
     private GameObject exitTxt;  ///?????????
     private GameObject dialogTxt;
 
-   // GlobalController globalControllerScript; //???
+    GlobalController globalControllerScript; //???
+
+    private GameObject frontCamera;
 
 
     // Start is called before the first frame update
     void Start()
     {
-      
+        cameraScript = GameObject.Find("MainCamera").GetComponent<CameraController>();
+        frontCamera = GameObject.Find("frontcamera");
+        frontCamera.SetActive(false);
         exitTxt = GameObject.Find("Enter thru Door Canvas");
         dialogTxt = GameObject.Find("Interact with character canvas");
         exitTxt.SetActive(false);
@@ -72,7 +76,7 @@ public class SportsHallCutScene : MonoBehaviour
         task = GameObject.Find("TaskManager").GetComponent<TaskManager>();
         pd = GetComponent<PlayableDirector>();
        // pd2 = GetComponent<PlayableDirector>();
-        cameraScript = Camera.main.gameObject;
+     //   cameraScript = Camera.main.gameObject;
 
         optionParentCanvas = GameObject.Find("SportsHallCutsceneCanvas");
         optionCanvas = GameObject.Find("SportsCutsceneOption");
@@ -100,21 +104,58 @@ public class SportsHallCutScene : MonoBehaviour
         }
 
         //??????
-      /*  globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+
+        /*
         if (globalControllerScript.isCutSceneFinished(this.name))
         {
-
-            Destroy(this);
+            //Debug.Log("Starttekiii");
+            cameraScript.GetComponent<CameraController>().enabled = true;
+            optionCanvas.SetActive(false);
+            cameraScript.GetComponent<CameraController>().enableCameraMouse();
+            GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+            GameObject.Find("KötüKız").SetActive(false);
+            GameObject.Find("SoccerBall4").SetActive(false);
+            cinemachineParent.SetActive(false);
+            backgroundMusic.GetComponent<MusicController>().increaseMusicVolume();
+            //Destroy(this);
         }*/
+
     }
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            backgroundMusic.GetComponent <MusicController > ().lowerMusicVolume();
-            pd.Play();
-            cinemachine.SetActive(true);
-            isStart = true;
+           // backgroundMusic.GetComponent <MusicController > ().lowerMusicVolume();
+           // pd.Play();
+            //cinemachine.SetActive(true);
+            //isStart = true;
+
+            if (!globalControllerScript.isCutSceneFinished(this.name))
+            {
+                backgroundMusic.GetComponent<MusicController>().lowerMusicVolume();
+                pd.Play();
+                globalControllerScript.AddFinishedCutScene(this.name);
+                isStart = true;
+                //Destroy(this);
+            }
+            else
+            {
+                //Cursor.visible = false;
+                cameraScript.GetComponent<CameraController>().enabled = true;
+                optionCanvas.SetActive(false);
+                cameraScript.GetComponent<CameraController>().enableCameraMouse();
+                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+                GameObject.Find("KötüKız").SetActive(false);
+                GameObject.Find("SoccerBall4").SetActive(false);
+                cinemachineParent.SetActive(false);
+
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true; //?
+
+                Destroy(this);
+            }
 
         }
     }
@@ -126,7 +167,6 @@ public class SportsHallCutScene : MonoBehaviour
         {
             showOptionsCanvas();
             isStart = false;
-        
         }
 
         if(reactCutScene.cutSceneFinishedCheck())

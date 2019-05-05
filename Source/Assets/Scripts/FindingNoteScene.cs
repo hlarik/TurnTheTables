@@ -11,7 +11,7 @@ public class FindingNoteScene : MonoBehaviour
     public PlayableDirector pd;
     public QuizManagement qm;
     bool isStart = false;
-    private GameObject cameraScript;
+    private CameraController cameraScript;
 
     private GameObject cinemachineParent;
     private GameObject cinemachine;
@@ -29,7 +29,8 @@ public class FindingNoteScene : MonoBehaviour
     private GameObject exitTxt;  ///?????????
     private GameObject dialogTxt;
 
-    //GlobalController globalControllerScript; //???
+    GlobalController globalControllerScript; //???
+    private GameObject frontCamera;
 
     BarManager bar;
     TaskManager task;
@@ -38,10 +39,37 @@ public class FindingNoteScene : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+          
             backgroundMusic.GetComponent<MusicController>().lowerMusicVolume();
             cinemachine.SetActive(true);
-            pd.Play();
-            isStart = true;
+
+            if(!globalControllerScript.isCutSceneFinished(this.name))
+             {
+                 pd.Play();
+                 globalControllerScript.AddFinishedCutScene(this.name);
+                 isStart = true;
+            }
+            else
+            {
+              
+                noteImage.SetActive(false);
+                cameraScript.GetComponent<CameraController>().enableCameraMouse();
+                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true; //?
+                Destroy(this); //?????
+
+                noteIsShown = false;
+
+                (GameObject.Find("Violet").GetComponent(typeof(Collider)) as Collider).isTrigger = false;
+                (GameObject.Find("PaperParent")).SetActive(false);
+
+                cinemachine.SetActive(false);
+            }
+            //  pd.Play();
+
 
         }
     }
@@ -50,6 +78,12 @@ public class FindingNoteScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+
+        frontCamera = GameObject.Find("frontcamera");
+        frontCamera.SetActive(false);
+        cameraScript = GameObject.Find("MainCamera").GetComponent<CameraController>();
+
         exitTxt = GameObject.Find("Enter thru Door Canvas");
         dialogTxt = GameObject.Find("Interact with character canvas");
         exitTxt.SetActive(false);
@@ -60,7 +94,7 @@ public class FindingNoteScene : MonoBehaviour
 
         backgroundMusic = GameObject.Find("BackgroundMusic");
 
-        cameraScript = Camera.main.gameObject;
+        //cameraScript = Camera.main.gameObject;
         pd = GetComponent<PlayableDirector>();
 
         noteCanvas = GameObject.Find("FirstSceneNoteCanvas");
@@ -90,14 +124,14 @@ public class FindingNoteScene : MonoBehaviour
 
 
         //??????
-       /* globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
-        if (globalControllerScript.isCutSceneFinished(this.name))
-        {
+        /* globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+         if (globalControllerScript.isCutSceneFinished(this.name))
+         {
 
-            Destroy(this);
-        }*/
+             Destroy(this);
+         }*/
 
-
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
 
     }
 
@@ -109,6 +143,8 @@ public class FindingNoteScene : MonoBehaviour
             showNoteScreen();
             isStart = false;
             backgroundMusic.GetComponent<MusicController>().increaseMusicVolume();
+            globalControllerScript.AddFinishedCutScene(this.name);
+
         }
 
     }
@@ -123,7 +159,7 @@ public class FindingNoteScene : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
-        //cameraScript.GetComponent<CameraController>().disableCameraMouse();
+        cameraScript.GetComponent<CameraController>().disableCameraMouse();
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
 
         IgnoreButton = GameObject.Find("IgnoreButton").GetComponent<Button>();
@@ -153,7 +189,7 @@ public class FindingNoteScene : MonoBehaviour
     {
         noteImage.SetActive(false);
 
-        //cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        cameraScript.GetComponent<CameraController>().enableCameraMouse();
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
 
         Cursor.visible = false; //?
@@ -168,6 +204,11 @@ public class FindingNoteScene : MonoBehaviour
 
         cinemachine.SetActive(false);
         qm.startQuiz();
+        if (!globalControllerScript.isCutSceneFinished(this.name))
+        {
+
+            Destroy(this);
+        }
     }
 
 
