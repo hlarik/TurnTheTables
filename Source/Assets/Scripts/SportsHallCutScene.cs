@@ -44,7 +44,7 @@ public class SportsHallCutScene : MonoBehaviour
     private GameObject exitTxt;  ///?????????
     private GameObject dialogTxt;
 
-   // GlobalController globalControllerScript; //???
+    GlobalController globalControllerScript; //???
 
 
     // Start is called before the first frame update
@@ -100,21 +100,35 @@ public class SportsHallCutScene : MonoBehaviour
         }
 
         //??????
-      /*  globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
-        if (globalControllerScript.isCutSceneFinished(this.name))
-        {
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
 
-            Destroy(this);
-        }*/
     }
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            backgroundMusic.GetComponent <MusicController > ().lowerMusicVolume();
-            pd.Play();
-            cinemachine.SetActive(true);
-            isStart = true;
+           // backgroundMusic.GetComponent <MusicController > ().lowerMusicVolume();
+           // pd.Play();
+            //cinemachine.SetActive(true);
+            //isStart = true;
+
+
+
+            if (!globalControllerScript.isCutSceneFinished(this.name))
+            {
+                backgroundMusic.GetComponent<MusicController>().lowerMusicVolume();
+                pd.Play();
+                globalControllerScript.AddFinishedCutScene(this.name);
+                isStart = true;
+            }
+            else
+            {
+                optionCanvas.SetActive(false);
+                GameObject.Find("KötüKız").SetActive(false);
+                GameObject.Find("SoccerBall4").SetActive(false);
+                cinemachine.SetActive(false);
+                backgroundMusic.GetComponent<MusicController>().increaseMusicVolume();
+            }
 
         }
     }
@@ -126,6 +140,11 @@ public class SportsHallCutScene : MonoBehaviour
         {
             showOptionsCanvas();
             isStart = false;
+            if (globalControllerScript.isCutSceneFinished(this.name))
+            {
+
+              Destroy(this);
+            }
         
         }
 

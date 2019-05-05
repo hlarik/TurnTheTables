@@ -29,7 +29,7 @@ public class FindingNoteScene : MonoBehaviour
     private GameObject exitTxt;  ///?????????
     private GameObject dialogTxt;
 
-    //GlobalController globalControllerScript; //???
+    GlobalController globalControllerScript; //???
 
     BarManager bar;
     TaskManager task;
@@ -38,10 +38,34 @@ public class FindingNoteScene : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+          
             backgroundMusic.GetComponent<MusicController>().lowerMusicVolume();
             cinemachine.SetActive(true);
-            pd.Play();
-            isStart = true;
+
+            if(!globalControllerScript.isCutSceneFinished(this.name))
+             {
+                 pd.Play();
+                 globalControllerScript.AddFinishedCutScene(this.name);
+                 isStart = true;
+            }
+            else
+            {
+                noteImage.SetActive(false);
+                cameraScript.GetComponent<CameraController>().enableCameraMouse();
+                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
+
+                Cursor.visible = false; //?
+                Destroy(this); //?????
+
+                noteIsShown = false;
+
+                (GameObject.Find("Violet").GetComponent(typeof(Collider)) as Collider).isTrigger = false;
+                (GameObject.Find("PaperParent")).SetActive(false);
+
+                cinemachine.SetActive(false);
+            }
+            //  pd.Play();
+
 
         }
     }
@@ -90,14 +114,14 @@ public class FindingNoteScene : MonoBehaviour
 
 
         //??????
-       /* globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
-        if (globalControllerScript.isCutSceneFinished(this.name))
-        {
+        /* globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+         if (globalControllerScript.isCutSceneFinished(this.name))
+         {
 
-            Destroy(this);
-        }*/
+             Destroy(this);
+         }*/
 
-
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
 
     }
 
@@ -109,6 +133,8 @@ public class FindingNoteScene : MonoBehaviour
             showNoteScreen();
             isStart = false;
             backgroundMusic.GetComponent<MusicController>().increaseMusicVolume();
+            globalControllerScript.AddFinishedCutScene(this.name);
+
         }
 
     }
@@ -153,7 +179,7 @@ public class FindingNoteScene : MonoBehaviour
     {
         noteImage.SetActive(false);
 
-        //cameraScript.GetComponent<CameraController>().enableCameraMouse();
+        cameraScript.GetComponent<CameraController>().enableCameraMouse();
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
 
         Cursor.visible = false; //?
@@ -168,6 +194,11 @@ public class FindingNoteScene : MonoBehaviour
 
         cinemachine.SetActive(false);
         qm.startQuiz();
+        if (!globalControllerScript.isCutSceneFinished(this.name))
+        {
+
+            Destroy(this);
+        }
     }
 
 
