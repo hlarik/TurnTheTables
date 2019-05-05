@@ -11,7 +11,7 @@ public class FindingNoteScene : MonoBehaviour
     public PlayableDirector pd;
     public QuizManagement qm;
     bool isStart = false;
-    private GameObject cameraScript;
+    private CameraController cameraScript;
 
     private GameObject cinemachineParent;
     private GameObject cinemachine;
@@ -30,6 +30,7 @@ public class FindingNoteScene : MonoBehaviour
     private GameObject dialogTxt;
 
     GlobalController globalControllerScript; //???
+    private GameObject frontCamera;
 
     BarManager bar;
     TaskManager task;
@@ -50,11 +51,14 @@ public class FindingNoteScene : MonoBehaviour
             }
             else
             {
+              
                 noteImage.SetActive(false);
                 cameraScript.GetComponent<CameraController>().enableCameraMouse();
                 GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
 
-                Cursor.visible = false; //?
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true; //?
                 Destroy(this); //?????
 
                 noteIsShown = false;
@@ -74,6 +78,12 @@ public class FindingNoteScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+
+        frontCamera = GameObject.Find("frontcamera");
+        frontCamera.SetActive(false);
+        cameraScript = GameObject.Find("MainCamera").GetComponent<CameraController>();
+
         exitTxt = GameObject.Find("Enter thru Door Canvas");
         dialogTxt = GameObject.Find("Interact with character canvas");
         exitTxt.SetActive(false);
@@ -84,7 +94,7 @@ public class FindingNoteScene : MonoBehaviour
 
         backgroundMusic = GameObject.Find("BackgroundMusic");
 
-        cameraScript = Camera.main.gameObject;
+        //cameraScript = Camera.main.gameObject;
         pd = GetComponent<PlayableDirector>();
 
         noteCanvas = GameObject.Find("FirstSceneNoteCanvas");
@@ -149,7 +159,7 @@ public class FindingNoteScene : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
-        //cameraScript.GetComponent<CameraController>().disableCameraMouse();
+        cameraScript.GetComponent<CameraController>().disableCameraMouse();
         GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
 
         IgnoreButton = GameObject.Find("IgnoreButton").GetComponent<Button>();
