@@ -16,13 +16,13 @@ public class FirstScenarioManager : MonoBehaviour
     public GameObject[] moveSpots;
     public GameObject taskCanvas;
 
-    PlayableDirector pd;
-    PlayerController playerControllerScript;
-
     GameObject MotherParent;
     GameObject Maya;
     GameObject Ethan;
-
+    
+    PlayableDirector pd;
+    PlayerController playerControllerScript;
+    GlobalController globalControllerScript;
     TaskManager taskManagerScript;
     Vector3 turnSmoothVelocity;
     float turnSmoothTime = 0.2f;
@@ -40,6 +40,7 @@ public class FirstScenarioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
         pd = timeline.GetComponent<PlayableDirector>();
         playerControllerScript = GameObject.Find("Violet").GetComponent<PlayerController>();
         cameraScript = Camera.main.gameObject;
@@ -49,11 +50,18 @@ public class FirstScenarioManager : MonoBehaviour
         Maya.GetComponent<Animator>().SetTrigger("isTalking");
         Ethan = GameObject.Find("Ethan");
         Ethan.GetComponent<Animator>().SetTrigger("isLaughing");
+
+        if (globalControllerScript.isCutSceneFinished(this.name))
+        {
+            Destroy(this);
+            virtualCam.SetActive(false);
+            Destroy(mother);
+        }
     }
 
     void Update()
     {
-        //if scene has ended mom goes back to her Batcave
+        //if scene has ended mom goes back to her cave
         if (sceneEnded)
         {
             // turn towards target
@@ -95,10 +103,14 @@ public class FirstScenarioManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            playerControllerScript.enabled = false;
-            cameraScript.GetComponent<CameraController>().disableCameraMouse();
-            virtualCam.SetActive(true);
-            pd.Play();
+            if (pd != null && !globalControllerScript.isCutSceneFinished(this.name))
+            {
+                playerControllerScript.enabled = false;
+                cameraScript.GetComponent<CameraController>().disableCameraMouse();
+                virtualCam.SetActive(true);
+                pd.Play();
+            }
+            globalControllerScript.AddFinishedCutScene(this.name);
         }
     }
 
@@ -116,7 +128,7 @@ public class FirstScenarioManager : MonoBehaviour
         virtualCam.SetActive(false);
         sceneEnded = true;
         turningTowardsTarget = true;
-
+        globalControllerScript.AddFinishedCutScene(this.name);
         EnableTaskCanvas();
     }
 

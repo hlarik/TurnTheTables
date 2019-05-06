@@ -28,6 +28,8 @@ public class CutSceneManager2 : MonoBehaviour
     GameObject Felix;
 
     PlayerController playerControllerScript;
+    GlobalController globalControllerScript;
+    ChairTrigger chairTriggerScript;
     GameObject Jannet;
     TaskManager taskManagerScript;
     Vector3 turnSmoothVelocity;
@@ -57,6 +59,18 @@ public class CutSceneManager2 : MonoBehaviour
         Ethan.GetComponent<Animator>().SetTrigger("isPlayingGuitar");
         Felix = GameObject.Find("Felix");
         Felix.GetComponent<Animator>().SetTrigger("isSittingCheering");
+        chairTriggerScript = GameObject.Find("chair (36)").GetComponent<ChairTrigger>();
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+
+        if (globalControllerScript.isCutSceneFinished(this.name))
+        {
+            Destroy(this);
+            virtualCam.SetActive(false);
+            Destroy(bully);
+            chairTriggerScript.enabled = false;
+            TaskCanvas.SetActive(false);
+            Destroy(SitTextCanvas);
+        }
     }
 
     // Update is called once per frame
@@ -118,11 +132,16 @@ public class CutSceneManager2 : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Time.timeScale = 0;
-        TaskCanvas.SetActive(true);
-        taskManagerScript.AddNewTask("Find A Seat To Sit");
-        playerControllerScript.enabled = false;
-        cameraScript2.GetComponent<CameraController>().disableCameraMouse();
+        if (!globalControllerScript.isCutSceneFinished(this.name))
+        {
+            Time.timeScale = 0;
+            TaskCanvas.SetActive(true);
+            //TaskCanvas.GetComponent<Animator>().SetBool("isOpen", true);
+            taskManagerScript.AddNewTask("Find A Seat To Sit");
+            playerControllerScript.enabled = false;
+            cameraScript2.GetComponent<CameraController>().disableCameraMouse();
+        }
+        globalControllerScript.AddFinishedCutScene(this.name);
     }
 
     public void StartCutScene()
@@ -131,7 +150,7 @@ public class CutSceneManager2 : MonoBehaviour
         virtualCam.SetActive(true);
         if (pd2 != null)
         {
-            // hide task popup
+            //TaskCanvas.GetComponent<Animator>().SetBool("isOpen", false);
             TaskCanvas.SetActive(false);
             pd2.Play();
         }
@@ -149,7 +168,7 @@ public class CutSceneManager2 : MonoBehaviour
         // enable player controller and camera mouse
         playerControllerScript.enabled = true;
         cameraScript2.GetComponent<CameraController>().enableCameraMouse();
-        
+        globalControllerScript.AddFinishedCutScene(this.name);
         virtualCam.SetActive(false);
         turningTowardsTarget = true;
         moveTowardsChair = true;
