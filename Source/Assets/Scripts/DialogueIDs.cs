@@ -8,6 +8,8 @@ public class DialogueIDs : MonoBehaviour
 {
     //////////////////////////////////////////////////////////////////////////////
     string path = "Assets/Resources/DialogueIDs/dialogueids.txt";
+    TextAsset textAsset;
+    string text;
     /*public TextAsset TextFile;
     string[] linesInFile;*/
     //////////////////////////////////////////////////////////////////////////////
@@ -43,14 +45,12 @@ public class DialogueIDs : MonoBehaviour
 
     void Start()
     {
-        /*GameObject.Find("TaskManager").GetComponent<TaskManager>().AddNewTask("report to an adult");
-        GameObject.Find("TaskManager").GetComponent<TaskManager>().UpdateTask("report to an adult");
-        GameObject.Find("TaskManager").GetComponent<TaskManager>().AddNewTask("talk");
-        GameObject.Find("TaskManager").GetComponent<TaskManager>().AddNewTask("walk");
-        GameObject.Find("TaskManager").GetComponent<TaskManager>().RemoveTask("talk");
-        GameObject.Find("TaskManager").GetComponent<TaskManager>().UpdateTask("walk");*/
-        /*linesInFile = TextFile.text.Split('\n');
-        Debug.Log(TextFile.text);*/
+        textAsset = (TextAsset)Resources.Load("DialogueIDs/dialogueids", typeof(TextAsset)); // TextAsset taskAsset = Resources.Load<TextAsset>("DialogueIDs/dialogueids");
+        if (textAsset == null)
+            Debug.Log("TASK ASSET IS NULL");
+
+        text = textAsset.text;
+
         if (Instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -63,11 +63,70 @@ public class DialogueIDs : MonoBehaviour
 
         dialogues = new List<SelectedDialogueID>();
         allDialogues = new List<AllDialogues>();
-        ReadFileIntoArray();
+        ReadFileIntoArray2();
+    }
+
+    void ReadFileIntoArray2()
+    {
+        List<int> tempInt = new List<int>();
+        AllDialogues temp = new AllDialogues();
+
+        //Add Gariban
+        temp.dialogueName = "Gariban";
+        tempInt = new List<int>() { 10, 22};
+        temp.badDialogues = tempInt;
+        tempInt = new List<int>() { 4, 12 };
+        temp.ignoredDialogues = tempInt;
+        tempInt = new List<int>() { 8, 13, 16, 25};
+        temp.goodDialogues = tempInt;
+        allDialogues.Add(temp);
+
+        //Add Madison
+        temp.dialogueName = "Madison";
+        tempInt = new List<int>() { 4 };
+        temp.badDialogues = tempInt;
+        tempInt = new List<int>() {};
+        temp.ignoredDialogues = tempInt;
+        tempInt = new List<int>() {3 };
+        temp.goodDialogues = tempInt;
+        allDialogues.Add(temp);
+
+        //Add Emily
+        temp.dialogueName = "Emily";
+        tempInt = new List<int>() { 2};
+        temp.badDialogues = tempInt;
+        tempInt = new List<int>() {};
+        temp.ignoredDialogues = tempInt;
+        tempInt = new List<int>() { 3};
+        temp.goodDialogues = tempInt;
+        allDialogues.Add(temp);
+
+        //Add Matt
+        temp.dialogueName = "Matt";
+        tempInt = new List<int>() { 4};
+        temp.badDialogues = tempInt;
+        tempInt = new List<int>() { };
+        temp.ignoredDialogues = tempInt;
+        tempInt = new List<int>() { 5, 6};
+        temp.goodDialogues = tempInt;
+        allDialogues.Add(temp);
+
+        //Add Jannet
+        temp.dialogueName = "Jannet";
+        tempInt = new List<int>() { 0, 3, 5};
+        temp.badDialogues = tempInt;
+        tempInt = new List<int>() { };
+        temp.ignoredDialogues = tempInt;
+        tempInt = new List<int>() { 7};
+        temp.goodDialogues = tempInt;
+        allDialogues.Add(temp);
     }
 
     void ReadFileIntoArray()
     {
+        StringReader read = null;
+        read = new StringReader(textAsset.text);
+
         StreamReader inp_stm = new StreamReader(path);
         bool name = true;
         bool badId = false;
@@ -76,10 +135,11 @@ public class DialogueIDs : MonoBehaviour
         List<int> tempInt = new List<int>();
         AllDialogues temp = new AllDialogues();
 
-        while (!inp_stm.EndOfStream)
+        //while (!inp_stm.EndOfStream)
+        string inp_ln;
+        inp_ln = read.ReadLine();
+        while (inp_ln != null)
         {
-            string inp_ln = inp_stm.ReadLine();
-
             if (inp_ln.Equals(";;"))
             {
                 temp.goodDialogues = tempInt;
@@ -128,7 +188,10 @@ public class DialogueIDs : MonoBehaviour
             {
                 tempInt.Add(Int32.Parse(inp_ln));
             }
+            inp_ln = read.ReadLine();
+            Debug.Log(inp_ln);
         }
+        
         inp_stm.Close();
     }
 

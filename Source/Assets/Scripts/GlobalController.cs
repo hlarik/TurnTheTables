@@ -20,6 +20,7 @@ public class GlobalController : MonoBehaviour
     Transform violetPosition;
     public List<ScenePlayerPosition> playerPos = new List<ScenePlayerPosition>();
     public List<string> finishedCutSceneTriggers = new List<string>();
+    public List<string> tasks = new List<string>();
 
     public void AddLeavePosInScene(string sceneName, Vector3 pos)
     {
@@ -41,6 +42,36 @@ public class GlobalController : MonoBehaviour
             temp.sceneName = sceneName;
             temp.playerPos = pos;
             playerPos.Add(temp);
+        }
+    }
+
+    public void SaveTaks(List<string> tasks)
+    {
+        this.tasks = tasks;
+    }
+
+    public List<string> GetTasksList()
+    {
+        return this.tasks;
+    }
+
+    public void AddTasks(string task)
+    {
+        if (!tasks.Contains(task)) {
+            tasks.Add(task);
+        }
+    }
+
+    public void DeleteTask(string task)
+    {
+        tasks.Remove(task);
+    }
+
+    public void PrintAllTasks()
+    {
+        for (int i  = 0; i < tasks.Count; ++i)
+        {
+            Debug.Log(i + "\t" + tasks[i]);
         }
     }
 
