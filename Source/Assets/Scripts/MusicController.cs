@@ -104,7 +104,7 @@ public class MusicController : MonoBehaviour
     void Awake()
     {
         instance = this;
-        DontDestroyOnLoad(transform.gameObject);
+        //DontDestroyOnLoad(transform.gameObject);
     }
 
     public void increaseMusicVolume()

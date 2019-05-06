@@ -74,7 +74,9 @@ public class CutSceneManager : MonoBehaviour
 
         if (globalControllerScript.isCutSceneFinished(this.name))
         {
+            bully.transform.parent.gameObject.SetActive(true);// = new Vector3(2, 5, 23);
             bully.SetActive(true);
+            bully.transform.parent.gameObject.transform.position = new Vector3(3.8f, 5.8f, 1.4f);
             patrolScript.enabled = true;
             patrolScriptBully.enabled = true;
             Debug.Log("EXISTS SOMEHOWWW");

@@ -24,13 +24,17 @@ public class TaskManager : MonoBehaviour
 
     List<String> texts;
     public static int newTask = 0;
-    public static int current_index = 0;
+    public int current_index = 0;
     string path = "Assets/Resources/TaskToDo/tasks.txt";
+    //TextAsset file = (TextAsset)Resources.Load("Assets/Resources/TaskToDo/tasks.txt");
+    GlobalController globalControllerScript;
     GameObject[] images = new GameObject[10];
 
     // Start is called before the first frame update
     void Start()
     {
+        //Debug.Log("File.text = " + file.text);
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
         TaskUI.SetActive(true);
         FindImages();
         FadeManager = GameObject.Find("FadeManager");
@@ -87,15 +91,23 @@ public class TaskManager : MonoBehaviour
         {
             string line = input_stream.ReadLine();
         }*/
-        string line = null;
-        StreamReader reader = new StreamReader(path);
-        while ((line = reader.ReadLine()) != null)
+        //string line = null;
+        //StreamReader reader = new StreamReader(path);
+        List<string> tasks = globalControllerScript.GetTasksList();
+        if (tasks == null)
+            Debug.Log("tasks returns null");
+        /*while ((line = reader.ReadLine()) != null)
         {
             if (current_index < 10)
             {
                 tasks[current_index].text = line;
                 current_index++;
             }
+        }*/
+        for(int i = 0; i < tasks.Count; ++i)
+        {
+            this.tasks[current_index].text = tasks[i];
+            current_index++;
         }
 
     }
@@ -115,10 +127,13 @@ public class TaskManager : MonoBehaviour
     //Add a new task 
     public void AddNewTask(string taskExplanation)
     {
-        using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+        globalControllerScript.AddTasks(taskExplanation);
+        globalControllerScript.PrintAllTasks();
+
+        /*using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
         {
             file.WriteLine(taskExplanation);
-        }
+        }*/
             if (current_index < 10)
             {
                 tasks[current_index].text = taskExplanation;
@@ -140,7 +155,10 @@ public class TaskManager : MonoBehaviour
     //Remove a selected task
     public void RemoveTask(string explanation)
     {
-        string line = null;
+        globalControllerScript.DeleteTask(explanation);
+        globalControllerScript.PrintAllTasks();
+
+        /*string line = null;
         var fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
         //var writer = new StreamWriter(fs);
         var reader = new StreamReader(fs);
@@ -154,7 +172,7 @@ public class TaskManager : MonoBehaviour
             //writer.WriteLine(line);
         }
         reader.Close();
-        File.WriteAllLines(path, lines.ToArray());
+        File.WriteAllLines(path, lines.ToArray());*/
 
 
         /*using (StreamReader reader = new StreamReader(path))
@@ -195,6 +213,7 @@ public class TaskManager : MonoBehaviour
     //Remove completed tasks
     public void RemoveTasks()
     {
+        
         for (int i = 0; i < tasks.Length; i++)
         {
             if (images[i].activeSelf)

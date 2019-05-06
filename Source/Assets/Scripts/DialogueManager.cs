@@ -173,15 +173,15 @@ public class DialogueManager : MonoBehaviour
                 //GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetFriendliness(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness() - 1);
                 barManagerScript.DecreaseStrength();
                 barManagerScript.DecreaseFriendliness();
-                Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
-                Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
+                //Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
+                //Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
             }
             if (DialogueIDManager.GetComponent<DialogueIDs>().GetIgnoredDialogues(currentDialogueName).Contains(data.nodeID))
             {
                 //GameObject.Find("Violet").GetComponent<MainPlayerStats>().SetStrength(GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() - 1);
                 barManagerScript.DecreaseStrength();
-                Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
-                Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
+                //Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
+                //Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
             }
             if (DialogueIDManager.GetComponent<DialogueIDs>().GetGoodDialogues(currentDialogueName).Contains(data.nodeID))
             {
@@ -189,8 +189,8 @@ public class DialogueManager : MonoBehaviour
                 //barManagerScript.IncreaseStrength();
                 barManagerScript.IncreaseStrength();
                 barManagerScript.IncreaseFriendliness();
-                Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
-                Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
+                //Debug.Log("Player's Friendliness: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetFriendliness());
+                //Debug.Log("Player's Strength: " + GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength());
                 rainScript.MakeItStop();
                 faceControllerScript.MakeAllCharactersHappy();
             }
@@ -213,6 +213,7 @@ public class DialogueManager : MonoBehaviour
         {
             audioSource.Stop();
             audioSource.clip = data.audios[data.commentIndex];
+            //Debug.Log("Data node " + data + " data node is = " + data.nodeID + " data comment index = " + data.commentIndex + " explanation = " + data.comments[data.commentIndex]);
             audioSource.Play();
         }
         else

@@ -28,6 +28,8 @@ public class CutSceneManager2 : MonoBehaviour
     GameObject Felix;
 
     PlayerController playerControllerScript;
+    GlobalController globalControllerScript;
+    ChairTrigger chairTriggerScript;
     GameObject Jannet;
     TaskManager taskManagerScript;
     Vector3 turnSmoothVelocity;
@@ -57,6 +59,18 @@ public class CutSceneManager2 : MonoBehaviour
         Ethan.GetComponent<Animator>().SetTrigger("isPlayingGuitar");
         Felix = GameObject.Find("Felix");
         Felix.GetComponent<Animator>().SetTrigger("isSittingCheering");
+        chairTriggerScript = GameObject.Find("chair (36)").GetComponent<ChairTrigger>();
+        globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
+
+        if (globalControllerScript.isCutSceneFinished(this.name))
+        {
+            Destroy(this);
+            virtualCam.SetActive(false);
+            Destroy(bully);
+            chairTriggerScript.enabled = false;
+            TaskCanvas.SetActive(false);
+            Destroy(SitTextCanvas);
+        }
     }
 
     // Update is called once per frame
@@ -96,7 +110,6 @@ public class CutSceneManager2 : MonoBehaviour
                 }
             }
         }
-        //turn and sit
         if (reachedTarget)
         {
             if (turningTowardsTarget)
@@ -112,19 +125,23 @@ public class CutSceneManager2 : MonoBehaviour
             {
                 JannetChair.GetComponent<Animator>().SetTrigger("JannetSit");
                 bully.GetComponent<Animator>().SetTrigger("Turn");
-
-                //Destroy(this);
+                Destroy(this);
             }
         }
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        Time.timeScale = 0;
-        TaskCanvas.SetActive(true);
-        taskManagerScript.AddNewTask("Find A Seat To Sit");
-        playerControllerScript.enabled = false;
-        cameraScript2.GetComponent<CameraController>().disableCameraMouse();
+        if (!globalControllerScript.isCutSceneFinished(this.name))
+        {
+            Time.timeScale = 0;
+            TaskCanvas.SetActive(true);
+            //TaskCanvas.GetComponent<Animator>().SetBool("isOpen", true);
+            taskManagerScript.AddNewTask("Find A Seat To Sit");
+            playerControllerScript.enabled = false;
+            cameraScript2.GetComponent<CameraController>().disableCameraMouse();
+        }
+        globalControllerScript.AddFinishedCutScene(this.name);
     }
 
     public void StartCutScene()
@@ -133,7 +150,7 @@ public class CutSceneManager2 : MonoBehaviour
         virtualCam.SetActive(true);
         if (pd2 != null)
         {
-            // hide task popup
+            //TaskCanvas.GetComponent<Animator>().SetBool("isOpen", false);
             TaskCanvas.SetActive(false);
             pd2.Play();
         }
@@ -151,38 +168,9 @@ public class CutSceneManager2 : MonoBehaviour
         // enable player controller and camera mouse
         playerControllerScript.enabled = true;
         cameraScript2.GetComponent<CameraController>().enableCameraMouse();
-        
+        globalControllerScript.AddFinishedCutScene(this.name);
         virtualCam.SetActive(false);
-        //pd2 = null;
         turningTowardsTarget = true;
         moveTowardsChair = true;
-        //destroy(this);
     }
-
-    public void EnableNewTaskCanvas()
-    {
-        Time.timeScale = 0;
-        TaskCanvas.SetActive(true);
-        taskManagerScript.AddNewTask("Go To Sports Hall");
-        playerControllerScript.enabled = false;
-        cameraScript2.GetComponent<CameraController>().disableCameraMouse();
-    }
-
-    public void DisableNewTaskCanvas()
-    {
-        Time.timeScale = 0;
-        TaskCanvas.SetActive(true);
-        taskManagerScript.AddNewTask("Go To Sports Hall");
-        playerControllerScript.enabled = false;
-        cameraScript2.GetComponent<CameraController>().disableCameraMouse();
-    }
-
-    public void DisableTaskCanvas()
-    {
-        Time.timeScale = 1;
-        TaskCanvas.SetActive(false);
-        playerControllerScript.enabled = true;
-        cameraScript2.GetComponent<CameraController>().enableCameraMouse();
-    }
-
 }
