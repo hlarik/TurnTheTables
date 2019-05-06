@@ -16,11 +16,15 @@ public class ReactToMeanGirlCutScene : MonoBehaviour
 
     bool isStart = false;
     bool isFinieshed = false;
-    
+
+    private GameObject badGirlDialogParent;
+    private GameObject badGirlDialog;
+
 
     // Start is called before the first frame update
     void Start()
     {
+
         backgroundMusic = GameObject.Find("BackgroundMusic");
 
         pd = GetComponent<PlayableDirector>();
@@ -34,6 +38,20 @@ public class ReactToMeanGirlCutScene : MonoBehaviour
             if (t.name == "CM")
             {
                 cinemachine = t.gameObject;
+            }
+        }
+
+
+
+        badGirlDialogParent = GameObject.Find("DialogCanvasOfMeanGirl");
+        badGirlDialog = GameObject.Find("DialogPanelOfMeanGirl");
+
+        Transform[] children2 = badGirlDialogParent.GetComponentsInChildren<Transform>(true);
+        foreach (Transform t in children2)
+        {
+            if (t.name == "DialogPanelOfMeanGirl")
+            {
+                badGirlDialog = t.gameObject;
             }
         }
     }
@@ -57,6 +75,7 @@ public class ReactToMeanGirlCutScene : MonoBehaviour
         isStart = true;
         kotuKız.SetActive(true);
         cinemachine.SetActive(true);
+        badGirlDialog.SetActive(true);
         pd.Play();
 
     }
