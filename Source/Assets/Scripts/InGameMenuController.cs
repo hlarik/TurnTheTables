@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InGameMenuController : MonoBehaviour
 {
     Animator anim;
     TaskManager taskManagerScript;
+    GameObject SceneChangerScript;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        SceneChangerScript = GameObject.Find("BlackFade"); //.GetComponent<LevelChangerWithFade>();
         taskManagerScript = GameObject.Find("TaskManager").GetComponent<TaskManager>();
     }
 
@@ -33,17 +36,22 @@ public class InGameMenuController : MonoBehaviour
 
     public void PauseGame()
     {
-        Debug.Log("Time scale 00000");
+       
     }
 
     public void UnPauseGame()
     {
-        Debug.Log("Time scale 111111");
-        
+       
     }
 
     public void OpenTasks()
     {
         taskManagerScript.ActivateDeactivateTaskManager();
+    }
+
+    public void ExitGame()
+    {
+        ResumeGame();
+        SceneChangerScript.GetComponent<LevelChangerWithFade>().ChangeLevelWithFade("MainMenu");
     }
 }
