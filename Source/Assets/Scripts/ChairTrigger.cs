@@ -10,18 +10,17 @@ public class ChairTrigger : MonoBehaviour
     public Transform maincharacter;
     public GameObject uiObject;
     public GameObject cutScene;
-
-    bool collision;
-
-    private GameObject cameraScript;
-    Animator anim;
-    PlayableDirector pd;
-    bool hasPlayed = false;
-    
     public GameObject LevelCompleteCanvas;
     public GameObject TaskCanvas;
+    
+    private GameObject cameraScript;
 
+    Animator anim;
+    PlayableDirector pd;
     TaskManager taskManagerScript;
+
+    bool hasPlayed = false;
+    bool collision;
 
     void Start()
     {
