@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
 
+
 public class SportsHallCutScene : MonoBehaviour
 {
     public PlayableDirector pd;
-  //  public PlayableDirector pd2; //for react to mean girl cutscene
     public Animator anim;
     private GameObject optionParentCanvas;
     private GameObject optionCanvas;
 
-    private CameraController cameraScript;
+    // private CameraController cameraScript;
+    private GameObject cameraScript;
 
     private GameObject cinemachineParent;
     private GameObject cinemachine;
@@ -52,31 +53,21 @@ public class SportsHallCutScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cameraScript = GameObject.Find("MainCamera").GetComponent<CameraController>();
+       // cameraScript = GameObject.Find("MainCamera").GetComponent<CameraController>();
         frontCamera = GameObject.Find("frontcamera");
+        GameObject.Find("DialogPanelOfMeanGirl").SetActive(false);
         frontCamera.SetActive(false);
         exitTxt = GameObject.Find("Enter thru Door Canvas");
         dialogTxt = GameObject.Find("Interact with character canvas");
         exitTxt.SetActive(false);
         dialogTxt.SetActive(false);
-        /*QuestionCanvas = GameObject.Find("QuestionCanvas");
-        QPanel = GameObject.Find("QPanel");
-
-        Transform[] children = QuestionCanvas.GetComponentsInChildren<Transform>(true);
-        foreach (Transform t in children)
-        {
-            if (t.name == "QPanel")
-            {
-                QPanel = t.gameObject;
-            }
-        }*/
 
         backgroundMusic = GameObject.Find("BackgroundMusic");
         bar = GameObject.Find("BarManager").GetComponent<BarManager>();
         task = GameObject.Find("TaskManager").GetComponent<TaskManager>();
         pd = GetComponent<PlayableDirector>();
-       // pd2 = GetComponent<PlayableDirector>();
-     //   cameraScript = Camera.main.gameObject;
+
+        cameraScript = Camera.main.gameObject;
 
         optionParentCanvas = GameObject.Find("SportsHallCutsceneCanvas");
         optionCanvas = GameObject.Find("SportsCutsceneOption");
@@ -106,20 +97,7 @@ public class SportsHallCutScene : MonoBehaviour
         //??????
         globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
 
-        /*
-        if (globalControllerScript.isCutSceneFinished(this.name))
-        {
-            //Debug.Log("Starttekiii");
-            cameraScript.GetComponent<CameraController>().enabled = true;
-            optionCanvas.SetActive(false);
-            cameraScript.GetComponent<CameraController>().enableCameraMouse();
-            GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
-            GameObject.Find("KötüKız").SetActive(false);
-            GameObject.Find("SoccerBall4").SetActive(false);
-            cinemachineParent.SetActive(false);
-            backgroundMusic.GetComponent<MusicController>().increaseMusicVolume();
-            //Destroy(this);
-        }*/
+        //Cursor.visible = true;
 
     }
     public void OnTriggerEnter(Collider other)
@@ -133,16 +111,20 @@ public class SportsHallCutScene : MonoBehaviour
 
             if (!globalControllerScript.isCutSceneFinished(this.name))
             {
+                GameObject.Find("Violet").GetComponent<PlayerController>().enabled = false;
                 backgroundMusic.GetComponent<MusicController>().lowerMusicVolume();
                 pd.Play();
                 globalControllerScript.AddFinishedCutScene(this.name);
                 isStart = true;
                 //Destroy(this);
+               // Cursor.lockState = CursorLockMode.None;
+               // Cursor.lockState = CursorLockMode.Confined;
+                //Cursor.visible = true; //?
             }
             else
             {
                 //Cursor.visible = false;
-                cameraScript.GetComponent<CameraController>().enabled = true;
+               // cameraScript.GetComponent<CameraController>().enabled = true;
                 optionCanvas.SetActive(false);
                 cameraScript.GetComponent<CameraController>().enableCameraMouse();
                 GameObject.Find("Violet").GetComponent<PlayerController>().enabled = true;
@@ -150,9 +132,10 @@ public class SportsHallCutScene : MonoBehaviour
                 GameObject.Find("SoccerBall4").SetActive(false);
                 cinemachineParent.SetActive(false);
 
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.lockState = CursorLockMode.Confined;
-                Cursor.visible = true; //?
+                //Cursor.lockState = CursorLockMode.Confined;
+                //Cursor.lockState = CursorLockMode.None;
+                //Cursor.visible = true; //
+               
 
                 Destroy(this);
             }
@@ -180,9 +163,19 @@ public class SportsHallCutScene : MonoBehaviour
             isQuizNotStarted = true;
             cinemachine.SetActive(false);
             backgroundMusic.GetComponent<MusicController>().increaseMusicVolume();
-            Destroy(this);
+
+            cameraScript.GetComponent<CameraController>().enabled = true;
+            cameraScript.GetComponent<CameraController>().enableCameraMouse();
+            //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            //Cursor.lockState = CursorLockMode.None;
+            // Cursor.visible = true;
+            cinemachine.SetActive(false);
+
+         
 
         }
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
 
@@ -208,7 +201,7 @@ public class SportsHallCutScene : MonoBehaviour
         rain.MakeItRain();
         closeOptionsCanvas();
         qm.startQuiz();
-        Destroy(this);
+        //Destroy(this);
     }
 
     public void ReportToTeacher()
@@ -219,7 +212,7 @@ public class SportsHallCutScene : MonoBehaviour
         bar.IncreaseStrength();
         closeOptionsCanvas();
         qm.startQuiz();
-        Destroy(this);
+        //Destroy(this);
 
     }
 
@@ -237,6 +230,7 @@ public class SportsHallCutScene : MonoBehaviour
         GameObject.Find("SoccerBall4").SetActive(false);
         cinemachine.SetActive(false);
         backgroundMusic.GetComponent<MusicController>().increaseMusicVolume();
+
     }
 
 }
