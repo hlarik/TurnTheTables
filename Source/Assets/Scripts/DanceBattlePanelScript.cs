@@ -87,7 +87,7 @@ public class DanceBattlePanelScript : MonoBehaviour
     public void SelectBale()
     {
         CloseDanceSelectionCanvas();
-        if (GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() > 60)
+        if (GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() > 0)
         {
             Won = true;
             selected = baleWin;
@@ -104,7 +104,7 @@ public class DanceBattlePanelScript : MonoBehaviour
     public void SelectBreakdance()
     {
         CloseDanceSelectionCanvas();
-        if (GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() > 60)
+        if (GameObject.Find("Violet").GetComponent<MainPlayerStats>().GetStrength() > 0)
         {
             Won = true;
             selected = breakdanceWin;

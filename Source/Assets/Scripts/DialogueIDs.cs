@@ -113,7 +113,7 @@ public class DialogueIDs : MonoBehaviour
 
         //Add Jannet
         temp.dialogueName = "Jannet";
-        tempInt = new List<int>() { 0, 3, 5};
+        tempInt = new List<int>() { 3, 5};
         temp.badDialogues = tempInt;
         tempInt = new List<int>() { };
         temp.ignoredDialogues = tempInt;

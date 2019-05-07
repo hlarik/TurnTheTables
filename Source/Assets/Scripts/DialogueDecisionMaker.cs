@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System;
 
 public class DialogueDecisionMaker : MonoBehaviour
 {
@@ -56,6 +58,7 @@ public class DialogueDecisionMaker : MonoBehaviour
             {
                 if (badIds.Contains(id))
                 {
+                    Debug.Log("bad is = " + id);
                     badIdNum++;
                 }
             }
