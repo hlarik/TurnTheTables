@@ -109,9 +109,9 @@ public class MusicController : MonoBehaviour
 
     public void increaseMusicVolume()
     {
-        Track1.volume = 1f;
-        Track2.volume = 1f;
-        Track3.volume = 1f;
+        Track1.volume = 0.3f;
+        Track2.volume = 0.3f;
+        Track3.volume = 0.3f;
     }
 
     public void lowerMusicVolume()

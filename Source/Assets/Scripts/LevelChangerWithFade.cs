@@ -16,7 +16,7 @@ public class LevelChangerWithFade : MonoBehaviour
         changeToScene = "";
         globalControllerScript = GameObject.Find("GameMaster").GetComponent<GlobalController>();
         musicControllerScript = GameObject.Find("BackgroundMusic").GetComponent<MusicController>();
-        musicControllerScript.FadeInCaller(0.1f, 0.7f);
+        musicControllerScript.FadeInCaller(0.1f, 0.15f);
     }
 
     public void ChangeLevelWithFade(string levelName)
