@@ -182,7 +182,7 @@ public class CutSceneManager : MonoBehaviour
                 playerControllerScript.enabled = false;
                 cameraScript.GetComponent<CameraController>().disableCameraMouse();
                // ChangeToEmpathyCamera();
-                Invoke("callEmpathyScene", 1.2f);
+                Invoke("callEmpathyScene", 0.8f);
                 //pdEmpathy.Play();
             //}
             empathyButtonClicked = false;
